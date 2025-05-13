@@ -10,9 +10,6 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
-export const dynamic = "force-static";
-export const revalidate = 60; // This is needed for dynamic components to update
-
 type Props = {
   params: Promise<{ locale: "fi" | "en" }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -27,22 +24,51 @@ async function getFrontPage({ params }: Props) {
       config: configPromise,
     });
 
-    const frontPage = await payload.findGlobal({
-      slug: "front-page",
+    const [frontPage, buildingsResult] = await Promise.all([
+      payload.findGlobal({
+        slug: "front-page",
+        locale: locale,
+        draft: isDraftMode,
+      }),
+      payload.find({
+        collection: "buildings",
+        locale: locale,
+        draft: isDraftMode,
+        depth: 2,
+      }),
+    ]);
+
+    const buildings = buildingsResult.docs;
+
+    // Fetch apartments for each building
+    const apartmentsResult = await payload.find({
+      collection: "apartments",
       locale: locale,
       draft: isDraftMode,
+      depth: 2,
     });
 
-    return { frontPage: frontPage, error: null };
+    const apartmentsByBuilding = buildings.map((building) => ({
+      ...building,
+      apartments: apartmentsResult.docs.filter(
+        (apartment) =>
+          apartment.building &&
+          typeof apartment.building === "object" &&
+          "value" in apartment.building &&
+          apartment.building.value === building.id,
+      ),
+    }));
+
+    return { frontPage: frontPage, buildings: apartmentsByBuilding, error: null };
   } catch (error) {
     console.error("Error fetching page:", error);
     // Sentry.captureException(error);
-    return { frontPage: null, error: error as Error };
+    return { frontPage: null, buildings: [], error: error as Error };
   }
 }
 
 export default async function FrontPage(props: Props) {
-  const { frontPage, error } = await getFrontPage(props);
+  const { frontPage, buildings, error } = await getFrontPage(props);
 
   if (error) {
     return <ErrorTemplate error={error} />;
@@ -54,7 +80,7 @@ export default async function FrontPage(props: Props) {
   return (
     <Container>
       <Header />
-      <FrontPageTemplate content={frontPage} />
+      <FrontPageTemplate content={frontPage} buildings={buildings} />
     </Container>
   );
 }

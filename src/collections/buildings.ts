@@ -1,4 +1,5 @@
 import { mediaBlock, quoteBlock, videoEmbedBlock } from "@/blocks";
+import { slugField } from "@/fields/slug";
 import { BlocksFeature, HeadingFeature, lexicalEditor } from "@payloadcms/richtext-lexical";
 import { revalidatePath } from "next/cache";
 import { CollectionAfterChangeHook, CollectionConfig } from "payload";
@@ -31,6 +32,7 @@ export const Buildings: CollectionConfig = {
       required: true,
       localized: true,
     },
+    ...slugField(),
     {
       name: "image",
       type: "upload",

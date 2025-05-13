@@ -376,6 +376,10 @@ export interface News {
 export interface Building {
   id: number;
   title: string;
+  /**
+   * The slug is automatically generated from the title if empty
+   */
+  slug: string;
   image?: (number | null) | Media;
   description?: {
     root: {
@@ -412,6 +416,10 @@ export interface Building {
 export interface Apartment {
   id: number;
   title: string;
+  /**
+   * The slug is automatically generated from the title if empty
+   */
+  slug: string;
   image?: (number | null) | Media;
   description?: {
     root: {
@@ -715,6 +723,7 @@ export interface ContactsSelect<T extends boolean = true> {
  */
 export interface BuildingsSelect<T extends boolean = true> {
   title?: T;
+  slug?: T;
   image?: T;
   description?: T;
   address?:
@@ -738,6 +747,7 @@ export interface BuildingsSelect<T extends boolean = true> {
  */
 export interface ApartmentsSelect<T extends boolean = true> {
   title?: T;
+  slug?: T;
   image?: T;
   description?: T;
   building?: T;
