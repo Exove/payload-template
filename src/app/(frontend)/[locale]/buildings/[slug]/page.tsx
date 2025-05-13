@@ -102,50 +102,54 @@ export default async function BuildingPage(props: Props) {
   return (
     <Container>
       <Header />
-      <main id="main-content" className="mx-auto max-w-screen-lg py-16">
+      <main id="main-content" className="mx-auto max-w-screen-lg px-4 py-16">
         <div className="mb-8">
-          <Link href="/" className="mb-4 inline-block text-blue-600 hover:underline">
+          <Link
+            href="/"
+            className="mb-4 inline-block text-blue-600 transition-colors hover:text-blue-800"
+          >
             ← Takaisin etusivulle
           </Link>
         </div>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {building.image && typeof building.image === "object" && building.image.url && (
-            <div>
+            <div className="overflow-hidden rounded-xl shadow-lg">
               <Image
                 src={building.image.url}
                 alt={building.title || ""}
                 width={600}
                 height={400}
-                className="w-full rounded-lg object-cover"
+                className="h-[400px] w-full object-cover"
               />
             </div>
           )}
 
-          <div>
-            <h1 className="mb-4 text-3xl font-bold">{building.title}</h1>
+          <div className="rounded-xl bg-white p-6 shadow-sm">
+            <h1 className="mb-4 text-3xl font-bold text-gray-900">{building.title}</h1>
 
             {building.address && (
-              <div className="mb-6">
-                <p className="text-gray-600">
+              <div className="mb-6 rounded-lg bg-gray-50 p-4">
+                <p className="text-sm text-gray-600">Osoite</p>
+                <p className="text-lg font-semibold text-gray-900">
                   {building.address.street}, {building.address.postalCode} {building.address.city}
                 </p>
               </div>
             )}
 
             {building.description && (
-              <div className="mb-8">
-                <h2 className="mb-2 text-xl font-bold">Kuvaus</h2>
-                <div className="prose max-w-none">
+              <div className="mb-8 rounded-lg bg-gray-50 p-4">
+                <h2 className="mb-2 text-xl font-bold text-gray-900">Kuvaus</h2>
+                <div className="prose max-w-none text-gray-700">
                   <div dangerouslySetInnerHTML={{ __html: JSON.stringify(building.description) }} />
                 </div>
               </div>
             )}
 
             {building.features && building.features.length > 0 && (
-              <div className="mb-8">
-                <h2 className="mb-2 text-xl font-bold">Ominaisuudet</h2>
-                <ul className="list-inside list-disc">
+              <div className="mb-8 rounded-lg bg-gray-50 p-4">
+                <h2 className="mb-2 text-xl font-bold text-gray-900">Ominaisuudet</h2>
+                <ul className="list-inside list-disc text-gray-700">
                   {building.features.map((feature: BuildingFeature, index: number) => (
                     <li key={index}>{feature.feature}</li>
                   ))}
@@ -154,24 +158,24 @@ export default async function BuildingPage(props: Props) {
             )}
 
             {apartments && apartments.length > 0 && (
-              <div>
-                <h2 className="mb-4 text-xl font-bold">Asunnot</h2>
+              <div className="rounded-lg bg-gray-50 p-4">
+                <h2 className="mb-4 text-xl font-bold text-gray-900">Asunnot</h2>
                 <div className="grid gap-4">
                   {apartments.map((apartment) => (
                     <Link
                       key={apartment.id}
                       href={`/apartments/${apartment.slug}`}
-                      className="block rounded-lg border p-4 hover:bg-gray-50"
+                      className="block rounded-lg bg-white p-4 shadow-sm transition-all hover:shadow-md"
                     >
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="font-semibold">{apartment.title}</p>
+                          <p className="font-semibold text-gray-900">{apartment.title}</p>
                           <p className="text-gray-600">
                             {apartment.size} m² • {apartment.rooms} h
                           </p>
                         </div>
                         <span
-                          className={`inline-block rounded-full px-3 py-1 text-sm ${
+                          className={`inline-block rounded-full px-3 py-1 text-sm font-medium ${
                             apartment.status === "available"
                               ? "bg-green-100 text-green-800"
                               : apartment.status === "reserved"

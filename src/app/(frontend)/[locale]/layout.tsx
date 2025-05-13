@@ -38,10 +38,12 @@ export default async function RootLayout({ children, params }: Props) {
 
   return (
     <html lang={locale}>
-      <body className={`${inter.className} flex min-h-screen flex-col bg-stone-900 text-white`}>
+      <body
+        className={`${inter.className} flex min-h-screen flex-col bg-gray-100/50 text-gray-900`}
+      >
         <NextIntlClientProvider messages={messages}>
           <ViewTransition>
-            <div className="flex-grow">{children}</div>
+            <div className="flex-grow px-4 sm:px-6">{children}</div>
             <Footer />
             <Toaster />
           </ViewTransition>
