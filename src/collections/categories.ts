@@ -4,7 +4,7 @@ import { CollectionConfig } from "payload";
 export const Categories: CollectionConfig = {
   slug: "categories",
   admin: {
-    group: "Taxonomy",
+    group: "Misc",
     useAsTitle: "label",
     defaultColumns: ["label", "slug", "parent", "updatedAt"],
   },

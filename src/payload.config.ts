@@ -8,7 +8,9 @@ import { buildConfig } from "payload";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
 
+import { Apartments } from "./collections/apartments";
 import { Articles } from "./collections/articles";
+import { Buildings } from "./collections/buildings";
 import { Categories } from "./collections/categories";
 import { CollectionPage } from "./collections/collection-page";
 import { Contacts } from "./collections/contacts";
@@ -33,7 +35,17 @@ export default buildConfig({
     theme: "light",
     dateFormat: "dd.MM.yyyy",
   },
-  collections: [Users, Media, Articles, CollectionPage, News, Categories, Contacts],
+  collections: [
+    Users,
+    Media,
+    Articles,
+    CollectionPage,
+    News,
+    Categories,
+    Contacts,
+    Buildings,
+    Apartments,
+  ],
   globals: [FrontPage, MainMenu, FooterMenu, Footer],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [...defaultFeatures],

@@ -14,6 +14,7 @@ export const News: CollectionConfig = {
   slug: "news",
   admin: {
     useAsTitle: "title",
+    hidden: true,
     group: "Pages",
     defaultColumns: ["title", "createdBy", "updatedAt", "createdAt"],
   },

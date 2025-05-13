@@ -5,6 +5,7 @@ export const Contacts: CollectionConfig = {
   admin: {
     group: "Misc",
     useAsTitle: "name",
+    hidden: true,
   },
   fields: [
     {

@@ -14,6 +14,7 @@ export const CollectionPage: CollectionConfig = {
   slug: "collection-pages",
   admin: {
     useAsTitle: "title",
+    hidden: true,
     group: "Pages",
     defaultColumns: ["title", "createdBy", "updatedAt", "createdAt"],
   },
