@@ -34,7 +34,7 @@ async function getBuildingBySlug({ params }: Props) {
       config: configPromise,
     });
 
-    const result = await payload.find({
+    const buildingResult = await payload.find({
       collection: "buildings",
       where: {
         slug: { equals: slug },
@@ -44,7 +44,28 @@ async function getBuildingBySlug({ params }: Props) {
       depth: 2,
     });
 
-    return { building: result.docs[0] as ExtendedBuilding, error: null };
+    const building = buildingResult.docs[0] as Building;
+    if (!building) return { building: null, error: null };
+
+    const apartmentsResult = await payload.find({
+      collection: "apartments",
+      where: {
+        "building.value": {
+          equals: building.id,
+        },
+      },
+      locale: locale,
+      draft: isDraftMode,
+      depth: 2,
+    });
+
+    return {
+      building: {
+        ...building,
+        apartments: apartmentsResult.docs.map((apartment) => ({ value: apartment })),
+      } as ExtendedBuilding,
+      error: null,
+    };
   } catch (error) {
     console.error("Error fetching building:", error);
     return { building: null, error: error as Error };
@@ -62,9 +83,20 @@ export default async function BuildingPage(props: Props) {
   }
 
   const apartments = building.apartments
-    ?.map((apt: { value: Apartment }) =>
-      typeof apt === "object" && "value" in apt ? apt.value : null,
-    )
+    ?.map((apt) => {
+      if (typeof apt === "object" && "value" in apt) {
+        const apartment = apt.value;
+        if (
+          typeof apartment === "object" &&
+          apartment !== null &&
+          "id" in apartment &&
+          "title" in apartment
+        ) {
+          return apartment as Apartment;
+        }
+      }
+      return null;
+    })
     .filter((apt): apt is Apartment => apt !== null);
 
   return (

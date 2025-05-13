@@ -55,7 +55,11 @@ async function getFrontPage({ params }: Props) {
           apartment.building &&
           typeof apartment.building === "object" &&
           "value" in apartment.building &&
-          apartment.building.value === building.id,
+          (typeof apartment.building.value === "number"
+            ? apartment.building.value === building.id
+            : typeof apartment.building.value === "object" &&
+              "id" in apartment.building.value &&
+              apartment.building.value.id === building.id),
       ),
     }));
 
