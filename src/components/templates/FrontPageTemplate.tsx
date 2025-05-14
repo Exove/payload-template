@@ -1,6 +1,7 @@
 import { BlockRenderer } from "@/components/BlockRenderer";
 import { Link } from "@/i18n/routing";
 import { Apartment, Building, FrontPage } from "@/payload-types";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 
 type ExtendedBuilding = Building & {
@@ -29,20 +30,30 @@ export default function FrontPageTemplate({ content, buildings }: FrontPageTempl
               >
                 <div className="relative">
                   {building.image && typeof building.image === "object" && building.image.url && (
-                    <Image
-                      src={building.image.url}
-                      alt={building.title || ""}
-                      width={1200}
-                      height={600}
-                      className="h-72 w-full object-cover"
-                    />
+                    <Link href={`/buildings/${building.slug}`}>
+                      <Image
+                        src={building.image.url}
+                        alt={building.title || ""}
+                        width={1200}
+                        height={600}
+                        className="h-72 w-full object-cover"
+                      />
+                    </Link>
                   )}
                 </div>
                 <div className="p-8">
                   <Link href={`/buildings/${building.slug}`} className="group mb-4 block">
-                    <h3 className="text-2xl font-semibold text-gray-900 transition-colors group-hover:text-blue-600">
-                      {building.title}
-                    </h3>
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-2xl font-semibold text-gray-900 transition-colors group-hover:text-blue-600">
+                        {building.title}
+                      </h3>
+                      <div className="flex items-center gap-1">
+                        <span className="text-sm text-gray-600 transition-colors group-hover:text-blue-600">
+                          Talosivulle
+                        </span>
+                        <ChevronRightIcon className="h-4 w-4 transform stroke-2 text-gray-600 transition-all group-hover:translate-x-1 group-hover:text-blue-600" />
+                      </div>
+                    </div>
                     {building.address && (
                       <p className="mt-2 text-gray-600">
                         {building.address.street}, {building.address.postalCode}{" "}
