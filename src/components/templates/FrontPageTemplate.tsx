@@ -53,35 +53,28 @@ export default function FrontPageTemplate({ content, buildings }: FrontPageTempl
 
                   {building.apartments && building.apartments.length > 0 ? (
                     <div className="mt-8">
-                      <h4 className="mb-6 text-xl font-semibold text-gray-800">Asunnot</h4>
-                      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                      <h4 className="mb-4 text-xl font-bold text-gray-900">Asunnot</h4>
+                      <div className="grid gap-4">
                         {building.apartments.map((apartment) => (
                           <Link
                             key={apartment.id}
                             href={`/apartments/${apartment.slug}`}
-                            className="group block rounded-xl bg-gray-50/80 p-5 transition-all hover:bg-white hover:shadow-lg hover:shadow-gray-200/60"
+                            className="block rounded-lg border border-gray-200 bg-gray-50 p-4 shadow-sm transition-all hover:shadow-md"
                           >
-                            <div>
-                              <p className="font-semibold text-gray-900 transition-colors group-hover:text-blue-600">
-                                {apartment.title}
-                              </p>
-                              <div className="mt-2 text-sm text-gray-600">
-                                {apartment.size && <span>{apartment.size} m² • </span>}
-                                {apartment.rooms && <span>{apartment.rooms} h • </span>}
-                                {apartment.floor && <span>{apartment.floor}. kerros</span>}
-                              </div>
-                              {apartment.price && (
-                                <p className="mt-3 font-semibold text-gray-900">
-                                  {apartment.price.toLocaleString()} €
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="font-semibold text-gray-900">{apartment.title}</p>
+                                <p className="text-gray-600">
+                                  {apartment.size} m² • {apartment.rooms} h
                                 </p>
-                              )}
+                              </div>
                               <span
-                                className={`mt-3 inline-block rounded-full px-4 py-1.5 text-xs font-medium ${
+                                className={`inline-block rounded-full px-3 py-1 text-sm font-medium ${
                                   apartment.status === "available"
-                                    ? "bg-green-100/80 text-green-800"
+                                    ? "bg-green-100 text-green-800"
                                     : apartment.status === "reserved"
-                                      ? "bg-yellow-100/80 text-yellow-800"
-                                      : "bg-red-100/80 text-red-800"
+                                      ? "bg-yellow-100 text-yellow-800"
+                                      : "bg-red-100 text-red-800"
                                 }`}
                               >
                                 {apartment.status === "available"

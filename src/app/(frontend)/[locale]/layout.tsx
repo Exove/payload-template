@@ -1,4 +1,3 @@
-import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/Toaster";
 import { routing } from "@/i18n/routing";
 import { SITE_NAME } from "@/lib/constants";
@@ -43,8 +42,7 @@ export default async function RootLayout({ children, params }: Props) {
       >
         <NextIntlClientProvider messages={messages}>
           <ViewTransition>
-            <div className="flex-grow px-4 sm:px-6">{children}</div>
-            <Footer />
+            <div className="mb-24 flex-grow px-4 sm:px-6">{children}</div>
             <Toaster />
           </ViewTransition>
         </NextIntlClientProvider>

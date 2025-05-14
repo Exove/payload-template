@@ -1,13 +1,15 @@
+import { BlockRenderer, NodeTypes } from "@/components/BlockRenderer";
 import Container from "@/components/Container";
 import Header from "@/components/Header";
 import ErrorTemplate from "@/components/templates/ErrorTemplate";
+import { Link } from "@/i18n/routing";
 import { SITE_NAME } from "@/lib/constants";
 import { prepareOpenGraphImages } from "@/lib/utils";
 import { Apartment, Building } from "@/payload-types";
+import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import configPromise from "@payload-config";
 import { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
@@ -106,31 +108,29 @@ export default async function BuildingPage(props: Props) {
         <div className="mb-8">
           <Link
             href="/"
-            className="mb-4 inline-block text-blue-600 transition-colors hover:text-blue-800"
+            className="mb-4 flex items-center text-blue-600 transition-all hover:text-blue-800"
           >
-            ← Takaisin etusivulle
+            <ChevronLeftIcon className="mr-2 h-4 w-4 stroke-2" />
+            Takaisin etusivulle
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
           {building.image && typeof building.image === "object" && building.image.url && (
-            <div className="overflow-hidden rounded-xl shadow-lg">
-              <Image
-                src={building.image.url}
-                alt={building.title || ""}
-                width={600}
-                height={400}
-                className="h-[400px] w-full object-cover"
-              />
-            </div>
+            <Image
+              src={building.image.url}
+              alt={building.title || ""}
+              width={600}
+              height={400}
+              className="h-[400px] w-full rounded-xl object-cover"
+            />
           )}
 
-          <div className="rounded-xl bg-white p-6 shadow-sm">
+          <div>
             <h1 className="mb-4 text-3xl font-bold text-gray-900">{building.title}</h1>
 
             {building.address && (
-              <div className="mb-6 rounded-lg bg-gray-50 p-4">
-                <p className="text-sm text-gray-600">Osoite</p>
+              <div className="mb-6">
                 <p className="text-lg font-semibold text-gray-900">
                   {building.address.street}, {building.address.postalCode} {building.address.city}
                 </p>
@@ -138,16 +138,15 @@ export default async function BuildingPage(props: Props) {
             )}
 
             {building.description && (
-              <div className="mb-8 rounded-lg bg-gray-50 p-4">
-                <h2 className="mb-2 text-xl font-bold text-gray-900">Kuvaus</h2>
+              <div className="mb-8">
                 <div className="prose max-w-none text-gray-700">
-                  <div dangerouslySetInnerHTML={{ __html: JSON.stringify(building.description) }} />
+                  <BlockRenderer nodes={building.description?.root?.children as NodeTypes[]} />
                 </div>
               </div>
             )}
 
             {building.features && building.features.length > 0 && (
-              <div className="mb-8 rounded-lg bg-gray-50 p-4">
+              <div className="mb-8">
                 <h2 className="mb-2 text-xl font-bold text-gray-900">Ominaisuudet</h2>
                 <ul className="list-inside list-disc text-gray-700">
                   {building.features.map((feature: BuildingFeature, index: number) => (
@@ -158,14 +157,14 @@ export default async function BuildingPage(props: Props) {
             )}
 
             {apartments && apartments.length > 0 && (
-              <div className="rounded-lg bg-gray-50 p-4">
+              <div className="">
                 <h2 className="mb-4 text-xl font-bold text-gray-900">Asunnot</h2>
                 <div className="grid gap-4">
                   {apartments.map((apartment) => (
                     <Link
                       key={apartment.id}
                       href={`/apartments/${apartment.slug}`}
-                      className="block rounded-lg bg-white p-4 shadow-sm transition-all hover:shadow-md"
+                      className="block rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all hover:shadow-md"
                     >
                       <div className="flex items-center justify-between">
                         <div>

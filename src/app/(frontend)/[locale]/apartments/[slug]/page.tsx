@@ -1,13 +1,14 @@
 import Container from "@/components/Container";
 import Header from "@/components/Header";
 import ErrorTemplate from "@/components/templates/ErrorTemplate";
+import { Link } from "@/i18n/routing";
 import { SITE_NAME } from "@/lib/constants";
 import { prepareOpenGraphImages } from "@/lib/utils";
 import { Building } from "@/payload-types";
+import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import configPromise from "@payload-config";
 import { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
@@ -62,36 +63,29 @@ export default async function ApartmentPage(props: Props) {
       <Header />
       <main id="main-content" className="mx-auto max-w-screen-lg py-16">
         <div className="mb-12">
-          <Link
-            href="/"
-            className="mb-4 inline-block text-blue-600 transition-all hover:text-blue-800"
-          >
-            ← Takaisin etusivulle
-          </Link>
           {building && (
             <Link
               href={`/buildings/${building.slug}`}
-              className="ml-4 text-blue-600 transition-all hover:text-blue-800"
+              className="flex items-center text-blue-600 transition-all hover:text-blue-800"
             >
-              ← Takaisin rakennuksen sivulle
+              <ChevronLeftIcon className="mr-2 h-4 w-4 stroke-2" />
+              Takaisin rakennuksen sivulle
             </Link>
           )}
         </div>
 
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
           {apartment.image && typeof apartment.image === "object" && apartment.image.url && (
-            <div className="overflow-hidden rounded-2xl shadow-xl shadow-gray-200/60">
-              <Image
-                src={apartment.image.url}
-                alt={apartment.title || ""}
-                width={600}
-                height={400}
-                className="h-[450px] w-full object-cover"
-              />
-            </div>
+            <Image
+              src={apartment.image.url}
+              alt={apartment.title || ""}
+              width={600}
+              height={400}
+              className="h-[450px] w-full rounded-xl object-cover"
+            />
           )}
 
-          <div className="rounded-2xl bg-white/80 p-8 shadow-xl shadow-gray-200/60 backdrop-blur-sm">
+          <div>
             <h1 className="mb-6 text-4xl font-bold text-gray-900">{apartment.title}</h1>
 
             <div className="mb-8">
@@ -114,25 +108,25 @@ export default async function ApartmentPage(props: Props) {
 
             <div className="mb-10 grid grid-cols-2 gap-6">
               {apartment.size && (
-                <div className="rounded-xl bg-gray-50/80 p-5 transition-all hover:bg-white hover:shadow-lg hover:shadow-gray-200/60">
+                <div className="rounded-xl border border-gray-200 bg-gray-100 p-5 transition-all">
                   <p className="text-sm text-gray-600">Koko</p>
                   <p className="text-lg font-semibold text-gray-900">{apartment.size} m²</p>
                 </div>
               )}
               {apartment.rooms && (
-                <div className="rounded-xl bg-gray-50/80 p-5 transition-all hover:bg-white hover:shadow-lg hover:shadow-gray-200/60">
+                <div className="bor rounded-xl border bg-gray-100 p-5 transition-all">
                   <p className="text-sm text-gray-600">Huoneet</p>
                   <p className="text-lg font-semibold text-gray-900">{apartment.rooms} h</p>
                 </div>
               )}
               {apartment.floor && (
-                <div className="rounded-xl bg-gray-50/80 p-5 transition-all hover:bg-white hover:shadow-lg hover:shadow-gray-200/60">
+                <div className="bor rounded-xl border bg-gray-100 p-5 transition-all">
                   <p className="text-sm text-gray-600">Kerros</p>
                   <p className="text-lg font-semibold text-gray-900">{apartment.floor}</p>
                 </div>
               )}
               {apartment.price && (
-                <div className="rounded-xl bg-gray-50/80 p-5 transition-all hover:bg-white hover:shadow-lg hover:shadow-gray-200/60">
+                <div className="bor rounded-xl border bg-gray-100 p-5 transition-all">
                   <p className="text-sm text-gray-600">Hinta</p>
                   <p className="text-lg font-semibold text-gray-900">
                     {apartment.price.toLocaleString()} €
@@ -142,7 +136,7 @@ export default async function ApartmentPage(props: Props) {
             </div>
 
             {building && (
-              <div className="mb-10 rounded-xl bg-gray-50/80 p-6 transition-all hover:bg-white hover:shadow-lg hover:shadow-gray-200/60">
+              <div className="bor mb-10 rounded-xl border bg-gray-100 p-6 transition-all">
                 <h2 className="mb-3 text-2xl font-bold text-gray-900">Rakennus</h2>
                 <Link href={`/buildings/${building.slug}`} className="group">
                   <p className="font-semibold text-gray-900 transition-colors group-hover:text-blue-600">
@@ -158,7 +152,7 @@ export default async function ApartmentPage(props: Props) {
             )}
 
             {apartment.features && apartment.features.length > 0 && (
-              <div className="mb-10 rounded-xl bg-gray-50/80 p-6 transition-all hover:bg-white hover:shadow-lg hover:shadow-gray-200/60">
+              <div className="bor mb-10 rounded-xl border bg-gray-100 p-6 transition-all">
                 <h2 className="mb-4 text-2xl font-bold text-gray-900">Ominaisuudet</h2>
                 <ul className="list-inside list-disc space-y-2 text-gray-700">
                   {apartment.features.map((feature, index) => (
@@ -169,7 +163,7 @@ export default async function ApartmentPage(props: Props) {
             )}
 
             {apartment.description && (
-              <div className="rounded-xl bg-gray-50/80 p-6 transition-all hover:bg-white hover:shadow-lg hover:shadow-gray-200/60">
+              <div className="bor rounded-xl border bg-gray-100 p-6 transition-all">
                 <h2 className="mb-4 text-2xl font-bold text-gray-900">Kuvaus</h2>
                 <div className="prose max-w-none text-gray-700">
                   <div

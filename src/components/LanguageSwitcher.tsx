@@ -23,8 +23,8 @@ export default function LanguageSwitcher() {
         className="group inline-flex items-center justify-center gap-2 py-2"
         aria-label={t("switchLanguage")}
       >
-        <LanguageIcon className="h-5 w-5 group-hover:text-amber-500" aria-hidden="true" />
-        <div className="sr-only text-xs font-medium uppercase xl:not-sr-only">
+        <LanguageIcon className="h-5 w-5 group-hover:text-blue-500" aria-hidden="true" />
+        <div className="sr-only text-sm font-medium uppercase xl:not-sr-only">
           {locale.toUpperCase()}
         </div>
       </MenuButton>
@@ -37,15 +37,15 @@ export default function LanguageSwitcher() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <MenuItems className="absolute right-0 z-20 mt-2 w-32 origin-top-right rounded-md border border-stone-700 bg-stone-800 shadow-lg ring-1 ring-black ring-opacity-5">
+        <MenuItems className="absolute right-0 z-20 mt-2 w-32 origin-top-right rounded-md border border-gray-200 bg-white shadow-lg ring-1 ring-black ring-opacity-5">
           <div className="py-1">
             <MenuItem>
               <button
                 onClick={() => handleLocaleChange("fi")}
-                className="flex w-full items-center gap-2 px-4 py-2 text-sm data-[focus]:bg-stone-700"
+                className="flex w-full items-center gap-2 px-4 py-2 text-sm data-[focus]:bg-gray-100"
               >
                 <div className="w-4">
-                  {locale === "fi" && <CheckIcon className="h-4 w-4 text-amber-500" />}
+                  {locale === "fi" && <CheckIcon className="h-4 w-4 text-blue-500" />}
                 </div>
                 <span lang="fi">Suomi</span>
               </button>
@@ -53,10 +53,10 @@ export default function LanguageSwitcher() {
             <MenuItem>
               <button
                 onClick={() => handleLocaleChange("en")}
-                className="flex w-full items-center gap-2 px-4 py-2 text-sm data-[focus]:bg-stone-700"
+                className="flex w-full items-center gap-2 px-4 py-2 text-sm data-[focus]:bg-gray-100"
               >
                 <div className="w-4">
-                  {locale === "en" && <CheckIcon className="h-4 w-4 text-amber-500" />}
+                  {locale === "en" && <CheckIcon className="h-4 w-4 text-blue-500" />}
                 </div>
                 <span lang="en">English</span>
               </button>

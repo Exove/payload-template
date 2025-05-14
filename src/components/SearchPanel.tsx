@@ -174,8 +174,8 @@ export default function SearchSidePanel() {
       <SidePanel
         openLabel={
           <button className="group flex items-center gap-2">
-            <MagnifyingGlassIcon className="h-5 w-5 group-hover:text-amber-500" />
-            <div className="sr-only text-xs font-medium uppercase xl:not-sr-only">
+            <MagnifyingGlassIcon className="h-5 w-5 group-hover:text-blue-500" />
+            <div className="sr-only text-sm font-medium uppercase xl:not-sr-only">
               {t("search")}
             </div>
           </button>
