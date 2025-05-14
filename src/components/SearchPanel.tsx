@@ -86,12 +86,12 @@ function CustomHits() {
     <ol>
       {items.map((hit: Hit) => (
         <li key={hit.slug}>
-          <div className="group relative flex items-center justify-between gap-3 rounded-lg p-4 hover:bg-stone-700">
+          <div className="group relative flex items-center justify-between gap-3 rounded-lg p-4 hover:bg-gray-100">
             <Link href={`/${hit.collection}/${hit.slug}`} className="block">
-              <h2 className="font-medium">{hit.title}</h2>
+              <h2 className="font-medium text-gray-900">{hit.title}</h2>
               <span className="absolute inset-x-0 inset-y-0 z-10"></span>
             </Link>
-            <div className="text-xs uppercase text-stone-400 group-hover:text-stone-300">
+            <div className="text-xs uppercase text-gray-500 group-hover:text-gray-700">
               {hit.collection}
             </div>
           </div>
@@ -135,12 +135,12 @@ function CustomSearchBox({ inSidePanel = false }: { inSidePanel?: boolean }) {
         onChange={(e) => refine(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder={t("searchPlaceholder")}
-        className="search-panel-input w-full rounded-lg border border-stone-700 bg-stone-900 px-4 py-3 text-white placeholder-stone-400 focus:border-amber-500 focus:outline-none"
+        className="search-panel-input w-full rounded-lg border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none"
       />
       {query && (
         <button
           onClick={() => refine("")}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-white"
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
           aria-label={t("clearSearch")}
           tabIndex={-1}
         >
@@ -158,7 +158,7 @@ function AdvancedSearchLink() {
     <div className="pb-10 pt-4 text-center">
       <Link
         href={`/search${query ? `?q=${encodeURIComponent(query)}` : ""}`}
-        className="p-4 text-amber-500 underline-offset-2 hover:underline"
+        className="p-4 text-blue-600 underline-offset-2 hover:underline"
       >
         {t("advancedSearch")}
       </Link>
@@ -174,7 +174,7 @@ export default function SearchSidePanel() {
       <SidePanel
         openLabel={
           <button className="group flex items-center gap-2">
-            <MagnifyingGlassIcon className="h-5 w-5 group-hover:text-blue-500" />
+            <MagnifyingGlassIcon className="h-5 w-5 group-hover:text-blue-600" />
             <div className="sr-only text-sm font-medium uppercase xl:not-sr-only">
               {t("search")}
             </div>
@@ -185,7 +185,7 @@ export default function SearchSidePanel() {
       >
         <div className="flex flex-col gap-2">
           <InstantSearch searchClient={searchClient} indexName={`${ELASTIC_INDEX_NAME}_${locale}`}>
-            <div className="sticky top-0 z-10 bg-stone-800 pb-2 pt-4">
+            <div className="sticky top-0 z-10 bg-white pb-2 pt-4">
               <CustomSearchBox inSidePanel={true} />
             </div>
             <SearchStats />

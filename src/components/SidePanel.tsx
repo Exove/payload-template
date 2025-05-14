@@ -87,12 +87,12 @@ export default function SidePanel({
                   leaveTo={position === "left" ? "-translate-x-full" : "translate-x-full"}
                 >
                   <div className="pointer-events-auto w-screen max-w-[500px] p-2">
-                    <DialogPanel className="relative flex h-full w-full flex-col overflow-hidden rounded-lg bg-stone-800 p-5 shadow-lg">
+                    <DialogPanel className="relative flex h-full w-full flex-col overflow-hidden rounded-lg bg-white p-5 shadow-lg">
                       <div className="flex h-full max-w-[500px] flex-col">
                         <div className="mb-4 flex items-end justify-between">
                           {showBackButton ? (
                             <button
-                              className="flex items-center gap-2 text-lg text-stone-100"
+                              className="flex items-center gap-2 text-lg text-gray-900"
                               onClick={onBack}
                               aria-label={t("mainMenu.backAccessibility")}
                             >
@@ -100,14 +100,14 @@ export default function SidePanel({
                               {t("mainMenu.back")}
                             </button>
                           ) : title ? (
-                            <h2 className="text-2xl font-bold text-stone-100">{title}</h2>
+                            <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
                           ) : (
                             <div />
                           )}
 
                           <button onClick={handleClose}>
                             <span className="sr-only">{t("common.close")}</span>
-                            <XMarkIcon className="h-10 w-10 rounded-full bg-stone-700 p-2 hover:bg-stone-600 active:bg-stone-500" />
+                            <XMarkIcon className="h-10 w-10 rounded-full bg-gray-100 p-2 hover:bg-gray-200 active:bg-gray-300" />
                           </button>
                         </div>
                         <div className="flex-1 overflow-y-auto overscroll-contain [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
