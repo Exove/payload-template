@@ -1,3 +1,4 @@
+import { BlockRenderer, NodeTypes } from "@/components/BlockRenderer";
 import Container from "@/components/Container";
 import Header from "@/components/Header";
 import ErrorTemplate from "@/components/templates/ErrorTemplate";
@@ -114,19 +115,19 @@ export default async function ApartmentPage(props: Props) {
                 </div>
               )}
               {apartment.rooms && (
-                <div className="bor rounded-xl border bg-gray-100 p-5 transition-all">
+                <div className="rounded-xl border bg-gray-100 p-5 transition-all">
                   <p className="text-sm text-gray-600">Huoneet</p>
                   <p className="text-lg font-semibold text-gray-900">{apartment.rooms} h</p>
                 </div>
               )}
               {apartment.floor && (
-                <div className="bor rounded-xl border bg-gray-100 p-5 transition-all">
+                <div className="rounded-xl border bg-gray-100 p-5 transition-all">
                   <p className="text-sm text-gray-600">Kerros</p>
                   <p className="text-lg font-semibold text-gray-900">{apartment.floor}</p>
                 </div>
               )}
               {apartment.price && (
-                <div className="bor rounded-xl border bg-gray-100 p-5 transition-all">
+                <div className="rounded-xl border bg-gray-100 p-5 transition-all">
                   <p className="text-sm text-gray-600">Hinta</p>
                   <p className="text-lg font-semibold text-gray-900">
                     {apartment.price.toLocaleString()} €
@@ -136,10 +137,9 @@ export default async function ApartmentPage(props: Props) {
             </div>
 
             {building && (
-              <div className="bor mb-10 rounded-xl border bg-gray-100 p-6 transition-all">
-                <h2 className="mb-3 text-2xl font-bold text-gray-900">Rakennus</h2>
+              <div className="mb-10">
                 <Link href={`/buildings/${building.slug}`} className="group">
-                  <p className="font-semibold text-gray-900 transition-colors group-hover:text-blue-600">
+                  <p className="font-bold text-gray-900 transition-colors group-hover:text-blue-600">
                     {building.title}
                   </p>
                 </Link>
@@ -151,25 +151,23 @@ export default async function ApartmentPage(props: Props) {
               </div>
             )}
 
+            {apartment.description && (
+              <div className="mb-10">
+                <h2 className="mb-2 font-bold text-gray-900">Kuvaus</h2>
+                <div className="prose max-w-none text-gray-700">
+                  <BlockRenderer nodes={apartment.description?.root?.children as NodeTypes[]} />
+                </div>
+              </div>
+            )}
+
             {apartment.features && apartment.features.length > 0 && (
-              <div className="bor mb-10 rounded-xl border bg-gray-100 p-6 transition-all">
-                <h2 className="mb-4 text-2xl font-bold text-gray-900">Ominaisuudet</h2>
+              <div className="mb-10">
+                <h2 className="mb-2 font-bold text-gray-900">Ominaisuudet</h2>
                 <ul className="list-inside list-disc space-y-2 text-gray-700">
                   {apartment.features.map((feature, index) => (
                     <li key={index}>{feature.feature}</li>
                   ))}
                 </ul>
-              </div>
-            )}
-
-            {apartment.description && (
-              <div className="bor rounded-xl border bg-gray-100 p-6 transition-all">
-                <h2 className="mb-4 text-2xl font-bold text-gray-900">Kuvaus</h2>
-                <div className="prose max-w-none text-gray-700">
-                  <div
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(apartment.description) }}
-                  />
-                </div>
               </div>
             )}
           </div>
