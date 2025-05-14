@@ -21,7 +21,7 @@ export default function FrontPageTemplate({ content, buildings }: FrontPageTempl
         {content.content && <BlockRenderer blocks={content.content} />}
 
         <div className="mt-16">
-          <h2 className="mb-12 text-4xl font-bold text-gray-900">Rakennukset ja asunnot</h2>
+          <h2 className="mb-12 text-4xl font-bold text-gray-900">Vuokrakohteet</h2>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {buildings.map((building) => (
               <div

@@ -7,6 +7,7 @@ export const Footer: GlobalConfig = {
   },
   admin: {
     group: "Misc",
+    hidden: true,
   },
   fields: [
     {
