@@ -128,7 +128,7 @@ export default async function ApartmentPage(props: Props) {
               )}
               {apartment.price && (
                 <div className="rounded-xl border bg-gray-100 p-5 transition-all">
-                  <p className="text-sm text-gray-600">Hinta</p>
+                  <p className="text-sm text-gray-600">Vuokra</p>
                   <p className="text-lg font-semibold text-gray-900">
                     {apartment.price.toLocaleString()} €
                   </p>
@@ -137,7 +137,7 @@ export default async function ApartmentPage(props: Props) {
             </div>
 
             {building && (
-              <div className="mb-10">
+              <div className="mb-10 border border-transparent pl-5">
                 <Link href={`/buildings/${building.slug}`} className="group">
                   <p className="font-bold text-gray-900 transition-colors group-hover:text-blue-600">
                     {building.title}
@@ -152,7 +152,7 @@ export default async function ApartmentPage(props: Props) {
             )}
 
             {apartment.description && (
-              <div className="mb-10">
+              <div className="mb-6 border border-transparent pl-5">
                 <h2 className="mb-2 font-bold text-gray-900">Kuvaus</h2>
                 <div className="prose max-w-none text-gray-700">
                   <BlockRenderer nodes={apartment.description?.root?.children as NodeTypes[]} />
@@ -161,7 +161,7 @@ export default async function ApartmentPage(props: Props) {
             )}
 
             {apartment.features && apartment.features.length > 0 && (
-              <div className="mb-10">
+              <div className="mb-10 border border-transparent pl-5">
                 <h2 className="mb-2 font-bold text-gray-900">Ominaisuudet</h2>
                 <ul className="list-inside list-disc space-y-2 text-gray-700">
                   {apartment.features.map((feature, index) => (
