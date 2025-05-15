@@ -13,7 +13,6 @@ const revalidateArticleHook: CollectionAfterChangeHook = async ({ doc, operation
 export const Articles: CollectionConfig = {
   slug: "articles",
   admin: {
-    hidden: true,
     useAsTitle: "title",
     group: "Pages",
     defaultColumns: ["title", "createdBy", "updatedAt", "createdAt"],
