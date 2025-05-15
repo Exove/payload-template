@@ -32,9 +32,9 @@ export default function Button({
   const widthStyles = fullWidth ? "w-full max-w-full" : "";
 
   const styleVariants = {
-    primary: "bg-stone-700 hover:bg-stone-600 active:bg-stone-700 text-white",
+    primary: "bg-blue-700 hover:bg-blue-600 active:bg-blue-700 text-white",
     secondary:
-      "text-stone-100 outline outline-2 outline-offset-[-2px] outline-stone-600 hover:bg-stone-900 active:bg-stone-950",
+      "text-blue-100 outline outline-2 outline-offset-[-2px] outline-blue-600 hover:bg-blue-900 active:bg-blue-950",
     text: "text-slate-300 hover:text-slate-200 active:text-slate-300",
     disabled: "cursor-not-allowed bg-gray-500 text-white",
   };

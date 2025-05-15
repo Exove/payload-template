@@ -18,7 +18,7 @@ export function HeroBlock({ block }: HeroProps) {
         {typeof image === "object" && image.url && (
           <div className="relative h-full w-full">
             <Image src={image.url} alt={image.alt || ""} fill priority className="object-cover" />
-            <div className="absolute inset-0 bg-black/60" />
+            <div className="absolute inset-0" />
           </div>
         )}
       </div>
