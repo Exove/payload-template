@@ -1,5 +1,6 @@
 // storage-adapter-import-placeholder
 import { sqliteAdapter } from "@payloadcms/db-sqlite";
+import { resendAdapter } from "@payloadcms/email-resend";
 import { payloadCloudPlugin } from "@payloadcms/payload-cloud";
 import { nestedDocsPlugin } from "@payloadcms/plugin-nested-docs";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
@@ -33,6 +34,11 @@ export default buildConfig({
     theme: "light",
     dateFormat: "dd.MM.yyyy",
   },
+  email: resendAdapter({
+    apiKey: process.env.RESEND_API_KEY || "",
+    defaultFromAddress: process.env.RESEND_FROM_ADDRESS || "no-reply@example.com",
+    defaultFromName: process.env.RESEND_FROM_NAME || "Demo app",
+  }),
   collections: [Users, Media, Articles, CollectionPage, News, Categories, Contacts],
   globals: [FrontPage, MainMenu, FooterMenu, Footer],
   editor: lexicalEditor({

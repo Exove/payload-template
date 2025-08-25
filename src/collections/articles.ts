@@ -1,12 +1,50 @@
 import { defaultContentFields } from "@/fields/default-content-fields";
 import { revalidatePath } from "next/cache";
 import { CollectionAfterChangeHook, CollectionConfig } from "payload";
-import { indexToElasticHook, removeFromElasticHook } from "./hooks/indexToElastic";
 
 const revalidateArticleHook: CollectionAfterChangeHook = async ({ doc, operation }) => {
   if (operation === "create" || operation === "update" || operation === "delete") {
     revalidatePath(`/fi/articles/${doc.slug}`);
     revalidatePath(`/en/articles/${doc.slug}`);
+  }
+};
+
+const notifyDraftEmailHook: CollectionAfterChangeHook = async ({ doc, req, operation }) => {
+  try {
+    if ((operation === "create" || operation === "update") && doc?._status === "draft") {
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+      const locale = (req?.locale as string) || "fi";
+
+      const previewSecret = process.env.PREVIEW_SECRET || "";
+      const relativePreviewPath = `/${locale}/articles/${doc.slug}?preview=${previewSecret}`;
+      const previewUrl = `${siteUrl}${relativePreviewPath}`;
+
+      const editorName = req?.user?.email || "Unknown editor";
+      const articleTitle = typeof doc?.title === "string" ? doc.title : "Untitled";
+
+      await req.payload.sendEmail({
+        from: `${process.env.RESEND_FROM_NAME || "Demo app"} <${
+          process.env.RESEND_FROM_ADDRESS || "no-reply@torppadiy.com"
+        }>`,
+        to: `${process.env.RESEND_TO_ADDRESS || "matti.hernesniemi@exove.com"}`,
+        subject: `Draft saved: ${articleTitle}`,
+        html: `
+          <p>A new draft has been saved.</p>
+          <p><strong>Title:</strong> ${articleTitle}</p>
+          <p><strong>Editor:</strong> ${editorName}</p>
+          <p><a href="${previewUrl}">Open draft preview</a></p>
+        `,
+      });
+    }
+  } catch (error) {
+    const err = error as { name?: string; message?: string; status?: number; data?: unknown };
+    req?.payload.logger.error({
+      msg: "Failed to send draft notification email",
+      name: err?.name,
+      message: err?.message,
+      status: err?.status,
+      data: err?.data,
+    });
   }
 };
 
@@ -66,7 +104,6 @@ export const Articles: CollectionConfig = {
     drafts: true,
   },
   hooks: {
-    afterChange: [indexToElasticHook, revalidateArticleHook],
-    afterDelete: [removeFromElasticHook],
+    afterChange: [revalidateArticleHook, notifyDraftEmailHook],
   },
 };
