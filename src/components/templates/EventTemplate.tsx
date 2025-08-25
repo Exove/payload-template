@@ -33,20 +33,10 @@ export default function EventTemplate({ event }: EventTemplateProps) {
         <ChevronLeftIcon className="size-4 stroke-2" />
         <Link href="/events">Events</Link>
       </div>
-      {typeof event.image === "object" && event.image?.url && (
-        <Image
-          src={event.image.sizes?.large?.url || event.image.url}
-          alt={event.image.alt || ""}
-          width={1920}
-          height={1080}
-          className="mb-10 aspect-video w-full max-w-[800px] rounded-lg object-cover"
-          priority
-        />
-      )}
       <Heading level="h1" size="lg" className="mb-6">
         {event.title}
       </Heading>
-      <div className="mb-12 flex flex-wrap items-center gap-3 text-sm text-stone-400">
+      <div className="mb-8 flex flex-wrap items-center gap-3 text-sm text-stone-400">
         {event.startDate && (
           <time dateTime={event.startDate}>{formatDateTime(event.startDate, locale)}</time>
         )}
@@ -63,8 +53,49 @@ export default function EventTemplate({ event }: EventTemplateProps) {
           </>
         )}
       </div>
+      {typeof event.image === "object" && event.image?.url && (
+        <Image
+          src={event.image.sizes?.large?.url || event.image.url}
+          alt={event.image.alt || ""}
+          width={1920}
+          height={1080}
+          className="mb-10 aspect-video w-full max-w-[800px] rounded-lg object-cover"
+          priority
+        />
+      )}
+      {event.registrationUrl && (
+        <h2 className="mb-2 mt-20 text-2xl font-bold">Embedded registration form</h2>
+      )}
       <div className="mx-auto max-w-screen-lg">
         <BlockRenderer nodes={event.content?.root?.children as NodeTypes[]} />
+        {(() => {
+          const rawUrl = event.registrationUrl?.trim();
+          if (!rawUrl) return null;
+          const isGoogleForm = rawUrl.includes("docs.google.com/forms");
+          const shouldEmbed = rawUrl.startsWith("@") || isGoogleForm;
+          if (!shouldEmbed) return null;
+          const urlWithoutAt = rawUrl.startsWith("@") ? rawUrl.slice(1).trim() : rawUrl;
+          const hasEmbeddedParam = /[?&]embedded=true(?![^#]*#)/.test(urlWithoutAt);
+          const hasQuery = urlWithoutAt.includes("?");
+          const embedSrc = hasEmbeddedParam
+            ? urlWithoutAt
+            : `${urlWithoutAt}${hasQuery ? "&" : "?"}embedded=true`;
+          return (
+            <div className="mt-6">
+              <iframe
+                src={embedSrc}
+                className="h-[1200px] w-full rounded-lg border border-stone-600 bg-stone-800"
+                frameBorder={0}
+                marginHeight={0}
+                marginWidth={0}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              >
+                Loading…
+              </iframe>
+            </div>
+          );
+        })()}
         <div className="mx-auto mt-10 max-w-prose">
           <ShareButtons />
         </div>
