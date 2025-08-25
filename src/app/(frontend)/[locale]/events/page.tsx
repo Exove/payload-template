@@ -7,7 +7,7 @@ import { getPayload } from "payload";
 
 type Params = Promise<{ locale: "fi" | "en" }>;
 
-export default async function ArticlesPage({
+export default async function EventsPage({
   params,
   searchParams,
 }: {
@@ -24,9 +24,9 @@ export default async function ArticlesPage({
       config: configPromise,
     });
 
-    const articles = await payload.find({
-      collection: "articles",
-      sort: "-publishedDate",
+    const events = await payload.find({
+      collection: "events",
+      sort: "-startDate",
       locale: locale,
       fallbackLocale: false,
       draft: false,
@@ -34,33 +34,30 @@ export default async function ArticlesPage({
       page: currentPage,
       depth: 0,
       where: {
-        title: {
-          exists: true,
-          not_equals: "",
-        },
+        title: { exists: true, not_equals: "" },
       },
     });
 
     return (
       <ListingTemplate
-        items={articles.docs}
-        totalDocs={articles.totalDocs}
-        totalPages={articles.totalPages}
+        items={events.docs}
+        totalDocs={events.totalDocs}
+        totalPages={events.totalPages}
         currentPage={currentPage}
         locale={locale}
-        basePath="/articles"
-        titleKey="articles.title"
-        dateField="publishedDate"
+        basePath="/events"
+        titleKey="events.title"
+        dateField="startDate"
       />
     );
   } catch (error) {
-    console.error("Error fetching articles:", error);
+    console.error("Error fetching events:", error);
     return <ErrorTemplate error={error as Error} />;
   }
 }
 
 export async function generateMetadata() {
-  const t = await getTranslations("articles");
+  const t = await getTranslations("events");
 
   return {
     title: `${t("title")} | ${SITE_NAME}`,

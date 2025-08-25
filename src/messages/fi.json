@@ -6,6 +6,9 @@
     "noArticles": "Ei artikkeleita",
     "backToArticles": "Takaisin artikkeleihin"
   },
+  "events": {
+    "title": "Tapahtumat"
+  },
   "listing": {
     "pagination": "Sivutus",
     "previousPage": "Edellinen sivu",

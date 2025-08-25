@@ -25,6 +25,7 @@ export interface Config {
     articles: Article;
     'collection-pages': CollectionPage;
     news: News;
+    events: Event;
     categories: Category;
     contacts: Contact;
     'payload-jobs': PayloadJob;
@@ -39,6 +40,7 @@ export interface Config {
     articles: ArticlesSelect<false> | ArticlesSelect<true>;
     'collection-pages': CollectionPagesSelect<false> | CollectionPagesSelect<true>;
     news: NewsSelect<false> | NewsSelect<true>;
+    events: EventsSelect<false> | EventsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     contacts: ContactsSelect<false> | ContactsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
@@ -342,6 +344,58 @@ export interface News {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events".
+ */
+export interface Event {
+  id: number;
+  title: string;
+  description?: string | null;
+  image?: (number | null) | Media;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * The slug is automatically generated from the title if empty
+   */
+  slug: string;
+  createdBy?: (number | null) | User;
+  /**
+   * If checked, the post is displayed at the top of lists
+   */
+  sticky?: boolean | null;
+  startDate: string;
+  endDate?: string | null;
+  location?: string | null;
+  /**
+   * If the event has a registration page, enter the URL here.
+   */
+  registrationUrl?: string | null;
+  collection?: string | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs".
  */
 export interface PayloadJob {
@@ -458,6 +512,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'news';
         value: number | News;
+      } | null)
+    | ({
+        relationTo: 'events';
+        value: number | Event;
       } | null)
     | ({
         relationTo: 'categories';
@@ -651,6 +709,33 @@ export interface NewsSelect<T extends boolean = true> {
   slug?: T;
   createdBy?: T;
   sticky?: T;
+  collection?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  image?: T;
+  content?: T;
+  slug?: T;
+  createdBy?: T;
+  sticky?: T;
+  startDate?: T;
+  endDate?: T;
+  location?: T;
+  registrationUrl?: T;
   collection?: T;
   meta?:
     | T

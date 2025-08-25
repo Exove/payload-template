@@ -6,6 +6,9 @@
     "noArticles": "No articles found",
     "backToArticles": "Back to articles"
   },
+  "events": {
+    "title": "Events"
+  },
   "listing": {
     "pagination": "Pagination",
     "previousPage": "Previous page",

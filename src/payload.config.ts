@@ -13,6 +13,7 @@ import { Articles } from "./collections/articles";
 import { Categories } from "./collections/categories";
 import { CollectionPage } from "./collections/collection-page";
 import { Contacts } from "./collections/contacts";
+import { Events } from "./collections/events";
 import { Media } from "./collections/media";
 import { News } from "./collections/news";
 import { Users } from "./collections/users";
@@ -43,7 +44,7 @@ export default buildConfig({
     defaultFromAddress: process.env.RESEND_FROM_ADDRESS || "no-reply@example.com",
     defaultFromName: process.env.RESEND_FROM_NAME || "Demo app",
   }),
-  collections: [Users, Media, Articles, CollectionPage, News, Categories, Contacts],
+  collections: [Users, Media, Articles, CollectionPage, News, Events, Categories, Contacts],
   globals: [FrontPage, MainMenu, FooterMenu, Footer],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [...defaultFeatures],
