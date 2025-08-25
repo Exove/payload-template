@@ -1,13 +1,5 @@
 import { defaultContentFields } from "@/fields/default-content-fields";
-import { revalidatePath } from "next/cache";
 import { CollectionAfterChangeHook, CollectionConfig } from "payload";
-
-const revalidateArticleHook: CollectionAfterChangeHook = async ({ doc, operation }) => {
-  if (operation === "create" || operation === "update" || operation === "delete") {
-    revalidatePath(`/fi/articles/${doc.slug}`);
-    revalidatePath(`/en/articles/${doc.slug}`);
-  }
-};
 
 const notifyDraftEmailHook: CollectionAfterChangeHook = async ({ doc, req, operation }) => {
   try {
@@ -50,7 +42,7 @@ export const Articles: CollectionConfig = {
   admin: {
     useAsTitle: "title",
     group: "Pages",
-    defaultColumns: ["title", "createdBy", "updatedAt", "createdAt"],
+    defaultColumns: ["title", "createdBy", "updatedAt", "createdAt", "status"],
     preview: (doc, { locale }) => {
       if (doc?.slug) {
         return `/${locale}/articles/${doc.slug}?preview=${process.env.PREVIEW_SECRET}`;
@@ -98,9 +90,11 @@ export const Articles: CollectionConfig = {
     },
   ],
   versions: {
-    drafts: true,
+    drafts: {
+      schedulePublish: true,
+    },
   },
   hooks: {
-    afterChange: [revalidateArticleHook, notifyDraftEmailHook],
+    afterChange: [notifyDraftEmailHook],
   },
 };

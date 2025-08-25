@@ -9,8 +9,6 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
-export const dynamic = "force-static";
-
 type Props = {
   params: Promise<{ locale: "fi" | "en"; slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;

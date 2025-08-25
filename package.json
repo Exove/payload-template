@@ -19,7 +19,8 @@
     "seed": "cross-env NODE_OPTIONS=--no-deprecation dotenv -e .env tsx ./src/scripts/seed.ts",
     "resize": "cross-env NODE_OPTIONS=--no-deprecation dotenv -e .env tsx ./src/scripts/resizeImages.ts",
     "format": "prettier --write \"src/**/*.{ts,tsx,json}\"",
-    "load-test": "artillery run load-test.yml"
+    "load-test": "artillery run load-test.yml",
+    "jobs:run": "cross-env NODE_OPTIONS=--no-deprecation payload jobs:run"
   },
   "dependencies": {
     "@elastic/elasticsearch": "^7.17.0",

@@ -52,6 +52,17 @@ export default buildConfig({
     locales: ["fi", "en"],
     defaultLocale: "fi",
   },
+  jobs: {
+    autoRun: [
+      {
+        cron: process.env.PAYLOAD_JOBS_CRON || "*/1 * * * *",
+        limit: 100,
+      },
+    ],
+    shouldAutoRun: async () => {
+      return true;
+    },
+  },
   db: sqliteAdapter({
     client: {
       url: process.env.DATABASE_URI || "",
