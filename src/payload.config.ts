@@ -33,6 +33,10 @@ export default buildConfig({
     },
     theme: "light",
     dateFormat: "dd.MM.yyyy",
+    timezones: {
+      defaultTimezone: "Europe/Helsinki",
+      supportedTimezones: [{ label: "Helsinki (EET/EEST)", value: "Europe/Helsinki" }],
+    },
   },
   email: resendAdapter({
     apiKey: process.env.RESEND_API_KEY || "",
