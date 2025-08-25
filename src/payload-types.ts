@@ -198,6 +198,13 @@ export interface Article {
    * If checked, the post is displayed at the top of lists
    */
   sticky?: boolean | null;
+  attachments?:
+    | {
+        attachment: number | Media;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   author?: (number | null) | Contact;
   categories?: (number | Category)[] | null;
   publishedDate?: string | null;
@@ -594,6 +601,13 @@ export interface ArticlesSelect<T extends boolean = true> {
   slug?: T;
   createdBy?: T;
   sticky?: T;
+  attachments?:
+    | T
+    | {
+        attachment?: T;
+        description?: T;
+        id?: T;
+      };
   author?: T;
   categories?: T;
   publishedDate?: T;

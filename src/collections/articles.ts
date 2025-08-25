@@ -53,6 +53,22 @@ export const Articles: CollectionConfig = {
   fields: [
     ...defaultContentFields,
     {
+      name: "attachments",
+      type: "array",
+      fields: [
+        {
+          name: "attachment",
+          type: "upload",
+          relationTo: "media",
+          required: true,
+        },
+        {
+          name: "description",
+          type: "text",
+        },
+      ],
+    },
+    {
       name: "author",
       type: "relationship",
       relationTo: "contacts",
