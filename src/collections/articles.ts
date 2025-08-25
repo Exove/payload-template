@@ -13,11 +13,8 @@ const notifyDraftEmailHook: CollectionAfterChangeHook = async ({ doc, req, opera
   try {
     if ((operation === "create" || operation === "update") && doc?._status === "draft") {
       const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-      const locale = (req?.locale as string) || "fi";
-
-      const previewSecret = process.env.PREVIEW_SECRET || "";
-      const relativePreviewPath = `/${locale}/articles/${doc.slug}?preview=${previewSecret}`;
-      const previewUrl = `${siteUrl}${relativePreviewPath}`;
+      const adminRelativePath = `/admin/collections/articles/${doc.id}`;
+      const adminUrl = `${siteUrl}${adminRelativePath}`;
 
       const editorName = req?.user?.email || "Unknown editor";
       const articleTitle = typeof doc?.title === "string" ? doc.title : "Untitled";
@@ -32,7 +29,7 @@ const notifyDraftEmailHook: CollectionAfterChangeHook = async ({ doc, req, opera
           <p>A new draft has been saved.</p>
           <p><strong>Title:</strong> ${articleTitle}</p>
           <p><strong>Editor:</strong> ${editorName}</p>
-          <p><a href="${previewUrl}">Open draft preview</a></p>
+          <p><a href="${adminUrl}">Open as editor</a></p>
         `,
       });
     }
