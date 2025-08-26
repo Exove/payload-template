@@ -35,6 +35,33 @@ export const FrontPage: GlobalConfig = {
       blocks: [heroBlock],
     },
     {
+      name: "featuredEvents",
+      type: "array",
+      localized: true,
+      fields: [
+        {
+          name: "event",
+          type: "relationship",
+          relationTo: "events",
+          hasMany: true,
+          maxRows: 3,
+        },
+        {
+          name: "backgroundImage",
+          type: "upload",
+          relationTo: "media",
+        },
+        {
+          name: "title",
+          type: "text",
+        },
+        {
+          name: "description",
+          type: "text",
+        },
+      ],
+    },
+    {
       name: "content",
       type: "blocks",
       localized: true,
@@ -51,6 +78,11 @@ export const FrontPage: GlobalConfig = {
       ],
     },
   ],
+  versions: {
+    drafts: {
+      schedulePublish: true,
+    },
+  },
   hooks: {
     afterChange: [revalidateFrontPageHook],
   },

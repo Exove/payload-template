@@ -49,7 +49,7 @@ export function ListingTemplate({
           return (
             <div
               key={item.id}
-              className="group relative rounded-lg bg-stone-800 p-6 transition-all hover:ring-1 hover:ring-amber-500"
+              className="group relative rounded-lg bg-stone-800 p-6 transition-all"
             >
               <Link href={`${basePath}/${item.slug}`} className="inline-block">
                 <span className="absolute inset-x-0 inset-y-0"></span>

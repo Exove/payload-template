@@ -85,9 +85,6 @@ export default function EventTemplate({ event }: EventTemplateProps) {
               <iframe
                 src={embedSrc}
                 className="h-[1200px] w-full rounded-lg border border-stone-600 bg-stone-800"
-                frameBorder={0}
-                marginHeight={0}
-                marginWidth={0}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               >

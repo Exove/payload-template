@@ -1,4 +1,3 @@
-import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/Toaster";
 import { routing } from "@/i18n/routing";
 import { SITE_NAME } from "@/lib/constants";
@@ -7,7 +6,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
-import { unstable_ViewTransition as ViewTransition } from "react";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -40,11 +38,9 @@ export default async function RootLayout({ children, params }: Props) {
     <html lang={locale}>
       <body className={`${inter.className} flex min-h-screen flex-col bg-stone-900 text-white`}>
         <NextIntlClientProvider messages={messages}>
-          <ViewTransition>
-            <div className="flex-grow">{children}</div>
-            <Footer />
-            <Toaster />
-          </ViewTransition>
+          <div className="flex-grow">{children}</div>
+
+          <Toaster />
         </NextIntlClientProvider>
       </body>
     </html>

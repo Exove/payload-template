@@ -849,6 +849,15 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface FrontPage {
   id: number;
   hero?: HeroBlock[] | null;
+  featuredEvents?:
+    | {
+        event?: (number | Event)[] | null;
+        backgroundImage?: (number | null) | Media;
+        title?: string | null;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   content?:
     | (
         | CTABlock
@@ -870,6 +879,7 @@ export interface FrontPage {
      */
     image?: (number | null) | Media;
   };
+  _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -881,7 +891,7 @@ export interface HeroBlock {
   blockType: 'hero';
   title: string;
   description: string;
-  image: number | Media;
+  image?: (number | null) | Media;
   link?: {
     label?: string | null;
     isExternal?: boolean | null;
@@ -1277,6 +1287,15 @@ export interface FrontPageSelect<T extends boolean = true> {
     | {
         hero?: T | HeroBlockSelect<T>;
       };
+  featuredEvents?:
+    | T
+    | {
+        event?: T;
+        backgroundImage?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
   content?:
     | T
     | {
@@ -1297,6 +1316,7 @@ export interface FrontPageSelect<T extends boolean = true> {
         description?: T;
         image?: T;
       };
+  _status?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -1588,7 +1608,7 @@ export interface TaskSchedulePublish {
       relationTo: 'articles';
       value: number | Article;
     } | null;
-    global?: string | null;
+    global?: 'front-page' | null;
     user?: (number | null) | User;
   };
   output?: unknown;

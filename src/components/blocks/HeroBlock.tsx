@@ -1,5 +1,3 @@
-import Button from "@/components/Button";
-import { parseLink } from "@/lib/parse-link";
 import { HeroBlock as HeroBlockType } from "@/payload-types";
 import Image from "next/image";
 import Heading from "../Heading";
@@ -9,27 +7,22 @@ type HeroProps = {
 };
 
 export function HeroBlock({ block }: HeroProps) {
-  const { title, description, image, link } = block;
-  const { linkUrl, linkLabel } = parseLink(link);
+  const { title, image } = block;
 
   return (
-    <div className="relative mt-12 flex w-full items-center justify-center overflow-hidden rounded-2xl py-32">
-      <div className="absolute inset-0">
-        {typeof image === "object" && image.url && (
+    <div className="relative mt-12 flex w-full items-center justify-center overflow-hidden rounded-2xl bg-stone-950/40 py-32">
+      {typeof image === "object" && image?.url && (
+        <div className="absolute inset-0">
           <div className="relative h-full w-full">
             <Image src={image.url} alt={image.alt || ""} fill priority className="object-cover" />
             <div className="absolute inset-0 bg-black/60" />
           </div>
-        )}
-      </div>
+        </div>
+      )}
       <div className="relative mx-auto max-w-4xl px-4 text-center">
         <Heading level="h1" size="xl" className="mb-6 text-white">
           {title}
         </Heading>
-        <p className="mb-8 text-lg leading-relaxed text-stone-100">{description}</p>
-        <div className="flex justify-center">
-          {linkUrl && linkLabel && <Button href={linkUrl}>{linkLabel}</Button>}
-        </div>
       </div>
     </div>
   );
