@@ -1,12 +1,12 @@
 import { BlockRenderer, NodeTypes } from "@/components/BlockRenderer";
-import Card from "@/components/Card";
 import Container from "@/components/Container";
 import Header from "@/components/Header";
 import Heading from "@/components/Heading";
 import ErrorTemplate from "@/components/templates/ErrorTemplate";
+import { Link } from "@/i18n/routing";
 import { SITE_NAME } from "@/lib/constants";
 import { prepareOpenGraphImages } from "@/lib/utils";
-import { Article, CollectionPage, Media } from "@/payload-types";
+import { Article, CollectionPage } from "@/payload-types";
 import configPromise from "@payload-config";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -57,39 +57,45 @@ export default async function CollectionPageRoute(props: Props) {
     <Container>
       <Header />
       <main id="main-content" className="mx-auto max-w-screen-lg py-16">
-        <Heading level="h1" size="lg" className="mb-6">
-          {page.title}
-        </Heading>
-
-        <div className="mx-auto max-w-prose">
-          {page.description && <p className="mb-6 text-stone-300">{page.description}</p>}
-        </div>
-
-        <div className="mx-auto max-w-screen-lg">
-          <BlockRenderer nodes={page.content?.root?.children as NodeTypes[]} />
-        </div>
-
-        {subPages.length > 0 && (
-          <section className="mt-12">
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {subPages.map((item) => {
-                if (typeof item !== "object") return null;
-                const article = item as Article;
-                const image =
-                  typeof article.image === "object" ? (article.image as Media) : undefined;
-                return (
-                  <Card
-                    key={article.id}
-                    image={image}
-                    title={article.title}
-                    text={article.description || undefined}
-                    href={`/articles/${article.slug}`}
-                  />
-                );
-              })}
+        <div className="flex gap-8">
+          {subPages.length > 0 && (
+            <aside className="w-64 flex-shrink-0">
+              <div className="sticky top-8">
+                <h2 className="mb-4 text-lg font-semibold">Subpages</h2>
+                <nav>
+                  <ul className="space-y-2">
+                    {subPages.map((item) => {
+                      if (typeof item !== "object") return null;
+                      const article = item as Article;
+                      return (
+                        <li key={article.id}>
+                          <Link
+                            href={`/articles/${article.slug}`}
+                            className="text-blue-300 underline underline-offset-2 hover:text-blue-100"
+                          >
+                            {article.title}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </nav>
+              </div>
+            </aside>
+          )}
+          <div className="flex-1">
+            <Heading level="h1" size="lg" className="mb-6">
+              {page.title}
+            </Heading>
+            <div className="mx-auto max-w-prose">
+              {page.description && <p className="mb-6 text-stone-300">{page.description}</p>}
             </div>
-          </section>
-        )}
+
+            <div className="mx-auto max-w-screen-lg">
+              <BlockRenderer nodes={page.content?.root?.children as NodeTypes[]} />
+            </div>
+          </div>
+        </div>
       </main>
     </Container>
   );
