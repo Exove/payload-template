@@ -12,9 +12,6 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
-export const dynamic = "force-static";
-export const revalidate = 60;
-
 type Props = {
   params: Promise<{ locale: "fi" | "en"; slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -61,7 +58,7 @@ export default async function CollectionPageRoute(props: Props) {
           {subPages.length > 0 && (
             <aside className="w-64 flex-shrink-0">
               <div className="sticky top-8">
-                <h2 className="mb-4 text-lg font-semibold">Subpages</h2>
+                <h2 className="mb-4 text-lg font-semibold">Alasivut</h2>
                 <nav>
                   <ul className="space-y-2">
                     {subPages.map((item) => {
@@ -87,11 +84,14 @@ export default async function CollectionPageRoute(props: Props) {
             <Heading level="h1" size="lg" className="mb-6">
               {page.title}
             </Heading>
-            <div className="mx-auto max-w-prose">
-              {page.description && <p className="mb-6 text-stone-300">{page.description}</p>}
-            </div>
 
-            <div className="mx-auto max-w-screen-lg">
+            {page.description && (
+              <div className="mb-6 max-w-prose">
+                <p className="mb-6 text-stone-300">{page.description}</p>
+              </div>
+            )}
+
+            <div className="max-w-screen-lg">
               <BlockRenderer nodes={page.content?.root?.children as NodeTypes[]} />
             </div>
           </div>

@@ -31,7 +31,7 @@ export default function EventTemplate({ event }: EventTemplateProps) {
     <main id="main-content" className="mx-auto max-w-[800px] py-12">
       <div className="mb-6 flex items-center gap-2 text-sm text-stone-400 hover:text-stone-300">
         <ChevronLeftIcon className="size-4 stroke-2" />
-        <Link href="/events">Events</Link>
+        <Link href="/events">Tapahtumat</Link>
       </div>
       <Heading level="h1" size="lg" className="mb-6">
         {event.title}
@@ -63,11 +63,11 @@ export default function EventTemplate({ event }: EventTemplateProps) {
           priority
         />
       )}
+      <BlockRenderer nodes={event.content?.root?.children as NodeTypes[]} />
       {event.registrationUrl && (
         <h2 className="mb-2 mt-20 text-2xl font-bold">Embedded registration form</h2>
       )}
       <div className="mx-auto max-w-screen-lg">
-        <BlockRenderer nodes={event.content?.root?.children as NodeTypes[]} />
         {(() => {
           const rawUrl = event.registrationUrl?.trim();
           if (!rawUrl) return null;

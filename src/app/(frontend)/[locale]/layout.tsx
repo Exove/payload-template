@@ -14,6 +14,9 @@ type Props = {
 
 export const metadata: Metadata = {
   title: SITE_NAME,
+  icons: {
+    icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'/>",
+  },
 };
 
 export default async function RootLayout({ children }: Props) {

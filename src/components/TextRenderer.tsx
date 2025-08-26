@@ -100,7 +100,7 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
       // If there are no children, return null to avoid rendering an empty paragraph
       if (!children || (Array.isArray(children) && children.every((child) => !child))) return null;
       return (
-        <p className="mx-auto mb-4 max-w-prose leading-relaxed" key={index}>
+        <p className="mb-4 max-w-prose leading-relaxed" key={index}>
           {children}
         </p>
       );

@@ -5,13 +5,9 @@ import FrontPageTemplate from "@/components/templates/FrontPageTemplate";
 import { SITE_NAME } from "@/lib/constants";
 import { prepareOpenGraphImages } from "@/lib/utils";
 import configPromise from "@payload-config";
-// import * as Sentry from "@sentry/nextjs";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
-
-export const dynamic = "force-static";
-export const revalidate = 60; // This is needed for dynamic components to update
 
 type Props = {
   params: Promise<{ locale: "fi" | "en" }>;
@@ -21,7 +17,7 @@ type Props = {
 async function getFrontPage({ params }: Props) {
   try {
     const { locale } = await params;
-    const isDraftMode = false; // Simplified for performance - no draft mode in static rendering
+    const isDraftMode = true; // Simplified for performance - no draft mode in static rendering
 
     const payload = await getPayload({
       config: configPromise,
@@ -52,10 +48,15 @@ export default async function FrontPage(props: Props) {
   }
 
   return (
-    <Container>
-      <Header />
-      <FrontPageTemplate content={frontPage} />
-    </Container>
+    <>
+      <div className="bg-gray-500 px-4 py-2 text-center text-sm font-bold font-medium uppercase text-black">
+        Draft Preview
+      </div>
+      <Container>
+        <Header />
+        <FrontPageTemplate content={frontPage} />
+      </Container>
+    </>
   );
 }
 

@@ -1,14 +1,5 @@
 import { defaultContentFields } from "@/fields/default-content-fields";
-import { revalidatePath } from "next/cache";
-import { CollectionAfterChangeHook, CollectionConfig } from "payload";
-import { indexToElasticHook, removeFromElasticHook } from "./hooks/indexToElastic";
-
-const revalidateCollectionPageHook: CollectionAfterChangeHook = async ({ doc, operation }) => {
-  if (operation === "create" || operation === "update" || operation === "delete") {
-    revalidatePath(`/fi/collection-pages/${doc.slug}`);
-    revalidatePath(`/en/collection-pages/${doc.slug}`);
-  }
-};
+import { CollectionConfig } from "payload";
 
 export const CollectionPage: CollectionConfig = {
   slug: "collection-pages",
@@ -44,8 +35,4 @@ export const CollectionPage: CollectionConfig = {
       },
     },
   ],
-  hooks: {
-    afterChange: [indexToElasticHook, revalidateCollectionPageHook],
-    afterDelete: [removeFromElasticHook],
-  },
 };

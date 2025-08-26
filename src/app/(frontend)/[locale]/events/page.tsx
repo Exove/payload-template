@@ -26,7 +26,7 @@ export default async function EventsPage({
 
     const events = await payload.find({
       collection: "events",
-      sort: "-startDate",
+      sort: "startDate",
       locale: locale,
       fallbackLocale: false,
       draft: false,

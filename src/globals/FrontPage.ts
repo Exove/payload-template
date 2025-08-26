@@ -25,6 +25,9 @@ export const FrontPage: GlobalConfig = {
   },
   admin: {
     group: "Pages",
+    preview: ({ locale }) => {
+      return `/${locale}`;
+    },
   },
   fields: [
     {
