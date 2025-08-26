@@ -68,6 +68,12 @@ export const Articles: CollectionConfig = {
         },
       ],
     },
+    // {
+    //   name: "parents",
+    //   type: "join",
+    //   collection: "collection-pages",
+    //   on: "subPages",
+    // },
     {
       name: "author",
       type: "relationship",

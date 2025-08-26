@@ -16,9 +16,24 @@ export const CollectionPage: CollectionConfig = {
     useAsTitle: "title",
     group: "Pages",
     defaultColumns: ["title", "createdBy", "updatedAt", "createdAt"],
+    preview: (doc, { locale }) => {
+      if (doc?.slug) {
+        return `/${locale}/${doc.slug}?preview=${process.env.PREVIEW_SECRET}`;
+      }
+      return null;
+    },
   },
   fields: [
     ...defaultContentFields,
+    {
+      name: "subPages",
+      type: "relationship",
+      relationTo: "articles",
+      hasMany: true,
+      admin: {
+        description: "Select sub pages to display on this page",
+      },
+    },
     {
       name: "collection",
       type: "text",

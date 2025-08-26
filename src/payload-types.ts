@@ -293,6 +293,10 @@ export interface CollectionPage {
    * If checked, the post is displayed at the top of lists
    */
   sticky?: boolean | null;
+  /**
+   * Select sub pages to display on this page
+   */
+  subPages?: (number | Article)[] | null;
   collection?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -693,6 +697,7 @@ export interface CollectionPagesSelect<T extends boolean = true> {
   slug?: T;
   createdBy?: T;
   sticky?: T;
+  subPages?: T;
   collection?: T;
   updatedAt?: T;
   createdAt?: T;
