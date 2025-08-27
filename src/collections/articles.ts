@@ -1,5 +1,5 @@
 import { defaultContentFields } from "@/fields/default-content-fields";
-import { CollectionAfterChangeHook, CollectionConfig } from "payload";
+import { CollectionAfterChangeHook, CollectionBeforeChangeHook, CollectionConfig } from "payload";
 
 const notifyDraftEmailHook: CollectionAfterChangeHook = async ({ doc, req, operation }) => {
   try {
@@ -39,6 +39,12 @@ const notifyDraftEmailHook: CollectionAfterChangeHook = async ({ doc, req, opera
 
 export const Articles: CollectionConfig = {
   slug: "articles",
+  access: {
+    read: () => true,
+    create: ({ req: { user } }) => user?.role === "admin" || user?.role === "editor",
+    update: ({ req: { user } }) => user?.role === "admin" || user?.role === "editor",
+    delete: ({ req: { user } }) => user?.role === "admin",
+  },
   admin: {
     useAsTitle: "title",
     group: "Pages",
@@ -113,10 +119,18 @@ export const Articles: CollectionConfig = {
   ],
   versions: {
     drafts: {
-      schedulePublish: true,
+      schedulePublish: false,
     },
   },
   hooks: {
+    beforeChange: [
+      (({ req, data }) => {
+        if (req?.user?.role === "editor") {
+          return { ...data, _status: "draft" };
+        }
+        return data;
+      }) as CollectionBeforeChangeHook,
+    ],
     afterChange: [notifyDraftEmailHook],
   },
 };

@@ -49,7 +49,7 @@ export default async function FrontPage(props: Props) {
 
   return (
     <>
-      <div className="bg-gray-500 px-4 py-2 text-center text-sm font-bold font-medium uppercase text-black">
+      <div className="bg-gray-500 px-4 py-2 text-center text-sm font-medium uppercase text-black">
         Draft Preview
       </div>
       <Container>

@@ -9,7 +9,8 @@ const revalidateFooterMenuHook: GlobalAfterChangeHook = async () => {
 export const FooterMenu: GlobalConfig = {
   slug: "footer-menu",
   access: {
-    read: () => true,
+    read: ({ req: { user } }) => !user || user?.role === "admin",
+    update: ({ req: { user } }) => user?.role === "admin",
   },
   admin: {
     group: "Menus",

@@ -1,8 +1,14 @@
 import { defaultContentFields } from "@/fields/default-content-fields";
-import { CollectionConfig } from "payload";
+import { CollectionBeforeChangeHook, CollectionConfig } from "payload";
 
 export const Events: CollectionConfig = {
   slug: "events",
+  access: {
+    read: () => true,
+    create: ({ req: { user } }) => user?.role === "admin" || user?.role === "editor",
+    update: ({ req: { user } }) => user?.role === "admin" || user?.role === "editor",
+    delete: ({ req: { user } }) => user?.role === "admin",
+  },
   admin: {
     useAsTitle: "title",
     group: "Pages",
@@ -54,4 +60,19 @@ export const Events: CollectionConfig = {
       },
     },
   ],
+  versions: {
+    drafts: {
+      schedulePublish: false,
+    },
+  },
+  hooks: {
+    beforeChange: [
+      (({ req, data }) => {
+        if (req?.user?.role === "editor") {
+          return { ...data, _status: "draft" };
+        }
+        return data;
+      }) as CollectionBeforeChangeHook,
+    ],
+  },
 };

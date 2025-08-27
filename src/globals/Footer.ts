@@ -3,7 +3,8 @@ import { GlobalConfig } from "payload";
 export const Footer: GlobalConfig = {
   slug: "footer",
   access: {
-    read: () => true,
+    read: ({ req: { user } }) => !user || user?.role === "admin",
+    update: ({ req: { user } }) => user?.role === "admin",
   },
   admin: {
     group: "Misc",

@@ -21,7 +21,8 @@ const revalidateFrontPageHook: GlobalAfterChangeHook = async () => {
 export const FrontPage: GlobalConfig = {
   slug: "front-page",
   access: {
-    read: () => true,
+    read: ({ req: { user } }) => !user || user?.role === "admin",
+    update: ({ req: { user } }) => user?.role === "admin",
   },
   admin: {
     group: "Pages",

@@ -9,7 +9,8 @@ const revalidateMainMenuHook: GlobalAfterChangeHook = async () => {
 export const MainMenu: GlobalConfig = {
   slug: "main-menu",
   access: {
-    read: () => true,
+    read: ({ req: { user } }) => !user || user?.role === "admin",
+    update: ({ req: { user } }) => user?.role === "admin",
   },
   admin: {
     group: "Menus",

@@ -2,6 +2,12 @@ import { CollectionConfig } from "payload";
 
 export const Contacts: CollectionConfig = {
   slug: "contacts",
+  access: {
+    read: ({ req: { user } }) => user?.role === "admin",
+    create: ({ req: { user } }) => user?.role === "admin",
+    update: ({ req: { user } }) => user?.role === "admin",
+    delete: ({ req: { user } }) => user?.role === "admin",
+  },
   admin: {
     group: "Misc",
     useAsTitle: "name",
