@@ -97,3 +97,18 @@ tr td:nth-child(2) {
 .file__thumbnail {
   max-width: none !important;
 }
+
+// Hide publish UI for editors
+html.role-editor {
+  // Main save/publish button on edit form header
+  .form-submit .btn--style-primary.btn--withPopup {
+    display: none !important;
+  }
+
+  // Popup actions (if rendered separately)
+  #action-save-popup,
+  #publish-locale,
+  button#action-save {
+    display: none !important;
+  }
+}

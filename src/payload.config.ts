@@ -32,6 +32,9 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      providers: ["@/components/admin-ui/RoleBodyClassProvider#RoleBodyClassProvider"],
+    },
     theme: "light",
     dateFormat: "dd.MM.yyyy",
     timezones: {
