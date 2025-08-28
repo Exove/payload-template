@@ -5,36 +5,31 @@ import Button from "@/components/Button";
 import Heading from "@/components/Heading";
 import { Link } from "@/i18n/routing";
 import { Article } from "@/payload-types";
+import { useUser } from "@clerk/nextjs";
 import { AnimatePresence, motion } from "motion/react";
-import { SanitizedCollectionPermission } from "payload";
 import { useState } from "react";
 import { toast } from "sonner";
 import { createArticle, deleteArticle, fetchUserArticles } from "./actions";
 
-interface SessionProps {
-  user: {
-    id: number;
-    role?: string;
-    email: string;
-  };
-  permissions?: SanitizedCollectionPermission;
+interface Props {
   initialArticles?: Article[];
 }
 
-export default function CreateArticle({ user, permissions, initialArticles }: SessionProps) {
+export default function CreateArticle({ initialArticles }: Props) {
+  const { user, isSignedIn } = useUser();
   const [articles, setArticles] = useState<Article[]>(initialArticles || []);
   const [title, setTitle] = useState("");
 
   // Fetch user articles only when needed (e.g., after mutations)
   const refreshArticles = async () => {
-    const userArticles = await fetchUserArticles(user.id);
+    const userArticles = await fetchUserArticles();
     setArticles(userArticles);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await createArticle(title, user.id);
+      await createArticle(title);
       toast.success("Article created successfully!");
       await refreshArticles();
       setTitle("");
@@ -46,7 +41,7 @@ export default function CreateArticle({ user, permissions, initialArticles }: Se
 
   const handleDelete = async (articleId: string) => {
     try {
-      await deleteArticle(articleId, user.id);
+      await deleteArticle(articleId);
       toast.success("Article deleted successfully!");
       await refreshArticles();
     } catch (err) {
@@ -63,16 +58,19 @@ export default function CreateArticle({ user, permissions, initialArticles }: Se
       <div className="mb-8 flex items-center justify-between">
         <div>
           <p className="text-stone-300">
-            Logged in user: <span className="font-semibold text-stone-100">{user.email}</span>
+            Logged in user:{" "}
+            <span className="font-semibold text-stone-100">
+              {user?.primaryEmailAddress?.emailAddress}
+            </span>
           </p>
           <p className="text-stone-300">
-            Role: <span className="font-semibold text-stone-100">{user.role}</span>
+            Role: <span className="font-semibold text-stone-100">user</span>
           </p>
         </div>
         <LogoutButton />
       </div>
       <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
-        {permissions?.create && (
+        {isSignedIn && (
           <div>
             <Heading level="h2" size="md">
               Create Article
@@ -124,7 +122,7 @@ export default function CreateArticle({ user, permissions, initialArticles }: Se
                         </Link>
                         <p className="text-sm text-stone-400">Slug: {article.slug}</p>
                       </div>
-                      {permissions?.delete && (
+                      {isSignedIn && (
                         <Button
                           onClick={() => handleDelete(String(article.id))}
                           style="secondary"

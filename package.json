@@ -22,6 +22,7 @@
     "load-test": "artillery run load-test.yml"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.31.6",
     "@elastic/elasticsearch": "^7.17.0",
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
@@ -43,7 +44,6 @@
     "lint-staged": "^15.4.3",
     "motion": "^12.4.6",
     "next": "^15",
-    "next-auth": "^4.24.11",
     "next-intl": "^3.26.3",
     "openai": "^4.86.1",
     "payload": "^3",

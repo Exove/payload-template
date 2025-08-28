@@ -54,6 +54,7 @@ export type SupportedTimezones =
   | 'Asia/Singapore'
   | 'Asia/Tokyo'
   | 'Asia/Seoul'
+  | 'Australia/Brisbane'
   | 'Australia/Sydney'
   | 'Pacific/Guam'
   | 'Pacific/Noumea'
@@ -232,6 +233,7 @@ export interface Article {
    * If checked, the post is displayed at the top of lists
    */
   sticky?: boolean | null;
+  createdByClerkId?: string | null;
   author?: (number | null) | Contact;
   categories?: (number | Category)[] | null;
   publishedDate?: string | null;
@@ -525,6 +527,7 @@ export interface ArticlesSelect<T extends boolean = true> {
   slug?: T;
   createdBy?: T;
   sticky?: T;
+  createdByClerkId?: T;
   author?: T;
   categories?: T;
   publishedDate?: T;

@@ -2,6 +2,7 @@ import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/Toaster";
 import { routing } from "@/i18n/routing";
 import { SITE_NAME } from "@/lib/constants";
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -39,13 +40,15 @@ export default async function RootLayout({ children, params }: Props) {
   return (
     <html lang={locale}>
       <body className={`${inter.className} flex min-h-screen flex-col bg-stone-900 text-white`}>
-        <NextIntlClientProvider messages={messages}>
-          <ViewTransition>
-            <div className="flex-grow">{children}</div>
-            <Footer />
-            <Toaster />
-          </ViewTransition>
-        </NextIntlClientProvider>
+        <ClerkProvider>
+          <NextIntlClientProvider messages={messages}>
+            <ViewTransition>
+              <div className="flex-grow">{children}</div>
+              <Footer />
+              <Toaster />
+            </ViewTransition>
+          </NextIntlClientProvider>
+        </ClerkProvider>
       </body>
     </html>
   );

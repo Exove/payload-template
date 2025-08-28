@@ -26,6 +26,15 @@ export const Articles: CollectionConfig = {
   fields: [
     ...defaultContentFields,
     {
+      name: "createdByClerkId",
+      type: "text",
+      admin: {
+        position: "sidebar",
+        readOnly: true,
+        hidden: true,
+      },
+    },
+    {
       name: "author",
       type: "relationship",
       relationTo: "contacts",

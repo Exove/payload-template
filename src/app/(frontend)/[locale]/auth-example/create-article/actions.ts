@@ -1,6 +1,7 @@
 "use server";
 
 import { Article } from "@/payload-types";
+import { auth } from "@clerk/nextjs/server";
 import { getPayload } from "payload";
 
 async function getConfig() {
@@ -8,7 +9,11 @@ async function getConfig() {
   return configPromise;
 }
 
-export async function fetchUserArticles(userId: number) {
+export async function fetchUserArticles() {
+  const { userId } = await auth();
+  if (!userId) {
+    throw new Error("Unauthenticated");
+  }
   const config = await getConfig();
   const payload = await getPayload({
     config,
@@ -17,7 +22,7 @@ export async function fetchUserArticles(userId: number) {
   const response = await payload.find({
     collection: "articles",
     where: {
-      "createdBy.id": {
+      createdByClerkId: {
         equals: userId,
       },
       _status: {
@@ -29,7 +34,11 @@ export async function fetchUserArticles(userId: number) {
   return response.docs as Article[];
 }
 
-export async function createArticle(title: string, userId: number) {
+export async function createArticle(title: string) {
+  const { userId } = await auth();
+  if (!userId) {
+    throw new Error("Unauthenticated");
+  }
   const config = await getConfig();
   const payload = await getPayload({
     config,
@@ -46,24 +55,32 @@ export async function createArticle(title: string, userId: number) {
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-|-$/g, ""),
       _status: "published",
-    },
-    user: {
-      id: userId,
+      createdByClerkId: userId,
     },
   });
 }
 
-export async function deleteArticle(articleId: string, userId: number) {
+export async function deleteArticle(articleId: string) {
+  const { userId } = await auth();
+  if (!userId) {
+    throw new Error("Unauthenticated");
+  }
   const config = await getConfig();
   const payload = await getPayload({
     config,
   });
 
+  // Verify ownership before delete
+  const existing = await payload.findByID({
+    collection: "articles",
+    id: articleId,
+  });
+  if (existing?.createdByClerkId !== userId) {
+    throw new Error("Forbidden");
+  }
+
   await payload.delete({
     collection: "articles",
     id: articleId,
-    user: {
-      id: userId,
-    },
   });
 }

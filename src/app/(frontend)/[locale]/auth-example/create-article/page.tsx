@@ -1,39 +1,22 @@
 import Container from "@/components/Container";
 import Header from "@/components/Header";
-import configPromise from "@payload-config";
-import { headers } from "next/headers";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { getPayload, SanitizedCollectionPermission } from "payload";
 import { fetchUserArticles } from "./actions";
 import CreateArticle from "./create-article-temp";
 
 export default async function CreateArticlePage() {
-  const payload = await getPayload({
-    config: configPromise,
-  });
-
-  const session = await payload.auth({
-    headers: await headers(),
-  });
-
-  const user = session?.user;
-
-  if (!user) {
+  const { userId } = await auth();
+  if (!userId) {
     redirect("/en/auth-example/login");
   }
 
-  const permissions = session?.permissions.collections?.articles;
-
-  const initialArticles = await fetchUserArticles(user.id);
+  const initialArticles = await fetchUserArticles();
 
   return (
     <Container>
       <Header />
-      <CreateArticle
-        user={user}
-        permissions={permissions as SanitizedCollectionPermission}
-        initialArticles={initialArticles}
-      />
+      <CreateArticle initialArticles={initialArticles} />
     </Container>
   );
 }
