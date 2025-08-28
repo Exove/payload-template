@@ -31,7 +31,6 @@ export const Articles: CollectionConfig = {
       admin: {
         position: "sidebar",
         readOnly: true,
-        hidden: true,
       },
     },
     {
