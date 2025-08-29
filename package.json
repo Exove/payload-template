@@ -28,7 +28,7 @@
     "@libsql/client": "^0.14.0",
     "@next/third-parties": "^15.2.2",
     "@payloadcms/db-sqlite": "^3.24.0",
-    "@payloadcms/next": "^3.24.0",
+    "@payloadcms/next": "^3.44.0",
     "@payloadcms/payload-cloud": "^3.24.0",
     "@payloadcms/plugin-nested-docs": "^3.25.0",
     "@payloadcms/plugin-seo": "^3.24.0",
