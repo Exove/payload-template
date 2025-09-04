@@ -9,6 +9,6 @@ export const config = {
   matcher: [
     // i18n routes
     "/",
-    "/(fi|en)/:path*",
+    "/(fi|sv)/:path*",
   ],
 };
