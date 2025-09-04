@@ -7,13 +7,14 @@ import { Link } from "@/i18n/routing";
 import { SITE_NAME } from "@/lib/constants";
 import { prepareOpenGraphImages } from "@/lib/utils";
 import { Article, CollectionPage } from "@/payload-types";
+import { Locale } from "@/types/locale";
 import configPromise from "@payload-config";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
 type Props = {
-  params: Promise<{ locale: "fi" | "en"; slug: string }>;
+  params: Promise<{ locale: Locale; slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 

@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/routing";
 import { SITE_NAME } from "@/lib/constants";
 import { Article, CollectionPage } from "@/payload-types";
+import { Locale } from "@/types/locale";
 import { MenuItem } from "@/types/menu";
 import configPromise from "@payload-config";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -28,12 +29,12 @@ export default async function Header() {
     depth: 1,
   });
 
-  const locale = (await getLocale()) as "fi" | "en";
+  const locale = (await getLocale()) as Locale;
 
   const collectionPagesRes = await payload.find({
     collection: "collection-pages",
     depth: 2,
-    locale: locale as "fi" | "en",
+    locale: locale as Locale,
     draft: false,
     limit: 200,
     sort: "title",
@@ -74,7 +75,7 @@ export default async function Header() {
           </Link>
         </div>
         <div className="hidden lg:flex-1 xl:block">
-          <SimpleMenu items={simpleMenuItems} locale={locale as "fi" | "en"} />
+          <SimpleMenu items={simpleMenuItems} locale={locale as Locale} />
         </div>
         <ul className="flex items-center justify-end gap-8 lg:w-[300px]">
           <li>

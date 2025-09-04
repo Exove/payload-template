@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/routing";
+import { Locale } from "@/types/locale";
 import { Popover, PopoverButton, PopoverPanel, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { Fragment } from "react";
@@ -17,7 +18,7 @@ export default function SimpleMenu({
   locale,
 }: {
   items: CollectionPageItem[];
-  locale: "fi" | "en";
+  locale: Locale;
 }) {
   if (!items || !items.length) return null;
 

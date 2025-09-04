@@ -4,13 +4,14 @@ import ErrorTemplate from "@/components/templates/ErrorTemplate";
 import EventTemplate, { getEventOpenGraphImages } from "@/components/templates/EventTemplate";
 import { SITE_NAME } from "@/lib/constants";
 import { Event } from "@/payload-types";
+import { Locale } from "@/types/locale";
 import configPromise from "@payload-config";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
 type Props = {
-  params: Promise<{ locale: "fi" | "en"; slug: string }>;
+  params: Promise<{ locale: Locale; slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
