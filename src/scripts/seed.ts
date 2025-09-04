@@ -21,7 +21,7 @@ function getOpenAIInstance() {
 }
 
 // Helper function to generate article content using OpenAI
-async function generateArticleContent(category: string, language: "fi" | "en" = "en") {
+async function generateArticleContent(category: string, language: "fi" | "sv" = "sv") {
   try {
     const openai = getOpenAIInstance();
 
@@ -30,11 +30,11 @@ async function generateArticleContent(category: string, language: "fi" | "en" = 
       messages: [
         {
           role: "system",
-          content: `You are a content generator for a news website. Generate compelling article titles and content paragraphs that are informative and engaging. Generate the content in ${language === "fi" ? "Finnish" : "English"} language.`,
+          content: `You are a content generator for a news website. Generate compelling article titles and content paragraphs that are informative and engaging. Generate the content in ${language === "fi" ? "Finnish" : "Swedish"} language.`,
         },
         {
           role: "user",
-          content: `Generate an article about the topic "${category}" in ${language === "fi" ? "Finnish" : "English"} language. Provide the response in JSON format with the following structure: { "title": "article title", "content": "two paragraphs of content" }`,
+          content: `Generate an article about the topic "${category}" in ${language === "fi" ? "Finnish" : "Swedish"} language. Provide the response in JSON format with the following structure: { "title": "article title", "content": "two paragraphs of content" }`,
         },
       ],
     });
@@ -67,11 +67,11 @@ async function generateArticleContent(category: string, language: "fi" | "en" = 
     console.error("Error generating article content:", error);
     // Fallback if OpenAI call fails
     return {
-      title: language === "fi" ? `Artikkeli aiheesta ${category}` : `Article about ${category}`,
+      title: language === "fi" ? `Artikkeli aiheesta ${category}` : `Artikel om ${category}`,
       content:
         language === "fi"
           ? `Tämä on artikkeli aiheesta ${category}. Sisältö tarjoaa tietoa ja näkemyksiä aiheesta.`
-          : `This is an article about ${category}. The content provides information and insights on the topic.`,
+          : `Detta är en artikel om ${category}. Innehållet ger information och insikter om ämnet.`,
     };
   }
 }
@@ -233,23 +233,23 @@ export const seed = async ({
           },
         });
 
-        // Generate content in English
-        const enContent = await generateArticleContent(category.label, "en");
+        // Generate content in Swedish
+        const svContent = await generateArticleContent(category.label, "sv");
 
-        // Update the article with English content
+        // Update the article with Swedish content
         await payload.update({
           collection: "articles",
           id: article.id,
-          locale: "en",
+          locale: "sv",
           data: {
-            title: enContent.title,
+            title: svContent.title,
             content: {
               root: {
                 type: "root",
                 children: [
                   {
                     type: "paragraph",
-                    children: [{ text: enContent.content, type: "text", version: 1 }],
+                    children: [{ text: svContent.content, type: "text", version: 1 }],
                     direction: "ltr",
                     format: "",
                     indent: 0,

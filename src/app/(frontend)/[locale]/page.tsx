@@ -10,7 +10,7 @@ import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
 type Props = {
-  params: Promise<{ locale: "fi" | "en" }>;
+  params: Promise<{ locale: "fi" | "sv" }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 

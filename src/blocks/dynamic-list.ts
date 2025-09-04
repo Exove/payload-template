@@ -29,7 +29,7 @@ export const dynamicListBlock: Block = {
       defaultValue: "fi",
       options: [
         { label: "Finnish", value: "fi" },
-        { label: "English", value: "en" },
+        { label: "Swedish", value: "sv" },
       ],
     },
     {

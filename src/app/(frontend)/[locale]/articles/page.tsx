@@ -5,7 +5,7 @@ import configPromise from "@payload-config";
 import { getTranslations } from "next-intl/server";
 import { getPayload } from "payload";
 
-type Params = Promise<{ locale: "fi" | "en" }>;
+type Params = Promise<{ locale: "fi" | "sv" }>;
 
 export default async function ArticlesPage({
   params,

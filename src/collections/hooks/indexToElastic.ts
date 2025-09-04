@@ -26,7 +26,7 @@ export const indexToElasticHook: CollectionAfterChangeHook = async ({
         try {
           await elasticClient.indices.create({
             index: indexName,
-            body: createElasticMappings(locale === "fi" ? "finnish" : "english"),
+            body: createElasticMappings(locale === "fi" ? "finnish" : "swedish"),
           });
         } catch (error) {
           console.error(`Error creating index ${indexName}:`, error);

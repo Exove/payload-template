@@ -52,13 +52,13 @@ export default function LanguageSwitcher() {
             </MenuItem>
             <MenuItem>
               <button
-                onClick={() => handleLocaleChange("en")}
+                onClick={() => handleLocaleChange("sv")}
                 className="flex w-full items-center gap-2 px-4 py-2 text-sm data-[focus]:bg-stone-700"
               >
                 <div className="w-4">
-                  {locale === "en" && <CheckIcon className="h-4 w-4 text-amber-500" />}
+                  {locale === "sv" && <CheckIcon className="h-4 w-4 text-amber-500" />}
                 </div>
-                <span lang="en">English</span>
+                <span lang="sv">Svenska</span>
               </button>
             </MenuItem>
           </div>

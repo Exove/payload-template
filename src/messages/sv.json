@@ -1,0 +1,104 @@
+{
+  "articles": {
+    "title": "Artiklar",
+    "publishedAt": "Publicerad {date}",
+    "author": "Skriven av {name}",
+    "noArticles": "Inga artiklar hittades",
+    "backToArticles": "Tillbaka till artiklar"
+  },
+  "listing": {
+    "pagination": "Paginering",
+    "previousPage": "Föregående sida",
+    "nextPage": "Nästa sida",
+    "totalDocs": "Totalt"
+  },
+  "blocks": {
+    "linkList": {
+      "title": "Länkar"
+    },
+    "contactPeople": {
+      "title": "Kontaktpersoner",
+      "email": "E-post",
+      "noContacts": "Inga kontakter hittades"
+    },
+    "videoEmbed": {
+      "watchVideo": "Se video"
+    }
+  },
+  "common": {
+    "loading": "Laddar...",
+    "error": "Fel vid laddning av innehåll",
+    "notFound": "Sidan hittades inte",
+    "readMore": "Läs mer",
+    "close": "Stäng"
+  },
+  "navigation": {
+    "home": "Hem",
+    "articles": "Artiklar"
+  },
+  "languageSwitcher": {
+    "switchLanguage": "Byt språk"
+  },
+  "search": {
+    "clearSearch": "Rensa sökning",
+    "advancedSearch": "Avancerad sökning",
+    "searchPlaceholder": "Ange sökfråga...",
+    "search": "Sök",
+    "results": "resultat",
+    "result": "resultat",
+    "selected": "valda",
+    "select": "Välj",
+    "categories": "Kategorier",
+    "collections": "Kollektioner",
+    "collection": "Kollektion",
+    "no_options": "Inga alternativ tillgängliga",
+    "pagination": "Paginering",
+    "previousPage": "Föregående sida",
+    "nextPage": "Nästa sida",
+    "relevance": "Relevans",
+    "newest": "Nyast först",
+    "oldest": "Äldst först",
+    "titleAZ": "Titel A–Ö",
+    "titleZA": "Titel Ö–A",
+    "sortBy": "Sortera efter"
+  },
+  "auth": {
+    "user": "Användare",
+    "signIn": "Logga in",
+    "email": "E-post",
+    "password": "Lösenord",
+    "loading": "Loggar in...",
+    "continueWith": "Eller fortsätt med",
+    "continueWithGoogle": "Fortsätt med Google",
+    "errors": {
+      "invalidCredentials": "Ogiltiga inloggningsuppgifter",
+      "loginError": "Ett fel uppstod vid inloggning"
+    }
+  },
+  "share": {
+    "title": "Dela",
+    "facebook": "Dela på Facebook",
+    "twitter": "Dela på X",
+    "linkedin": "Dela på LinkedIn",
+    "copyLink": "Kopiera länk",
+    "copied": "Länken kopierades!"
+  },
+  "mainMenu": {
+    "mainMenu": "Huvudmeny",
+    "back": "Tillbaka",
+    "backAccessibility": "Tillbaka till föregående menynivå",
+    "close": "Stäng"
+  },
+  "footer": {
+    "phone": "Telefon",
+    "menuLabel": "Sidfotsmeny"
+  },
+  "header": {
+    "skipToContent": "Hoppa till innehåll"
+  },
+  "notFound": {
+    "title": "Sidan hittades inte",
+    "description": "Tyvärr kunde vi inte hitta sidan du letade efter.",
+    "backHome": "Tillbaka till startsidan"
+  }
+}

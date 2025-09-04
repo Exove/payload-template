@@ -33,6 +33,7 @@ export const Users: CollectionConfig = {
       type: "text",
       admin: {
         readOnly: true,
+        hidden: true,
       },
     },
   ],

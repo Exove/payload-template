@@ -63,7 +63,7 @@ export interface Config {
     'footer-menu': FooterMenuSelect<false> | FooterMenuSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
   };
-  locale: 'fi' | 'en';
+  locale: 'fi' | 'sv';
   user: User & {
     collection: 'users';
   };
@@ -1104,7 +1104,7 @@ export interface QuoteBlock {
  */
 export interface DynamicListBlock {
   collections: ('articles' | 'news' | 'collection-pages' | 'contacts')[];
-  language: 'fi' | 'en';
+  language: 'fi' | 'sv';
   sortBy: 'createdAt' | 'updatedAt' | 'publishedDate';
   sortOrder: 'asc' | 'desc';
   limit: number;

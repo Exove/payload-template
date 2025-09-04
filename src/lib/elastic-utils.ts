@@ -33,7 +33,7 @@ export const elasticClient = new Client({
   },
 });
 
-export const createElasticMappings = (language: "finnish" | "english") =>
+export const createElasticMappings = (language: "finnish" | "swedish") =>
   ({
     settings: {
       analysis: {
@@ -146,7 +146,7 @@ export const richTextToPlainText = (content: RichTextContent): string => {
 };
 
 export const getLanguageIndexName = (locale: string): string => {
-  const lang = locale === "fi" ? "fi" : "en";
+  const lang = locale === "fi" ? "fi" : "sv";
   return `${ELASTIC_INDEX_NAME}_${lang}`;
 };
 

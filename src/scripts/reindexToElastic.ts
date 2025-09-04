@@ -11,12 +11,12 @@ import { Article, CollectionPage, News } from "../payload-types";
 
 type IndexableDocument = Article | CollectionPage | News;
 
-type PayloadLocale = "en" | "fi" | "all";
+type PayloadLocale = "sv" | "fi" | "all";
 
 const reindexToElastic = async () => {
   try {
     const payload = await getPayload({ config });
-    const languages = ["en", "fi"] as PayloadLocale[];
+    const languages = ["sv", "fi"] as PayloadLocale[];
 
     // Process each language separately
     for (const locale of languages) {
@@ -40,7 +40,7 @@ const reindexToElastic = async () => {
       try {
         await elasticClient.indices.create({
           index: indexName,
-          body: createElasticMappings(locale === "fi" ? "finnish" : "english"),
+          body: createElasticMappings(locale === "fi" ? "finnish" : "swedish"),
         });
 
         // Log the settings to verify they were applied
