@@ -4,13 +4,14 @@ import ErrorTemplate from "@/components/templates/ErrorTemplate";
 import FrontPageTemplate from "@/components/templates/FrontPageTemplate";
 import { SITE_NAME } from "@/lib/constants";
 import { prepareOpenGraphImages } from "@/lib/utils";
+import { Locale } from "@/types/locale";
 import configPromise from "@payload-config";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
 type Props = {
-  params: Promise<{ locale: "fi" | "sv" }>;
+  params: Promise<{ locale: Locale }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 

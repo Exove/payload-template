@@ -1,11 +1,12 @@
 import ErrorTemplate from "@/components/templates/ErrorTemplate";
 import { ListingTemplate } from "@/components/templates/ListingTemplate";
 import { SITE_NAME } from "@/lib/constants";
+import { Locale } from "@/types/locale";
 import configPromise from "@payload-config";
 import { getTranslations } from "next-intl/server";
 import { getPayload } from "payload";
 
-type Params = Promise<{ locale: "fi" | "sv" }>;
+type Params = Promise<{ locale: Locale }>;
 
 export default async function ArticlesPage({
   params,
