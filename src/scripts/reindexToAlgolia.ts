@@ -143,6 +143,7 @@ const reindexToAlgolia = async () => {
     }
 
     payload.logger.info("✅ Algolia reindex completed successfully!");
+    process.exit(0);
   } catch (error) {
     payload.logger.error("❌ Error during Algolia reindex:", error);
     process.exit(1);
