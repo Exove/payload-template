@@ -4,6 +4,7 @@ import ArticleTemplate from "@/components/templates/ArticleTemplate";
 import ErrorTemplate from "@/components/templates/ErrorTemplate";
 import { SITE_NAME } from "@/lib/constants";
 import { prepareOpenGraphImages } from "@/lib/utils";
+import { Locale } from "@/types/locales";
 import configPromise from "@payload-config";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -12,7 +13,7 @@ import { getPayload } from "payload";
 export const dynamic = "force-static";
 
 type Props = {
-  params: Promise<{ locale: "fi" | "en"; slug: string }>;
+  params: Promise<{ locale: Locale; slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 

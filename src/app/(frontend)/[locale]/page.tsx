@@ -4,6 +4,7 @@ import ErrorTemplate from "@/components/templates/ErrorTemplate";
 import FrontPageTemplate from "@/components/templates/FrontPageTemplate";
 import { SITE_NAME } from "@/lib/constants";
 import { prepareOpenGraphImages } from "@/lib/utils";
+import { Locale } from "@/types/locales";
 import configPromise from "@payload-config";
 // import * as Sentry from "@sentry/nextjs";
 import { Metadata } from "next";
@@ -14,7 +15,7 @@ export const dynamic = "force-static";
 export const revalidate = 60; // This is needed for dynamic components to update
 
 type Props = {
-  params: Promise<{ locale: "fi" | "en" }>;
+  params: Promise<{ locale: Locale }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
