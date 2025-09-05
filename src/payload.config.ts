@@ -32,6 +32,10 @@ export default buildConfig({
     },
     theme: "light",
     dateFormat: "dd.MM.yyyy",
+    timezones: {
+      defaultTimezone: "Europe/Helsinki",
+      supportedTimezones: [{ label: "Helsinki (EET/EEST)", value: "Europe/Helsinki" }],
+    },
   },
   collections: [Users, Media, Articles, CollectionPage, News, Categories, Contacts],
   globals: [FrontPage, MainMenu, FooterMenu, Footer],
