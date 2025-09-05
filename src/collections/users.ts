@@ -24,12 +24,5 @@ export const Users: CollectionConfig = {
       required: true,
       defaultValue: "user",
     },
-    {
-      name: "googleId",
-      type: "text",
-      admin: {
-        readOnly: true,
-      },
-    },
   ],
 };
