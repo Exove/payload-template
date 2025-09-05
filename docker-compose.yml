@@ -1,22 +1,40 @@
 services:
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.18
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
     environment:
-      discovery.type: single-node
-      bootstrap.memory_lock: true
-      ES_JAVA_OPTS: -Xms512m -Xmx512m
-      xpack.security.enabled: false
-      ELASTIC_PASSWORD: ""
-    command: /usr/local/bin/docker-entrypoint.sh
-    volumes:
-      - elasticsearch_data:/usr/share/elasticsearch/data
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: payload
     ports:
-      - "9200:9200"
-    labels:
-      - "name=payload-cms"
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  # elasticsearch:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.17.18
+  #   environment:
+  #     discovery.type: single-node
+  #     bootstrap.memory_lock: true
+  #     ES_JAVA_OPTS: -Xms512m -Xmx512m
+  #     xpack.security.enabled: false
+  #     ELASTIC_PASSWORD: ""
+  #   command: /usr/local/bin/docker-entrypoint.sh
+  #   volumes:
+  #     - elasticsearch_data:/usr/share/elasticsearch/data
+  #   ports:
+  #     - "9200:9200"
+  #   labels:
+  #     - "name=payload-cms"
 
 volumes:
-  elasticsearch_data:
+  postgres_data:
     driver: local
-    labels:
-      - "name=payload-cms"
+  # elasticsearch_data:
+  #   driver: local
+  #   labels:
+  #     - "name=payload-cms"
