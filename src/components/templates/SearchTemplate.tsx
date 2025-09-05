@@ -4,9 +4,9 @@ import Heading from "@/components/Heading";
 import SearchFilter from "@/components/SearchFilter";
 import SearchPagination from "@/components/SearchPagination";
 import { Link } from "@/i18n/routing";
-import { ELASTIC_INDEX_NAME } from "@/lib/constants";
+import { ALGOLIA_INDEX_NAME } from "@/lib/constants";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import createClient from "@searchkit/instantsearch-client";
+import { algoliasearch } from "algoliasearch";
 import { useLocale, useTranslations } from "next-intl";
 import {
   Configure,
@@ -25,9 +25,10 @@ interface Hit {
   collection?: string;
 }
 
-const searchClient = createClient({
-  url: "/api/search",
-});
+const searchClient = algoliasearch(
+  process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID || "",
+  process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY || "",
+);
 
 function SearchBox() {
   const { query, refine } = useSearchBox();
@@ -71,11 +72,11 @@ function SearchStats() {
 function SortBy() {
   const { options, currentRefinement, refine } = useSortBy({
     items: [
-      { label: "relevance", value: `${ELASTIC_INDEX_NAME}_${useLocale()}` },
-      { label: "titleAZ", value: `${ELASTIC_INDEX_NAME}_${useLocale()}_title_asc` },
-      { label: "titleZA", value: `${ELASTIC_INDEX_NAME}_${useLocale()}_title_desc` },
-      { label: "newest", value: `${ELASTIC_INDEX_NAME}_${useLocale()}_created_desc` },
-      { label: "oldest", value: `${ELASTIC_INDEX_NAME}_${useLocale()}_created_asc` },
+      { label: "relevance", value: `${ALGOLIA_INDEX_NAME}_${useLocale()}` },
+      { label: "titleAZ", value: `${ALGOLIA_INDEX_NAME}_${useLocale()}_title_asc` },
+      { label: "titleZA", value: `${ALGOLIA_INDEX_NAME}_${useLocale()}_title_desc` },
+      { label: "newest", value: `${ALGOLIA_INDEX_NAME}_${useLocale()}_created_desc` },
+      { label: "oldest", value: `${ALGOLIA_INDEX_NAME}_${useLocale()}_created_asc` },
     ],
   });
   const t = useTranslations("search");
@@ -201,12 +202,12 @@ export default function SearchTemplate() {
     <main id="main-content" className="mx-auto mb-40 max-w-screen-md py-16">
       <InstantSearch
         searchClient={searchClient}
-        indexName={`${ELASTIC_INDEX_NAME}_${locale}`}
+        indexName={`${ALGOLIA_INDEX_NAME}_${locale}`}
         routing={{
           stateMapping: {
             // Convert UI state to URL route state
             stateToRoute(uiState) {
-              const indexUiState = uiState[`${ELASTIC_INDEX_NAME}_${locale}`] || {};
+              const indexUiState = uiState[`${ALGOLIA_INDEX_NAME}_${locale}`] || {};
               const categories = indexUiState?.refinementList?.categories || [];
               const collection = indexUiState?.refinementList?.collection || [];
 
@@ -227,7 +228,7 @@ export default function SearchTemplate() {
                 : [];
 
               return {
-                [`${ELASTIC_INDEX_NAME}_${locale}`]: {
+                [`${ALGOLIA_INDEX_NAME}_${locale}`]: {
                   query: routeState.q,
                   refinementList: {
                     categories: categories,

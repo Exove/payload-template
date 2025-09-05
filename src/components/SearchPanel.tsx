@@ -1,9 +1,9 @@
 "use client";
 
 import { Link, useRouter } from "@/i18n/routing";
-import { ELASTIC_INDEX_NAME } from "@/lib/constants";
+import { ALGOLIA_INDEX_NAME } from "@/lib/constants";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import createClient from "@searchkit/instantsearch-client";
+import { algoliasearch } from "algoliasearch";
 import { useLocale, useTranslations } from "next-intl";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { InstantSearch, useHits, useSearchBox, useStats } from "react-instantsearch";
@@ -13,11 +13,6 @@ interface Hit {
   title: string;
   slug: string;
   collection?: string;
-}
-interface SearchRequest {
-  params?: {
-    query?: string;
-  };
 }
 
 const SearchContext = createContext<{
@@ -37,17 +32,17 @@ function SearchContextProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-const searchClient = {
-  ...createClient({
-    url: "/api/search",
-  }),
+const algoliaClient = algoliasearch(
+  process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID || "",
+  process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY || "",
+);
 
-  // If no search query, return empty results
-  search(requests: SearchRequest[]) {
-    const shouldSearch = requests.some(
-      (request: SearchRequest) => request.params?.query && request.params.query.length > 0,
-    );
-    if (!shouldSearch) {
+// Custom search client that prevents empty queries
+const searchClient = {
+  ...algoliaClient,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  search(requests: any[]) {
+    if (requests.every(({ params }) => !params.query)) {
       return Promise.resolve({
         results: requests.map(() => ({
           hits: [],
@@ -55,13 +50,17 @@ const searchClient = {
           nbPages: 0,
           page: 0,
           processingTimeMS: 0,
+          hitsPerPage: 0,
+          exhaustiveNbHits: false,
+          query: "",
+          params: "",
         })),
       });
     }
 
-    return createClient({ url: "/api/search" }).search(requests);
+    return algoliaClient.search(requests);
   },
-};
+} as typeof algoliaClient;
 
 // Only used for screen readers
 function SearchStats() {
@@ -184,7 +183,7 @@ export default function SearchSidePanel() {
         footer={<AdvancedSearchLink />}
       >
         <div className="flex flex-col gap-2">
-          <InstantSearch searchClient={searchClient} indexName={`${ELASTIC_INDEX_NAME}_${locale}`}>
+          <InstantSearch searchClient={searchClient} indexName={`${ALGOLIA_INDEX_NAME}_${locale}`}>
             <div className="sticky top-0 z-10 bg-stone-800 pb-2 pt-4">
               <CustomSearchBox inSidePanel={true} />
             </div>

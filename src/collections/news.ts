@@ -1,7 +1,7 @@
 import { defaultContentFields } from "@/fields/default-content-fields";
 import { revalidatePath } from "next/cache";
 import { CollectionAfterChangeHook, CollectionConfig } from "payload";
-import { indexToElasticHook, removeFromElasticHook } from "./hooks/indexToElastic";
+import { indexToAlgoliaHook, removeFromAlgoliaHook } from "./hooks/indexToAlgolia";
 
 const revalidateNewsHook: CollectionAfterChangeHook = async ({ doc, operation }) => {
   if (operation === "create" || operation === "update" || operation === "delete") {
@@ -30,7 +30,7 @@ export const News: CollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [indexToElasticHook, revalidateNewsHook],
-    afterDelete: [removeFromElasticHook],
+    afterChange: [indexToAlgoliaHook, revalidateNewsHook],
+    afterDelete: [removeFromAlgoliaHook],
   },
 };

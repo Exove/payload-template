@@ -8,7 +8,7 @@ This is a starter template for building web applications with Payload CMS and SQ
 - **CMS**: Payload CMS v3
 - **Runtime**: Node.js (^18.20.2 || >=20.9.0)
 - **Framework**: Next.js 15 with Turbopack
-- **Search**: Elasticsearch integration with Searchkit
+- **Search**: Algolia integration with InstantSearch
 - **UI**:
   - Tailwind CSS
   - Headless UI components
@@ -22,45 +22,27 @@ This is a starter template for building web applications with Payload CMS and SQ
 
 ## 🛠️ Installation
 
-1. Clone the repository
+1. Clone this repository
 
-2. Start Elasticsearch container:
-
-```bash
-docker compose up -d elasticsearch
-```
-
-This will start Elasticsearch on port 9200. You can verify it's running with:
-
-```bash
-curl http://localhost:9200
-```
-
-3. Copy the `.env.example` file as `.env` and fill in the required variables
+2. Copy the `.env.example` file as `.env` and fill in the required variables
 
 ```bash
 cp .env.example .env
 ```
 
-4. Install dependencies:
+3. Install dependencies:
 
 ```bash
 pnpm i
 ```
 
-5. Run migrations:
-
-```bash
-pnpm payload migrate:fresh
-```
-
-6. Start the development environment:
+4. Start the development environment:
 
 ```bash
 pnpm dev
 ```
 
-6. Open the admin UI at http://localhost:3000/admin or the website at http://localhost:3000
+5. Open the admin UI at http://localhost:3000/admin or the website at http://localhost:3000
 
 ## 📜 Available Scripts
 
@@ -70,7 +52,7 @@ pnpm dev
 - `pnpm start` - Start production server
 - `pnpm generate:types` - Generate Payload CMS types
 - `pnpm generate:importmap` - Generate import map
-- `pnpm reindex` - Reindex data to Elasticsearch
+- `pnpm reindex` - Reindex data to Algolia
 - `pnpm seed` - Run database seeding script
 - `pnpm format` - Format all files with Prettier
 
@@ -108,12 +90,99 @@ The project uses several development tools:
 - Husky for Git hooks
 - lint-staged for pre-commit checks
 
-## 🐳 Docker Services
+## 🔍 Search & Algolia
 
-### Elasticsearch
+### Algolia Integration
 
-- Version: 7.17.18
-- Port: 9200
-- Memory: 512MB (min) - 512MB (max)
-- Security: Disabled for development
-- Data persistence: Volume mounted at `/usr/share/elasticsearch/data`
+The project uses Algolia for powerful content search functionality. The search implementation consists of three main components:
+
+#### 🔧 Core Files
+
+##### `src/lib/algolia-utils.ts`
+
+Core utilities for Algolia integration:
+
+- **`getAlgoliaClient()`**: Creates and returns Algolia client instance
+- **`indexDocumentToAlgolia()`**: Indexes a single document to Algolia
+- **`removeDocumentFromAlgolia()`**: Removes a document from Algolia index
+- **`extractTextFromRichText()`**: Extracts searchable text from rich text content
+- **`getAlgoliaIndexName()`**: Generates the correct index name for a language
+
+##### `src/collections/hooks/indexToAlgolia.ts`
+
+Automatic hooks for Payload CMS:
+
+- **`indexToAlgoliaHook`**: Triggers when a document is created or updated
+- **`removeFromAlgoliaHook`**: Triggers when a document is deleted
+- Automatic category label fetching and processing
+- Validation to skip documents with empty titles
+
+##### `src/scripts/reindexToAlgolia.ts`
+
+Bulk reindexing script:
+
+- Clears existing indexes
+- Fetches all published documents from all collections
+- Indexes documents by language (`fi` and `en`)
+- Handles categories and rich text content processing
+- Error handling and comprehensive logging
+
+#### 📊 Index Structure
+
+**Index naming**: `{ALGOLIA_INDEX_NAME}_fi` and `{ALGOLIA_INDEX_NAME}_en`
+
+**Indexed document structure:**
+
+```typescript
+{
+  objectID: string;        // Unique ID: "{collection}-{documentId}"
+  title: string;           // Document title
+  content: string;         // Extracted text from rich text
+  slug: string;           // URL slug
+  publishedDate?: Date;    // Publication date (articles only)
+  createdAt: Date;        // Creation timestamp
+  categories: string[];    // Category labels
+  collection: string;     // Source collection name
+  locale: string;         // Document language
+}
+```
+
+To modify the document structure, update the `IndexableDocument` interface in `src/lib/algolia-utils.ts` and ensure the corresponding indexing logic is updated in:
+
+- `src/collections/hooks/indexToAlgolia.ts` (for automatic indexing)
+- `src/scripts/reindexToAlgolia.ts` (for bulk reindexing)
+
+#### 🔄 Automatic Indexing
+
+Documents are automatically indexed:
+
+- **Create/Update**: When a document is created or updated in Payload CMS
+- **Delete**: When a document is deleted from CMS
+- **Bulk reindex**: Using the `pnpm reindex` command
+
+#### 📋 Supported Collections
+
+The following collections are automatically indexed:
+
+- `articles` (published only)
+- `news`
+- `collection-pages`
+
+To modify which collections are indexed, update the `INDEXABLE_COLLECTIONS` array in `src/lib/constants.ts`:
+
+```typescript
+export const INDEXABLE_COLLECTIONS = ["articles", "news", "collection-pages"] as const;
+```
+
+#### ⚙️ Configuration
+
+Set up environment variables:
+
+```bash
+ALGOLIA_APPLICATION_ID
+ALGOLIA_ADMIN_API_KEY
+NEXT_PUBLIC_ALGOLIA_APPLICATION_ID
+NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
+```
+
+**Note**: Don't use production credentials in development environment!
