@@ -77,6 +77,23 @@ tr td:nth-child(2) {
 .section-title {
   width: 50%;
 }
+.field-label.unstyled {
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 12px;
+  color: #777;
+}
+.sort-column__button {
+  opacity: 0.5;
+}
+.sort-column__button:hover {
+  opacity: 1;
+}
+.collection-list .table table [class^="cell"] > p,
+.collection-list .table table [class^="cell"] > span,
+.collection-list .table table [class^="cell"] > a {
+  text-underline-offset: 2px;
+}
 
 // Media collection
 
