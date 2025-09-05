@@ -49,6 +49,7 @@ export const FrontPage: GlobalConfig = {
           relationTo: "events",
           hasMany: true,
           maxRows: 3,
+          required: true,
         },
         {
           name: "backgroundImage",

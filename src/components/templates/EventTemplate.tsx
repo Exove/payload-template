@@ -93,7 +93,7 @@ export default function EventTemplate({ event }: EventTemplateProps) {
             </div>
           );
         })()}
-        <div className="mx-auto mt-10 max-w-prose">
+        <div className="mt-10 max-w-prose">
           <ShareButtons />
         </div>
       </div>

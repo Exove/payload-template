@@ -119,7 +119,7 @@ export const Articles: CollectionConfig = {
   ],
   versions: {
     drafts: {
-      schedulePublish: false,
+      schedulePublish: true,
     },
   },
   hooks: {

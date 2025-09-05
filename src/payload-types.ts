@@ -858,7 +858,7 @@ export interface FrontPage {
   hero?: HeroBlock[] | null;
   featuredEvents?:
     | {
-        event?: (number | Event)[] | null;
+        event: (number | Event)[];
         backgroundImage?: (number | null) | Media;
         title?: string | null;
         description?: string | null;
@@ -1611,6 +1611,10 @@ export interface TaskSchedulePublish {
   input: {
     type?: ('publish' | 'unpublish') | null;
     locale?: string | null;
+    doc?: {
+      relationTo: 'articles';
+      value: number | Article;
+    } | null;
     global?: 'front-page' | null;
     user?: (number | null) | User;
   };
