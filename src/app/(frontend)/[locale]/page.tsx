@@ -6,22 +6,17 @@ import { SITE_NAME } from "@/lib/constants";
 import { prepareOpenGraphImages } from "@/lib/utils";
 import { Locale } from "@/types/locales";
 import configPromise from "@payload-config";
-// import * as Sentry from "@sentry/nextjs";
 import { Metadata } from "next";
+import { getLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
 export const dynamic = "force-static";
 export const revalidate = 60; // This is needed for dynamic components to update
 
-type Props = {
-  params: Promise<{ locale: Locale }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
-
-async function getFrontPage({ params }: Props) {
+async function getFrontPage() {
   try {
-    const { locale } = await params;
+    const locale = (await getLocale()) as Locale;
     const isDraftMode = false; // Simplified for performance - no draft mode in static rendering
 
     const payload = await getPayload({
@@ -37,13 +32,13 @@ async function getFrontPage({ params }: Props) {
     return { frontPage: frontPage, error: null };
   } catch (error) {
     console.error("Error fetching page:", error);
-    // Sentry.captureException(error);
+
     return { frontPage: null, error: error as Error };
   }
 }
 
-export default async function FrontPage(props: Props) {
-  const { frontPage, error } = await getFrontPage(props);
+export default async function FrontPage() {
+  const { frontPage, error } = await getFrontPage();
 
   if (error) {
     return <ErrorTemplate error={error} />;
@@ -60,9 +55,9 @@ export default async function FrontPage(props: Props) {
   );
 }
 
-export async function generateMetadata(props: Props): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
   try {
-    const { frontPage } = await getFrontPage(props);
+    const { frontPage } = await getFrontPage();
     const openGraphImages = prepareOpenGraphImages(frontPage?.meta?.image);
 
     return {
@@ -72,7 +67,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     };
   } catch (error) {
     console.error("Error generating metadata:", error);
-    // Sentry.captureException(error);
+
     return {
       title: SITE_NAME,
     };

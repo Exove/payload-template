@@ -7,19 +7,20 @@ import { prepareOpenGraphImages } from "@/lib/utils";
 import { Locale } from "@/types/locales";
 import configPromise from "@payload-config";
 import { Metadata } from "next";
+import { getLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
 export const dynamic = "force-static";
 
 type Props = {
-  params: Promise<{ locale: Locale; slug: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  params: Promise<{ slug: string }>;
 };
 
 async function getArticleBySlug({ params }: Props) {
   try {
-    const { slug, locale } = await params;
+    const locale = (await getLocale()) as Locale;
+    const { slug } = await params;
     const isDraftMode = false; // Simplified for performance - no draft mode in static rendering
 
     const payload = await getPayload({
@@ -64,7 +65,7 @@ export default async function ArticlePage(props: Props) {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { article } = await getArticleBySlug(props);
-  const openGraphImages = prepareOpenGraphImages(article?.meta?.image);
+  const openGraphImages = prepareOpenGraphImages(article?.meta?.image || article?.image);
 
   return {
     title: article?.meta?.title || `${article?.title} | ${SITE_NAME}`,

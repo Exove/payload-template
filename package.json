@@ -1,8 +1,8 @@
 {
-  "name": "payload-sqlite",
+  "name": "payload-template",
   "version": "1.0.0",
   "author": "Matti Hernesniemi",
-  "description": "A template to get started with Payload 3.0",
+  "description": "A template to get started with Payload 3 and Next.js 15",
   "license": "MIT",
   "type": "module",
   "scripts": {

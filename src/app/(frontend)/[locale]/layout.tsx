@@ -1,3 +1,4 @@
+import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/Toaster";
 import { SITE_NAME } from "@/lib/constants";
 import type { Metadata } from "next";
@@ -31,7 +32,7 @@ export default async function RootLayout({ children }: Props) {
       <body className={`${inter.className} flex min-h-screen flex-col bg-stone-900 text-white`}>
         <NextIntlClientProvider messages={messages}>
           <div className="flex-grow">{children}</div>
-
+          <Footer />
           <Toaster />
         </NextIntlClientProvider>
       </body>

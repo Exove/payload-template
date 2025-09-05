@@ -3,22 +3,18 @@ import { ListingTemplate } from "@/components/templates/ListingTemplate";
 import { SITE_NAME } from "@/lib/constants";
 import { Locale } from "@/types/locales";
 import configPromise from "@payload-config";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { getPayload } from "payload";
 
-type Params = Promise<{ locale: Locale }>;
+type Props = {
+  searchParams: Promise<{ page?: string }>;
+};
 
-export default async function ArticlesPage({
-  params,
-  searchParams,
-}: {
-  params: Params;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+export default async function ArticlesPage({ searchParams }: Props) {
   try {
-    const { locale } = await params;
-    const searchParamsResolved = await searchParams;
-    const currentPage = Number(searchParamsResolved.page) || 1;
+    const locale = (await getLocale()) as Locale;
+    const { page } = await searchParams;
+    const currentPage = Number(page) || 1;
     const perPage = 40;
 
     const payload = await getPayload({
