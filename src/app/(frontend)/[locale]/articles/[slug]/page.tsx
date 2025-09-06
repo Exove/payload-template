@@ -1,5 +1,6 @@
 import Container from "@/components/Container";
 import Header from "@/components/Header";
+import TopBanner from "@/components/TopBanner";
 import ArticleTemplate from "@/components/templates/ArticleTemplate";
 import ErrorTemplate from "@/components/templates/ErrorTemplate";
 import { SITE_NAME } from "@/lib/constants";
@@ -15,13 +16,13 @@ export const dynamic = "force-static";
 
 type Props = {
   params: Promise<{ slug: string }>;
+  preview: boolean;
 };
 
-async function getArticleBySlug({ params }: Props) {
+export async function getArticleBySlug({ params, preview = false }: Props) {
   try {
     const locale = (await getLocale()) as Locale;
     const { slug } = await params;
-    const isDraftMode = false; // Simplified for performance - no draft mode in static rendering
 
     const payload = await getPayload({
       config: configPromise,
@@ -33,7 +34,7 @@ async function getArticleBySlug({ params }: Props) {
         slug: { equals: slug },
       },
       locale: locale,
-      draft: isDraftMode,
+      draft: preview,
     });
 
     return { article: result.docs[0], error: null };
@@ -56,10 +57,13 @@ export default async function ArticlePage(props: Props) {
   }
 
   return (
-    <Container>
-      <Header />
-      <ArticleTemplate article={article} />
-    </Container>
+    <>
+      {props.preview && <TopBanner label="Preview" />}
+      <Container>
+        <Header />
+        <ArticleTemplate article={article} />
+      </Container>
+    </>
   );
 }
 

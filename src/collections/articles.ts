@@ -18,7 +18,7 @@ export const Articles: CollectionConfig = {
     defaultColumns: ["title", "createdBy", "updatedAt", "createdAt"],
     preview: (doc, { locale }) => {
       if (doc?.slug) {
-        return `/${locale}/articles/${doc.slug}?preview=${process.env.PREVIEW_SECRET}`;
+        return `/${locale}/articles/${doc.slug}/preview?token=${process.env.PAYLOAD_SECRET}`;
       }
       return null;
     },
