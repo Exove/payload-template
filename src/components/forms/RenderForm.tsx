@@ -122,7 +122,8 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
   };
 
   type Renderer = (field: FormFieldBlock) => React.ReactNode;
-  const renderers: Partial<Record<FormFieldBlock["blockType"], Renderer>> = {
+  type ExtendedBlockType = FormFieldBlock["blockType"] | "number";
+  const renderers: Partial<Record<ExtendedBlockType, Renderer>> = {
     text: (field: FormFieldBlock) => {
       const textField = field as TextField;
       const fieldName = textField.name;
@@ -139,6 +140,27 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
               required: textField.required ? tFormErrors("fieldRequired") : false,
             })}
             placeholder={(textField as { placeholder?: string }).placeholder}
+          />
+          <FormErrorMessage id={errorId} message={error?.message} />
+        </div>
+      );
+    },
+    number: (field: FormFieldBlock) => {
+      const numberField = field as EmailField; // Shares the same type as the EmailField
+      const fieldName = numberField.name;
+      const error = (errors as Record<string, { message?: string }>)[fieldName];
+      const errorId = `${fieldName}-error`;
+      return (
+        <div key={numberField.name}>
+          {numberField.label ? <Label htmlFor={numberField.name}>{numberField.label}</Label> : null}
+          <Input
+            id={numberField.name}
+            type="number"
+            aria-invalid={!!error || undefined}
+            aria-describedby={error ? errorId : undefined}
+            {...register(numberField.name, {
+              required: numberField.required ? tFormErrors("fieldRequired") : false,
+            })}
           />
           <FormErrorMessage id={errorId} message={error?.message} />
         </div>
