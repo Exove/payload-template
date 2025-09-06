@@ -13,9 +13,9 @@ export default async function PreviewPage({ params, searchParams }: Props) {
   const { token } = searchParams;
   const pageProps: ArticlePageProps = {
     params: Promise.resolve(params),
-    preview: token === process.env.PAYLOAD_SECRET,
+    preview: token === process.env.PREVIEW_SECRET,
   };
-  if (token !== process.env.PAYLOAD_SECRET) {
+  if (token !== process.env.PREVIEW_SECRET) {
     notFound();
   }
   return ArticlePage(pageProps);
