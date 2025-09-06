@@ -71,8 +71,9 @@ export default buildConfig({
       fields: {
         payment: false,
         state: false,
-        date: true,
         country: false,
+        date: true,
+        radio: true,
       },
       redirectRelationships: ["articles", "news", "collection-pages"],
       formOverrides: {

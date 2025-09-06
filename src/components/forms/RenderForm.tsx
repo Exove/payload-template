@@ -5,6 +5,8 @@ import { Checkbox } from "@/components/forms/Checkbox";
 import { FormErrorMessage } from "@/components/forms/FormErrorMessage";
 import { Input } from "@/components/forms/Input";
 import { Label } from "@/components/forms/Label";
+import { Legend } from "@/components/forms/Legend";
+import { Radio } from "@/components/forms/Radio";
 import { Select } from "@/components/forms/Select";
 import { Textarea } from "@/components/forms/Textarea";
 import type {
@@ -39,6 +41,20 @@ async function fetchForm(formId: string | number): Promise<Form | null> {
   }
 }
 
+function toDateInputValue(value: unknown): string {
+  if (value == null) return "";
+  if (typeof value === "string") {
+    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+    if (value.includes("T")) return value.split("T")[0];
+    const parsed = new Date(value);
+    return Number.isNaN(parsed.getTime()) ? "" : parsed.toISOString().slice(0, 10);
+  }
+  if (value instanceof Date) {
+    return value.toISOString().slice(0, 10);
+  }
+  return "";
+}
+
 function buildInitial(fields: FormFieldBlock[]): Record<string, unknown> {
   const defaults: Record<string, unknown> = {};
   fields.forEach((field) => {
@@ -47,9 +63,11 @@ function buildInitial(fields: FormFieldBlock[]): Record<string, unknown> {
       "defaultValue" in field &&
       typeof (field as { defaultValue?: unknown }).defaultValue !== "undefined"
     ) {
-      defaults[(field as { name: string }).name] = (
-        field as { defaultValue: unknown }
-      ).defaultValue;
+      let value = (field as { defaultValue: unknown }).defaultValue;
+      if ((field as { blockType?: string }).blockType === "date") {
+        value = toDateInputValue(value);
+      }
+      defaults[(field as { name: string }).name] = value;
     }
   });
   return defaults;
@@ -268,22 +286,24 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
           aria-invalid={!!error || undefined}
           aria-describedby={error ? errorId : undefined}
         >
-          {radioField.label ? (
-            <legend className="mb-2 text-sm font-medium text-gray-900">{radioField.label}</legend>
-          ) : null}
-          <div className="space-y-2">
+          {radioField.label ? <Legend>{radioField.label}</Legend> : null}
+          <div className="space-y-2" role="radiogroup">
             {radioField.options?.map((option) => (
-              <label key={option.value} className="flex items-center gap-2 text-sm">
-                <input
-                  type="radio"
+              <div key={option.value} className="flex items-center gap-2">
+                <Radio
+                  id={`${radioField.name}-${option.value}`}
                   value={option.value}
                   aria-describedby={error ? errorId : undefined}
                   {...register(radioField.name, {
                     required: radioField.required ? tFormErrors("selectOption") : false,
                   })}
                 />
-                {option.label}
-              </label>
+                {option.label ? (
+                  <Label htmlFor={`${radioField.name}-${option.value}`} className="mb-0">
+                    {option.label}
+                  </Label>
+                ) : null}
+              </div>
             ))}
           </div>
           <FormErrorMessage id={errorId} message={error?.message} />
