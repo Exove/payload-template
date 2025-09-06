@@ -106,9 +106,7 @@
       "fieldRequired": "Tämä kenttä on pakollinen",
       "emailInvalid": "Syötä kelvollinen sähköpostiosoite",
       "selectOption": "Valitse jokin vaihtoehto",
-      "checkboxRequired": "Tämä valinta on pakollinen",
-      "selectCountry": "Valitse maa",
-      "selectState": "Valitse osavaltio"
+      "checkboxRequired": "Tämä valinta on pakollinen"
     }
   }
 }

@@ -70,6 +70,9 @@ export default buildConfig({
     formBuilderPlugin({
       fields: {
         payment: false,
+        state: false,
+        date: true,
+        country: false,
       },
       redirectRelationships: ["articles", "news", "collection-pages"],
       formOverrides: {

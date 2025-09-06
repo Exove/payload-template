@@ -9,13 +9,12 @@ import { Select } from "@/components/forms/Select";
 import { Textarea } from "@/components/forms/Textarea";
 import type {
   CheckboxField,
-  CountryField,
+  DateField,
   EmailField,
   Form,
   FormFieldBlock,
   RadioField,
   SelectField,
-  StateField,
   SubmissionValue,
   TextAreaField,
   TextField,
@@ -317,68 +316,24 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
         </div>
       );
     },
-    country: (field: FormFieldBlock) => {
-      const countryField = field as CountryField;
-      const fieldName = countryField.name;
+    date: (field: FormFieldBlock) => {
+      const dateField = field as DateField;
+      const fieldName = dateField.name;
       const error = (errors as Record<string, { message?: string }>)[fieldName];
       const errorId = `${fieldName}-error`;
       return (
-        <div key={countryField.name}>
-          {countryField.label ? (
-            <Label htmlFor={countryField.name}>{countryField.label}</Label>
-          ) : null}
-          <Select
-            id={countryField.name}
+        <div key={dateField.name}>
+          {dateField.label ? <Label htmlFor={dateField.name}>{dateField.label}</Label> : null}
+          <Input
+            id={dateField.name}
+            type="date"
             aria-invalid={!!error || undefined}
             aria-describedby={error ? errorId : undefined}
-            {...register(countryField.name, {
-              required: countryField.required ? tFormErrors("selectCountry") : false,
+            {...register(dateField.name, {
+              required: dateField.required ? tFormErrors("fieldRequired") : false,
             })}
-            defaultValue=""
-          >
-            <option value="" disabled>
-              {(countryField as { placeholder?: string }).placeholder || "Select"}
-            </option>
-            {(countryField as { options?: { label: string; value: string }[] }).options?.map(
-              (option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ),
-            )}
-          </Select>
-          <FormErrorMessage id={errorId} message={error?.message} />
-        </div>
-      );
-    },
-    state: (field: FormFieldBlock) => {
-      const stateField = field as StateField;
-      const fieldName = stateField.name;
-      const error = (errors as Record<string, { message?: string }>)[fieldName];
-      const errorId = `${fieldName}-error`;
-      return (
-        <div key={stateField.name}>
-          {stateField.label ? <Label htmlFor={stateField.name}>{stateField.label}</Label> : null}
-          <Select
-            id={stateField.name}
-            aria-invalid={!!error || undefined}
-            aria-describedby={error ? errorId : undefined}
-            {...register(stateField.name, {
-              required: stateField.required ? tFormErrors("selectState") : false,
-            })}
-            defaultValue=""
-          >
-            <option value="" disabled>
-              {(stateField as { placeholder?: string }).placeholder || "Select"}
-            </option>
-            {(stateField as { options?: { label: string; value: string }[] }).options?.map(
-              (option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ),
-            )}
-          </Select>
+            placeholder={(dateField as { placeholder?: string }).placeholder}
+          />
           <FormErrorMessage id={errorId} message={error?.message} />
         </div>
       );
