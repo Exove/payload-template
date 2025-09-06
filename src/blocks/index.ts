@@ -5,6 +5,7 @@ export {
   smallFeaturedPostBlock,
   smallFeaturedPostsWrapperBlock,
 } from "./featured-posts";
+export { formBlock } from "./form";
 export { heroBlock } from "./hero";
 export { linkListBlock } from "./link-list";
 export { mediaBlock } from "./media";

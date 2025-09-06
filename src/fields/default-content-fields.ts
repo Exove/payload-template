@@ -1,6 +1,7 @@
 import {
   contactsBlock,
   ctaBlock,
+  formBlock,
   largeFeaturedPostBlock,
   linkListBlock,
   mediaBlock,
@@ -51,6 +52,7 @@ export const defaultContentFields: Field[] = [
               contactsBlock,
               videoEmbedBlock,
               quoteBlock,
+              formBlock,
             ],
           }),
         ];

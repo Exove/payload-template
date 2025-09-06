@@ -1,6 +1,7 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { payloadCloudPlugin } from "@payloadcms/payload-cloud";
+import { formBuilderPlugin } from "@payloadcms/plugin-form-builder";
 import { nestedDocsPlugin } from "@payloadcms/plugin-nested-docs";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import path from "path";
@@ -65,6 +66,12 @@ export default buildConfig({
     nestedDocsPlugin({
       collections: ["categories"],
       generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ""),
+    }),
+    formBuilderPlugin({
+      fields: {
+        payment: false,
+      },
+      redirectRelationships: ["articles", "news", "collection-pages"],
     }),
   ],
 });
