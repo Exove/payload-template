@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/forms/Button";
+import { Button } from "@/components/Button";
 import { Checkbox } from "@/components/forms/Checkbox";
 import { Input } from "@/components/forms/Input";
 import { Label } from "@/components/forms/Label";
@@ -287,7 +287,7 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
         return <React.Fragment key={key}>{element}</React.Fragment>;
       })}
       <div>
-        <Button type="submit" disabled={submitting}>
+        <Button type="submit" disabled={submitting} variant="secondary">
           {submitting ? "Submitting…" : form.submitButtonLabel || "Submit"}
         </Button>
       </div>

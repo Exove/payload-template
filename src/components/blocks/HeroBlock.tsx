@@ -1,4 +1,5 @@
 import Button from "@/components/Button";
+import { Link } from "@/i18n/routing";
 import { parseLink } from "@/lib/parse-link";
 import { HeroBlock as HeroBlockType } from "@/payload-types";
 import Image from "next/image";
@@ -28,7 +29,11 @@ export function HeroBlock({ block }: HeroProps) {
         </Heading>
         <p className="mb-8 text-lg leading-relaxed text-stone-100">{description}</p>
         <div className="flex justify-center">
-          {linkUrl && linkLabel && <Button href={linkUrl}>{linkLabel}</Button>}
+          {linkUrl && linkLabel && (
+            <Button asChild>
+              <Link href={linkUrl}>{linkLabel}</Link>
+            </Button>
+          )}
         </div>
       </div>
     </div>

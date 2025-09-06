@@ -1,3 +1,4 @@
+import { Link } from "@/i18n/routing";
 import { parseLink } from "@/lib/parse-link";
 import { LargeFeaturedPostBlock as LargeFeaturedPostBlockType } from "@/payload-types";
 import Image from "next/image";
@@ -31,8 +32,8 @@ export function LargeFeaturedPostBlock({ block }: Props) {
           <p className="text-lg leading-relaxed text-stone-300">{block.text}</p>
           {linkUrl && (
             <div className="mt-14 flex justify-center">
-              <Button href={linkUrl} style="secondary">
-                {linkLabel || "Read more"}
+              <Button asChild variant="secondary">
+                <Link href={linkUrl}>{linkLabel || "Read more"}</Link>
               </Button>
             </div>
           )}
