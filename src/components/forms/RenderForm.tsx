@@ -57,9 +57,22 @@ function buildInitial(fields: FormFieldBlock[]): Record<string, unknown> {
 }
 
 async function submitForm(values: Record<string, unknown>, form: Form) {
+  // Check for null or undefined values and serialize them
+  const serializeValue = (value: unknown): string => {
+    if (value === null || typeof value === "undefined") return "";
+    if (typeof value === "string") return value;
+    if (typeof value === "number") return Number.isNaN(value) ? "" : String(value);
+    if (typeof value === "boolean") return value ? "true" : "false";
+    try {
+      return JSON.stringify(value);
+    } catch {
+      return String(value);
+    }
+  };
+
   const submissionData: SubmissionValue[] = Object.entries(values).map(([field, value]) => ({
     field,
-    value,
+    value: serializeValue(value),
   }));
 
   await fetch(`/api/form-submissions`, {
