@@ -40,13 +40,15 @@ async function fetchForm(formId: string | number): Promise<Form | null> {
 
 function buildInitial(fields: FormFieldBlock[]): Record<string, unknown> {
   const defaults: Record<string, unknown> = {};
-  fields.forEach((f) => {
+  fields.forEach((field) => {
     if (
-      "name" in f &&
-      "defaultValue" in f &&
-      typeof (f as { defaultValue?: unknown }).defaultValue !== "undefined"
+      "name" in field &&
+      "defaultValue" in field &&
+      typeof (field as { defaultValue?: unknown }).defaultValue !== "undefined"
     ) {
-      defaults[(f as { name: string }).name] = (f as { defaultValue: unknown }).defaultValue;
+      defaults[(field as { name: string }).name] = (
+        field as { defaultValue: unknown }
+      ).defaultValue;
     }
   });
   return defaults;
@@ -82,11 +84,11 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
     let active = true;
     setLoading(true);
     fetchForm(formId)
-      .then((f) => {
+      .then((form) => {
         if (!active) return;
-        setForm(f);
-        if (f?.fields) {
-          reset(buildInitial(f.fields));
+        setForm(form);
+        if (form?.fields) {
+          reset(buildInitial(form.fields));
         }
       })
       .catch(() => setError("Failed to load form"))
@@ -110,133 +112,153 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
     }
   };
 
-  type Renderer = (f: FormFieldBlock) => React.ReactNode;
+  type Renderer = (field: FormFieldBlock) => React.ReactNode;
   const renderers: Partial<Record<FormFieldBlock["blockType"], Renderer>> = {
-    text: (f: FormFieldBlock) => {
-      const tf = f as TextField;
+    text: (field: FormFieldBlock) => {
+      const textField = field as TextField;
       return (
-        <div key={tf.name}>
-          {tf.label ? <Label htmlFor={tf.name}>{tf.label}</Label> : null}
+        <div key={textField.name}>
+          {textField.label ? <Label htmlFor={textField.name}>{textField.label}</Label> : null}
           <Input
-            id={tf.name}
-            {...register(tf.name, { required: tf.required })}
-            placeholder={(tf as { placeholder?: string }).placeholder}
+            id={textField.name}
+            {...register(textField.name, { required: textField.required })}
+            placeholder={(textField as { placeholder?: string }).placeholder}
           />
         </div>
       );
     },
-    email: (f: FormFieldBlock) => {
-      const ef = f as EmailField;
+    email: (field: FormFieldBlock) => {
+      const emailField = field as EmailField;
       return (
-        <div key={ef.name}>
-          {ef.label ? <Label htmlFor={ef.name}>{ef.label}</Label> : null}
+        <div key={emailField.name}>
+          {emailField.label ? <Label htmlFor={emailField.name}>{emailField.label}</Label> : null}
           <Input
-            id={ef.name}
+            id={emailField.name}
             type="email"
-            {...register(ef.name, { required: ef.required })}
-            placeholder={(ef as { placeholder?: string }).placeholder}
+            {...register(emailField.name, { required: emailField.required })}
+            placeholder={(emailField as { placeholder?: string }).placeholder}
           />
         </div>
       );
     },
-    textarea: (f: FormFieldBlock) => {
-      const tf = f as TextAreaField;
+    textarea: (field: FormFieldBlock) => {
+      const textareaField = field as TextAreaField;
       return (
-        <div key={tf.name}>
-          {tf.label ? <Label htmlFor={tf.name}>{tf.label}</Label> : null}
+        <div key={textareaField.name}>
+          {textareaField.label ? (
+            <Label htmlFor={textareaField.name}>{textareaField.label}</Label>
+          ) : null}
           <Textarea
-            id={tf.name}
-            {...register(tf.name, { required: tf.required })}
-            placeholder={(tf as { placeholder?: string }).placeholder}
+            id={textareaField.name}
+            {...register(textareaField.name, { required: textareaField.required })}
+            placeholder={(textareaField as { placeholder?: string }).placeholder}
           />
         </div>
       );
     },
-    select: (f: FormFieldBlock) => {
-      const sf = f as SelectField;
+    select: (field: FormFieldBlock) => {
+      const selectField = field as SelectField;
       return (
-        <div key={sf.name}>
-          {sf.label ? <Label htmlFor={sf.name}>{sf.label}</Label> : null}
-          <Select id={sf.name} {...register(sf.name, { required: sf.required })} defaultValue="">
+        <div key={selectField.name}>
+          {selectField.label ? <Label htmlFor={selectField.name}>{selectField.label}</Label> : null}
+          <Select
+            id={selectField.name}
+            {...register(selectField.name, { required: selectField.required })}
+            defaultValue=""
+          >
             <option value="" disabled>
-              {sf.placeholder || "Select"}
+              {selectField.placeholder || "Select"}
             </option>
-            {sf.options?.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
+            {selectField.options?.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
               </option>
             ))}
           </Select>
         </div>
       );
     },
-    radio: (f: FormFieldBlock) => {
-      const rf = f as RadioField;
+    radio: (field: FormFieldBlock) => {
+      const radioField = field as RadioField;
       return (
-        <fieldset key={rf.name}>
-          {rf.label ? (
-            <legend className="mb-2 text-sm font-medium text-gray-900">{rf.label}</legend>
+        <fieldset key={radioField.name}>
+          {radioField.label ? (
+            <legend className="mb-2 text-sm font-medium text-gray-900">{radioField.label}</legend>
           ) : null}
           <div className="space-y-2">
-            {rf.options?.map((opt) => (
-              <label key={opt.value} className="flex items-center gap-2 text-sm">
+            {radioField.options?.map((option) => (
+              <label key={option.value} className="flex items-center gap-2 text-sm">
                 <input
                   type="radio"
-                  value={opt.value}
-                  {...register(rf.name, { required: rf.required })}
+                  value={option.value}
+                  {...register(radioField.name, { required: radioField.required })}
                 />
-                {opt.label}
+                {option.label}
               </label>
             ))}
           </div>
         </fieldset>
       );
     },
-    checkbox: (f: FormFieldBlock) => {
-      const cf = f as CheckboxField;
+    checkbox: (field: FormFieldBlock) => {
+      const checkboxField = field as CheckboxField;
       return (
-        <div key={cf.name} className="flex items-center gap-2">
-          <Checkbox id={cf.name} {...register(cf.name)} />
-          {cf.label ? (
-            <Label htmlFor={cf.name} className="!mb-0">
-              {cf.label}
+        <div key={checkboxField.name} className="flex items-center gap-2">
+          <Checkbox id={checkboxField.name} {...register(checkboxField.name)} />
+          {checkboxField.label ? (
+            <Label htmlFor={checkboxField.name} className="!mb-0">
+              {checkboxField.label}
             </Label>
           ) : null}
         </div>
       );
     },
-    country: (f: FormFieldBlock) => {
-      const cf = f as CountryField;
+    country: (field: FormFieldBlock) => {
+      const countryField = field as CountryField;
       return (
-        <div key={cf.name}>
-          {cf.label ? <Label htmlFor={cf.name}>{cf.label}</Label> : null}
-          <Select id={cf.name} {...register(cf.name, { required: cf.required })} defaultValue="">
+        <div key={countryField.name}>
+          {countryField.label ? (
+            <Label htmlFor={countryField.name}>{countryField.label}</Label>
+          ) : null}
+          <Select
+            id={countryField.name}
+            {...register(countryField.name, { required: countryField.required })}
+            defaultValue=""
+          >
             <option value="" disabled>
-              {(cf as { placeholder?: string }).placeholder || "Select"}
+              {(countryField as { placeholder?: string }).placeholder || "Select"}
             </option>
-            {(cf as { options?: { label: string; value: string }[] }).options?.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
+            {(countryField as { options?: { label: string; value: string }[] }).options?.map(
+              (option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ),
+            )}
           </Select>
         </div>
       );
     },
-    state: (f: FormFieldBlock) => {
-      const sf = f as StateField;
+    state: (field: FormFieldBlock) => {
+      const stateField = field as StateField;
       return (
-        <div key={sf.name}>
-          {sf.label ? <Label htmlFor={sf.name}>{sf.label}</Label> : null}
-          <Select id={sf.name} {...register(sf.name, { required: sf.required })} defaultValue="">
+        <div key={stateField.name}>
+          {stateField.label ? <Label htmlFor={stateField.name}>{stateField.label}</Label> : null}
+          <Select
+            id={stateField.name}
+            {...register(stateField.name, { required: stateField.required })}
+            defaultValue=""
+          >
             <option value="" disabled>
-              {(sf as { placeholder?: string }).placeholder || "Select"}
+              {(stateField as { placeholder?: string }).placeholder || "Select"}
             </option>
-            {(sf as { options?: { label: string; value: string }[] }).options?.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
+            {(stateField as { options?: { label: string; value: string }[] }).options?.map(
+              (option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ),
+            )}
           </Select>
         </div>
       );
