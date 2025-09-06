@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/Button";
 import { Checkbox } from "@/components/forms/Checkbox";
+import { FormErrorMessage } from "@/components/forms/FormErrorMessage";
 import { Input } from "@/components/forms/Input";
 import { Label } from "@/components/forms/Label";
 import { Select } from "@/components/forms/Select";
@@ -19,6 +20,7 @@ import type {
   TextAreaField,
   TextField,
 } from "@payloadcms/plugin-form-builder/types";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import { useForm } from "react-hook-form";
@@ -68,6 +70,8 @@ async function submitForm(values: Record<string, unknown>, form: Form) {
 }
 
 export const RenderForm: React.FC<Props> = ({ formId }) => {
+  const tCommon = useTranslations("common");
+  const tFormErrors = useTranslations("forms.errors");
   const [form, setForm] = React.useState<Form | null>(null);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
@@ -96,12 +100,12 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
           reset(buildInitial(form.fields));
         }
       })
-      .catch(() => setError("Failed to load form"))
+      .catch(() => setError(tFormErrors("failedToLoadForm")))
       .finally(() => active && setLoading(false));
     return () => {
       active = false;
     };
-  }, [formId, reset]);
+  }, [formId, reset, tFormErrors]);
 
   const onSubmit = async (data: Record<string, unknown>) => {
     if (!form) return;
@@ -132,15 +136,11 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
             aria-invalid={!!error || undefined}
             aria-describedby={error ? errorId : undefined}
             {...register(textField.name, {
-              required: textField.required ? "This field is required" : false,
+              required: textField.required ? tFormErrors("fieldRequired") : false,
             })}
             placeholder={(textField as { placeholder?: string }).placeholder}
           />
-          {error?.message ? (
-            <p id={errorId} role="alert" aria-live="polite" className="mt-1 text-sm text-red-600">
-              {error.message}
-            </p>
-          ) : null}
+          <FormErrorMessage id={errorId} message={error?.message} />
         </div>
       );
     },
@@ -158,19 +158,15 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
             aria-invalid={!!error || undefined}
             aria-describedby={error ? errorId : undefined}
             {...register(emailField.name, {
-              required: emailField.required ? "This field is required" : false,
+              required: emailField.required ? tFormErrors("fieldRequired") : false,
               pattern: {
                 value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: "Enter a valid email address",
+                message: tFormErrors("emailInvalid"),
               },
             })}
             placeholder={(emailField as { placeholder?: string }).placeholder}
           />
-          {error?.message ? (
-            <p id={errorId} role="alert" aria-live="polite" className="mt-1 text-sm text-red-600">
-              {error.message}
-            </p>
-          ) : null}
+          <FormErrorMessage id={errorId} message={error?.message} />
         </div>
       );
     },
@@ -189,15 +185,11 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
             aria-invalid={!!error || undefined}
             aria-describedby={error ? errorId : undefined}
             {...register(textareaField.name, {
-              required: textareaField.required ? "This field is required" : false,
+              required: textareaField.required ? tFormErrors("fieldRequired") : false,
             })}
             placeholder={(textareaField as { placeholder?: string }).placeholder}
           />
-          {error?.message ? (
-            <p id={errorId} role="alert" aria-live="polite" className="mt-1 text-sm text-red-600">
-              {error.message}
-            </p>
-          ) : null}
+          <FormErrorMessage id={errorId} message={error?.message} />
         </div>
       );
     },
@@ -214,7 +206,7 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
             aria-invalid={!!error || undefined}
             aria-describedby={error ? errorId : undefined}
             {...register(selectField.name, {
-              required: selectField.required ? "Please select an option" : false,
+              required: selectField.required ? tFormErrors("selectOption") : false,
             })}
             defaultValue=""
           >
@@ -227,11 +219,7 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
               </option>
             ))}
           </Select>
-          {error?.message ? (
-            <p id={errorId} role="alert" aria-live="polite" className="mt-1 text-sm text-red-600">
-              {error.message}
-            </p>
-          ) : null}
+          <FormErrorMessage id={errorId} message={error?.message} />
         </div>
       );
     },
@@ -257,18 +245,14 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
                   value={option.value}
                   aria-describedby={error ? errorId : undefined}
                   {...register(radioField.name, {
-                    required: radioField.required ? "Please select an option" : false,
+                    required: radioField.required ? tFormErrors("selectOption") : false,
                   })}
                 />
                 {option.label}
               </label>
             ))}
           </div>
-          {error?.message ? (
-            <p id={errorId} role="alert" aria-live="polite" className="mt-1 text-sm text-red-600">
-              {error.message}
-            </p>
-          ) : null}
+          <FormErrorMessage id={errorId} message={error?.message} />
         </fieldset>
       );
     },
@@ -278,25 +262,23 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
       const error = (errors as Record<string, { message?: string }>)[fieldName];
       const errorId = `${fieldName}-error`;
       return (
-        <div key={checkboxField.name} className="flex items-center gap-2">
-          <Checkbox
-            id={checkboxField.name}
-            aria-invalid={!!error || undefined}
-            aria-describedby={error ? errorId : undefined}
-            {...register(checkboxField.name, {
-              required: checkboxField.required ? "This field must be checked" : false,
-            })}
-          />
-          {checkboxField.label ? (
-            <Label htmlFor={checkboxField.name} className="!mb-0">
-              {checkboxField.label}
-            </Label>
-          ) : null}
-          {error?.message ? (
-            <p id={errorId} role="alert" aria-live="polite" className="mt-1 text-sm text-red-600">
-              {error.message}
-            </p>
-          ) : null}
+        <div key={checkboxField.name}>
+          <div className="flex items-center gap-2">
+            <Checkbox
+              id={checkboxField.name}
+              aria-invalid={!!error || undefined}
+              aria-describedby={error ? errorId : undefined}
+              {...register(checkboxField.name, {
+                required: checkboxField.required ? tFormErrors("checkboxRequired") : false,
+              })}
+            />
+            {checkboxField.label ? (
+              <Label htmlFor={checkboxField.name} className="!mb-0">
+                {checkboxField.label}
+              </Label>
+            ) : null}
+          </div>
+          <FormErrorMessage id={errorId} message={error?.message} />
         </div>
       );
     },
@@ -315,7 +297,7 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
             aria-invalid={!!error || undefined}
             aria-describedby={error ? errorId : undefined}
             {...register(countryField.name, {
-              required: countryField.required ? "Please select a country" : false,
+              required: countryField.required ? tFormErrors("selectCountry") : false,
             })}
             defaultValue=""
           >
@@ -330,11 +312,7 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
               ),
             )}
           </Select>
-          {error?.message ? (
-            <p id={errorId} role="alert" aria-live="polite" className="mt-1 text-sm text-red-600">
-              {error.message}
-            </p>
-          ) : null}
+          <FormErrorMessage id={errorId} message={error?.message} />
         </div>
       );
     },
@@ -351,7 +329,7 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
             aria-invalid={!!error || undefined}
             aria-describedby={error ? errorId : undefined}
             {...register(stateField.name, {
-              required: stateField.required ? "Please select a state" : false,
+              required: stateField.required ? tFormErrors("selectState") : false,
             })}
             defaultValue=""
           >
@@ -366,18 +344,14 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
               ),
             )}
           </Select>
-          {error?.message ? (
-            <p id={errorId} role="alert" aria-live="polite" className="mt-1 text-sm text-red-600">
-              {error.message}
-            </p>
-          ) : null}
+          <FormErrorMessage id={errorId} message={error?.message} />
         </div>
       );
     },
     message: () => <div className="prose max-w-none" />,
   };
 
-  if (loading) return <div>Loading…</div>;
+  if (loading) return <div>{tCommon("loading")}</div>;
   if (error) return <div className="text-red-600">{error}</div>;
   if (!form) return null;
 

@@ -100,5 +100,16 @@
     "title": "Page Not Found",
     "description": "Sorry, the page you are looking for could not be found.",
     "backHome": "Back to Home"
+  },
+  "forms": {
+    "errors": {
+      "failedToLoadForm": "Failed to load form",
+      "fieldRequired": "This field is required",
+      "emailInvalid": "Enter a valid email address",
+      "selectOption": "Please select an option",
+      "checkboxRequired": "This field must be checked",
+      "selectCountry": "Please select a country",
+      "selectState": "Please select a state"
+    }
   }
 }

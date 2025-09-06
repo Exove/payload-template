@@ -99,5 +99,16 @@
     "title": "Sivua ei löytynyt",
     "description": "Valitettavasti etsimääsi sivua ei löytynyt.",
     "backHome": "Takaisin etusivulle"
+  },
+  "forms": {
+    "errors": {
+      "failedToLoadForm": "Lomakkeen lataus epäonnistui",
+      "fieldRequired": "Tämä kenttä on pakollinen",
+      "emailInvalid": "Syötä kelvollinen sähköpostiosoite",
+      "selectOption": "Valitse jokin vaihtoehto",
+      "checkboxRequired": "Tämä valinta on pakollinen",
+      "selectCountry": "Valitse maa",
+      "selectState": "Valitse osavaltio"
+    }
   }
 }
