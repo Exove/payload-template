@@ -2,6 +2,7 @@ import type {
   ContactsBlock as ContactsBlockType,
   CTABlock as CTABlockType,
   DynamicListBlock as DynamicListBlockType,
+  FormBlock as FormBlockType,
   HeroBlock as HeroBlockType,
   LargeFeaturedPostBlock as LargeFeaturedPostBlockType,
   LinkListBlock as LinkListBlockType,
@@ -14,6 +15,7 @@ import { DefaultNodeTypes, SerializedBlockNode } from "@payloadcms/richtext-lexi
 import { ContactsBlock } from "./blocks/ContactsBlock";
 import { CTABlock } from "./blocks/CTABlock";
 import DynamicListBlock from "./blocks/DynamicListBlock";
+import FormBlock from "./blocks/FormBlock";
 import { HeroBlock } from "./blocks/HeroBlock";
 import { LargeFeaturedPostBlock } from "./blocks/LargeFeaturedPostBlock";
 import { LinkListBlock } from "./blocks/LinkListBlock";
@@ -32,7 +34,8 @@ type BaseBlockTypes =
   | SmallFeaturedPostsWrapperBlockType
   | ContactsBlockType
   | HeroBlockType
-  | DynamicListBlockType;
+  | DynamicListBlockType
+  | FormBlockType;
 
 export type NodeTypes = DefaultNodeTypes | SerializedBlockNode<BaseBlockTypes>;
 type BlockTypes = BaseBlockTypes;
@@ -67,6 +70,8 @@ export const BlockRenderer = ({ nodes, blocks }: Props) => {
         return <HeroBlock key={block.id} block={block} />;
       case "dynamicList":
         return <DynamicListBlock key={block.id} block={block} />;
+      case "form":
+        return <FormBlock key={block.id} block={block} />;
       default:
         return null;
     }
