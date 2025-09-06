@@ -271,13 +271,21 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
   if (!form) return null;
 
   if (submitted) {
-    if (form.confirmationType === "message") return <div>Thank you!</div>;
+    if (form.confirmationType === "message")
+      return <div>{form.confirmationMessage?.root?.children[0]?.value || "Thank you!"}</div>;
     if (form.confirmationType === "redirect" && form.redirect?.url) return null;
   }
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit(onSubmit)} noValidate>
-      {form.fields?.map((f, i) => renderers[f.blockType]?.(f) ?? <div key={i} />)}
+      {form.fields?.map((field, index) => {
+        const key =
+          ("name" in field && (field as unknown as { name?: string }).name) ||
+          (field as unknown as { id?: string }).id ||
+          `${field.blockType}-${index}`;
+        const element = renderers[field.blockType]?.(field) ?? <div />;
+        return <React.Fragment key={key}>{element}</React.Fragment>;
+      })}
       <div>
         <Button type="submit" disabled={submitting}>
           {submitting ? "Submitting…" : form.submitButtonLabel || "Submit"}
