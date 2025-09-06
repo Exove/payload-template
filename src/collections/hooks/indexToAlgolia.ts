@@ -14,8 +14,8 @@ export const indexToAlgoliaHook: CollectionAfterChangeHook = async ({
 }) => {
   try {
     if (operation === "create" || operation === "update") {
-      // Skip indexing if title is empty
-      if (!doc.title || doc.title.trim() === "") {
+      // Skip indexing if title is empty or document is not published
+      if (!doc.title || doc.title.trim() === "" || doc._status !== "published") {
         console.log(`Skipping indexing for document ${doc.id}: title is empty`);
         return doc;
       }

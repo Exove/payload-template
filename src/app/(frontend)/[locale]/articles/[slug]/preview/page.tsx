@@ -4,15 +4,15 @@ import ArticlePage from "../page";
 export const dynamic = "force-dynamic";
 
 type Props = {
-  params: { slug: string };
-  searchParams: { token: string };
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ token?: string }>;
 };
 
 export default async function PreviewPage({ params, searchParams }: Props) {
   type ArticlePageProps = Parameters<typeof ArticlePage>[0];
-  const { token } = searchParams;
+  const { token } = await searchParams;
   const pageProps: ArticlePageProps = {
-    params: Promise.resolve(params),
+    params,
     preview: token === process.env.PREVIEW_SECRET,
   };
   if (token !== process.env.PREVIEW_SECRET) {
