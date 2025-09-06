@@ -72,6 +72,12 @@ export default buildConfig({
         payment: false,
       },
       redirectRelationships: ["articles", "news", "collection-pages"],
+      formOverrides: {
+        admin: { group: "Forms" },
+      },
+      formSubmissionOverrides: {
+        admin: { group: "Forms" },
+      },
     }),
   ],
 });
