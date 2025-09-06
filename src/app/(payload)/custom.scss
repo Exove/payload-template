@@ -94,7 +94,9 @@ tr td:nth-child(2) {
 .collection-list .table table [class^="cell"] > a {
   text-underline-offset: 2px;
 }
-
+.file-field__thumbnail-wrap {
+  width: auto;
+}
 // Media collection
 
 .collection-edit--media .thumbnail--size-medium {
