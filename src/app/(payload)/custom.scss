@@ -10,16 +10,15 @@ label.field-label {
 }
 .nav-group,
 .dashboard__group {
-  margin-bottom: 40px;
+  margin-bottom: 35px;
 }
 .card__title {
   font-size: 14px;
 }
-.nav__link,
-.nav-group__label {
+.nav__link {
   font-size: 14px;
-  font-weight: 500;
   line-height: 2;
+  font-weight: 500;
 }
 .nav__link:hover {
   text-decoration: underline;
@@ -37,7 +36,7 @@ tr td:nth-child(2) {
 .nav-group__label {
   color: var(--theme-elevation-600);
   font-family: var(--font-body);
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   font-size: 12px;
 }
