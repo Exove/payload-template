@@ -359,7 +359,12 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
           (field as unknown as { id?: string }).id ||
           `${field.blockType}-${index}`;
         const element = renderers[field.blockType]?.(field) ?? <div />;
-        return <React.Fragment key={key}>{element}</React.Fragment>;
+        const width = (field as { width?: number }).width ?? 100;
+        return (
+          <div key={key} style={{ width: `${width}%` }}>
+            {element}
+          </div>
+        );
       })}
       <div>
         <Button type="submit" disabled={submitting} variant="secondary">
