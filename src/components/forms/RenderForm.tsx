@@ -78,7 +78,12 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
   const formMethods = useForm<Record<string, unknown>>({
     defaultValues: {},
   });
-  const { register, handleSubmit, reset } = formMethods;
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = formMethods;
 
   React.useEffect(() => {
     let active = true;
@@ -116,33 +121,64 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
   const renderers: Partial<Record<FormFieldBlock["blockType"], Renderer>> = {
     text: (field: FormFieldBlock) => {
       const textField = field as TextField;
+      const fieldName = textField.name;
+      const error = (errors as Record<string, { message?: string }>)[fieldName];
+      const errorId = `${fieldName}-error`;
       return (
         <div key={textField.name}>
           {textField.label ? <Label htmlFor={textField.name}>{textField.label}</Label> : null}
           <Input
             id={textField.name}
-            {...register(textField.name, { required: textField.required })}
+            aria-invalid={!!error || undefined}
+            aria-describedby={error ? errorId : undefined}
+            {...register(textField.name, {
+              required: textField.required ? "This field is required" : false,
+            })}
             placeholder={(textField as { placeholder?: string }).placeholder}
           />
+          {error?.message ? (
+            <p id={errorId} role="alert" aria-live="polite" className="mt-1 text-sm text-red-600">
+              {error.message}
+            </p>
+          ) : null}
         </div>
       );
     },
     email: (field: FormFieldBlock) => {
       const emailField = field as EmailField;
+      const fieldName = emailField.name;
+      const error = (errors as Record<string, { message?: string }>)[fieldName];
+      const errorId = `${fieldName}-error`;
       return (
         <div key={emailField.name}>
           {emailField.label ? <Label htmlFor={emailField.name}>{emailField.label}</Label> : null}
           <Input
             id={emailField.name}
             type="email"
-            {...register(emailField.name, { required: emailField.required })}
+            aria-invalid={!!error || undefined}
+            aria-describedby={error ? errorId : undefined}
+            {...register(emailField.name, {
+              required: emailField.required ? "This field is required" : false,
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Enter a valid email address",
+              },
+            })}
             placeholder={(emailField as { placeholder?: string }).placeholder}
           />
+          {error?.message ? (
+            <p id={errorId} role="alert" aria-live="polite" className="mt-1 text-sm text-red-600">
+              {error.message}
+            </p>
+          ) : null}
         </div>
       );
     },
     textarea: (field: FormFieldBlock) => {
       const textareaField = field as TextAreaField;
+      const fieldName = textareaField.name;
+      const error = (errors as Record<string, { message?: string }>)[fieldName];
+      const errorId = `${fieldName}-error`;
       return (
         <div key={textareaField.name}>
           {textareaField.label ? (
@@ -150,20 +186,36 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
           ) : null}
           <Textarea
             id={textareaField.name}
-            {...register(textareaField.name, { required: textareaField.required })}
+            aria-invalid={!!error || undefined}
+            aria-describedby={error ? errorId : undefined}
+            {...register(textareaField.name, {
+              required: textareaField.required ? "This field is required" : false,
+            })}
             placeholder={(textareaField as { placeholder?: string }).placeholder}
           />
+          {error?.message ? (
+            <p id={errorId} role="alert" aria-live="polite" className="mt-1 text-sm text-red-600">
+              {error.message}
+            </p>
+          ) : null}
         </div>
       );
     },
     select: (field: FormFieldBlock) => {
       const selectField = field as SelectField;
+      const fieldName = selectField.name;
+      const error = (errors as Record<string, { message?: string }>)[fieldName];
+      const errorId = `${fieldName}-error`;
       return (
         <div key={selectField.name}>
           {selectField.label ? <Label htmlFor={selectField.name}>{selectField.label}</Label> : null}
           <Select
             id={selectField.name}
-            {...register(selectField.name, { required: selectField.required })}
+            aria-invalid={!!error || undefined}
+            aria-describedby={error ? errorId : undefined}
+            {...register(selectField.name, {
+              required: selectField.required ? "Please select an option" : false,
+            })}
             defaultValue=""
           >
             <option value="" disabled>
@@ -175,13 +227,25 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
               </option>
             ))}
           </Select>
+          {error?.message ? (
+            <p id={errorId} role="alert" aria-live="polite" className="mt-1 text-sm text-red-600">
+              {error.message}
+            </p>
+          ) : null}
         </div>
       );
     },
     radio: (field: FormFieldBlock) => {
       const radioField = field as RadioField;
+      const fieldName = radioField.name;
+      const error = (errors as Record<string, { message?: string }>)[fieldName];
+      const errorId = `${fieldName}-error`;
       return (
-        <fieldset key={radioField.name}>
+        <fieldset
+          key={radioField.name}
+          aria-invalid={!!error || undefined}
+          aria-describedby={error ? errorId : undefined}
+        >
           {radioField.label ? (
             <legend className="mb-2 text-sm font-medium text-gray-900">{radioField.label}</legend>
           ) : null}
@@ -191,30 +255,56 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
                 <input
                   type="radio"
                   value={option.value}
-                  {...register(radioField.name, { required: radioField.required })}
+                  aria-describedby={error ? errorId : undefined}
+                  {...register(radioField.name, {
+                    required: radioField.required ? "Please select an option" : false,
+                  })}
                 />
                 {option.label}
               </label>
             ))}
           </div>
+          {error?.message ? (
+            <p id={errorId} role="alert" aria-live="polite" className="mt-1 text-sm text-red-600">
+              {error.message}
+            </p>
+          ) : null}
         </fieldset>
       );
     },
     checkbox: (field: FormFieldBlock) => {
       const checkboxField = field as CheckboxField;
+      const fieldName = checkboxField.name;
+      const error = (errors as Record<string, { message?: string }>)[fieldName];
+      const errorId = `${fieldName}-error`;
       return (
         <div key={checkboxField.name} className="flex items-center gap-2">
-          <Checkbox id={checkboxField.name} {...register(checkboxField.name)} />
+          <Checkbox
+            id={checkboxField.name}
+            aria-invalid={!!error || undefined}
+            aria-describedby={error ? errorId : undefined}
+            {...register(checkboxField.name, {
+              required: checkboxField.required ? "This field must be checked" : false,
+            })}
+          />
           {checkboxField.label ? (
             <Label htmlFor={checkboxField.name} className="!mb-0">
               {checkboxField.label}
             </Label>
+          ) : null}
+          {error?.message ? (
+            <p id={errorId} role="alert" aria-live="polite" className="mt-1 text-sm text-red-600">
+              {error.message}
+            </p>
           ) : null}
         </div>
       );
     },
     country: (field: FormFieldBlock) => {
       const countryField = field as CountryField;
+      const fieldName = countryField.name;
+      const error = (errors as Record<string, { message?: string }>)[fieldName];
+      const errorId = `${fieldName}-error`;
       return (
         <div key={countryField.name}>
           {countryField.label ? (
@@ -222,7 +312,11 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
           ) : null}
           <Select
             id={countryField.name}
-            {...register(countryField.name, { required: countryField.required })}
+            aria-invalid={!!error || undefined}
+            aria-describedby={error ? errorId : undefined}
+            {...register(countryField.name, {
+              required: countryField.required ? "Please select a country" : false,
+            })}
             defaultValue=""
           >
             <option value="" disabled>
@@ -236,17 +330,29 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
               ),
             )}
           </Select>
+          {error?.message ? (
+            <p id={errorId} role="alert" aria-live="polite" className="mt-1 text-sm text-red-600">
+              {error.message}
+            </p>
+          ) : null}
         </div>
       );
     },
     state: (field: FormFieldBlock) => {
       const stateField = field as StateField;
+      const fieldName = stateField.name;
+      const error = (errors as Record<string, { message?: string }>)[fieldName];
+      const errorId = `${fieldName}-error`;
       return (
         <div key={stateField.name}>
           {stateField.label ? <Label htmlFor={stateField.name}>{stateField.label}</Label> : null}
           <Select
             id={stateField.name}
-            {...register(stateField.name, { required: stateField.required })}
+            aria-invalid={!!error || undefined}
+            aria-describedby={error ? errorId : undefined}
+            {...register(stateField.name, {
+              required: stateField.required ? "Please select a state" : false,
+            })}
             defaultValue=""
           >
             <option value="" disabled>
@@ -260,6 +366,11 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
               ),
             )}
           </Select>
+          {error?.message ? (
+            <p id={errorId} role="alert" aria-live="polite" className="mt-1 text-sm text-red-600">
+              {error.message}
+            </p>
+          ) : null}
         </div>
       );
     },
