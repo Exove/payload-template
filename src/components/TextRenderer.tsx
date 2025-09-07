@@ -8,6 +8,7 @@ import {
   IS_SUPERSCRIPT,
   IS_UNDERLINE,
 } from "@/lib/node-format";
+import { cn } from "@/lib/utils";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/20/solid";
 import { SerializedTextNode } from "@payloadcms/richtext-lexical";
 import type {
@@ -50,19 +51,30 @@ type LinkNode = SerializedElementNode & {
 type NodeRendererProps = {
   node: SerializedElementNode | SerializedTextNode;
   index: number;
+  className?: string;
 };
 
-export function TextRenderer({ node, index }: NodeRendererProps) {
+export function TextRenderer({ node, index, className }: NodeRendererProps) {
   if (!node) return null;
 
   const renderChildren = (node: SerializedElementNode) => {
     if (!node.children) return null;
     return node.children.map((child: SerializedLexicalNode, i: number) => (
-      <TextRenderer key={`${index}-${i}`} node={child as SerializedElementNode} index={i} />
+      <TextRenderer
+        key={`${index}-${i}`}
+        node={child as SerializedElementNode}
+        index={i}
+        className={className}
+      />
     ));
   };
 
   switch (node.type) {
+    case "root": {
+      const children = renderChildren(node as SerializedElementNode);
+      if (!children) return null;
+      return <Fragment key={index}>{children}</Fragment>;
+    }
     case "text": {
       const textNode = node as unknown as SerializedTextNode;
       if (!textNode.text) return null;
@@ -100,7 +112,7 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
       // If there are no children, return null to avoid rendering an empty paragraph
       if (!children || (Array.isArray(children) && children.every((child) => !child))) return null;
       return (
-        <p className="mx-auto mb-4 max-w-prose leading-relaxed" key={index}>
+        <p className={cn(`mx-auto mb-4 max-w-prose leading-relaxed`, className)} key={index}>
           {children}
         </p>
       );
@@ -110,7 +122,7 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
         ?.map((child) => (child as SerializedTextNode).text)
         .join("");
       return (
-        <div className="mx-auto mt-8 max-w-prose">
+        <div className={cn("mx-auto mt-8 max-w-prose", className)}>
           {headingNode.tag === "h2" && (
             <Heading level={headingNode.tag} size="md">
               {headingText}
@@ -128,7 +140,7 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
       const listNode = node as ListNode;
       const Tag = listNode.tag;
       return (
-        <Tag className="list col-start-2" key={index}>
+        <Tag className={cn("list col-start-2", className)} key={index}>
           {renderChildren(node)}
         </Tag>
       );
@@ -157,7 +169,7 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
     }
     case "quote":
       return (
-        <blockquote className="col-start-2" key={index}>
+        <blockquote className={cn("col-start-2", className)} key={index}>
           {renderChildren(node)}
         </blockquote>
       );
@@ -174,7 +186,10 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
         <Link
           href={href}
           key={index}
-          className="font-medium underline decoration-amber-500 underline-offset-2 hover:text-amber-500"
+          className={cn(
+            "font-medium underline decoration-amber-500 underline-offset-2 hover:text-amber-500",
+            className,
+          )}
           target={target}
           rel={rel}
         >
@@ -184,7 +199,7 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
       );
     }
     case "linebreak":
-      return <br className="col-start-2" key={index} />;
+      return <br className={cn("col-start-2", className)} key={index} />;
     default:
       return null;
   }

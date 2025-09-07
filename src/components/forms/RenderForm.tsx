@@ -15,16 +15,19 @@ import type {
   EmailField,
   Form,
   FormFieldBlock,
+  MessageField,
   RadioField,
   SelectField,
   SubmissionValue,
   TextAreaField,
   TextField,
 } from "@payloadcms/plugin-form-builder/types";
+import type { SerializedElementNode } from "@payloadcms/richtext-lexical/lexical";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import { useForm } from "react-hook-form";
+import { TextRenderer } from "../TextRenderer";
 
 type Props = {
   formId: string | number;
@@ -358,7 +361,12 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
         </div>
       );
     },
-    message: () => <div className="prose max-w-none" />,
+    message: (field: FormFieldBlock) => {
+      const messageField = field as MessageField;
+      const root = (messageField.message as unknown as { root?: SerializedElementNode })?.root;
+      if (!root) return null;
+      return <TextRenderer node={root} index={0} className="mb-0 max-w-none leading-normal" />;
+    },
   };
 
   if (loading) return <div>{tCommon("loading")}</div>;
