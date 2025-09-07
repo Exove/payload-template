@@ -1,7 +1,8 @@
-"use client";
-
 import RenderForm from "@/components/forms/RenderForm";
 import type { FormBlock as FormBlockType } from "@/payload-types";
+import config from "@payload-config";
+import type { Form } from "@payloadcms/plugin-form-builder/types";
+import { getPayload } from "payload";
 import type { NodeTypes } from "../BlockRenderer";
 import { BlockRenderer } from "../BlockRenderer";
 
@@ -9,9 +10,22 @@ type Props = {
   block: FormBlockType;
 };
 
-export const FormBlock = ({ block }: Props) => {
+export const FormBlock = async ({ block }: Props) => {
   const formId =
     typeof block.form === "object" ? (block.form as { id?: string | number })?.id : block.form;
+
+  let initialForm: Form | null = null;
+  if (formId) {
+    try {
+      const payload = await getPayload({ config });
+      initialForm = (await payload.findByID({
+        collection: "forms",
+        id: formId,
+      })) as unknown as Form;
+    } catch {
+      initialForm = null;
+    }
+  }
 
   return (
     <section>
@@ -21,7 +35,7 @@ export const FormBlock = ({ block }: Props) => {
         </div>
       ) : null}
 
-      {formId ? <RenderForm formId={formId as string | number} /> : null}
+      {formId ? <RenderForm initialForm={initialForm} /> : null}
     </section>
   );
 };

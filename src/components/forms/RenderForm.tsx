@@ -30,19 +30,8 @@ import { useForm } from "react-hook-form";
 import { TextRenderer } from "../TextRenderer";
 
 type Props = {
-  formId: string | number;
+  initialForm?: Form | null;
 };
-
-async function fetchForm(formId: string | number): Promise<Form | null> {
-  try {
-    const res = await fetch(`/api/forms/${formId}`, { cache: "no-store" });
-    if (!res.ok) return null;
-    const data = (await res.json()) as Form;
-    return data;
-  } catch {
-    return null;
-  }
-}
 
 function toDateInputValue(value: unknown): string {
   if (value == null) return "";
@@ -102,43 +91,27 @@ async function submitForm(values: Record<string, unknown>, form: Form) {
   });
 }
 
-export const RenderForm: React.FC<Props> = ({ formId }) => {
-  const tCommon = useTranslations("common");
+export const RenderForm: React.FC<Props> = ({ initialForm }) => {
   const tFormErrors = useTranslations("forms.errors");
-  const [form, setForm] = React.useState<Form | null>(null);
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState<string | null>(null);
+  const form = initialForm ?? null;
   const [submitting, setSubmitting] = React.useState(false);
   const [submitted, setSubmitted] = React.useState(false);
   const router = useRouter();
 
-  const formMethods = useForm<Record<string, unknown>>({
-    defaultValues: {},
-  });
+  const defaultValues = React.useMemo(() => {
+    if (form?.fields) return buildInitial(form.fields);
+    return {};
+  }, [form]);
+
+  const formMethods = useForm<Record<string, unknown>>({ defaultValues });
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = formMethods;
 
-  React.useEffect(() => {
-    let active = true;
-    setLoading(true);
-    fetchForm(formId)
-      .then((form) => {
-        if (!active) return;
-        setForm(form);
-        if (form?.fields) {
-          reset(buildInitial(form.fields));
-        }
-      })
-      .catch(() => setError(tFormErrors("failedToLoadForm")))
-      .finally(() => active && setLoading(false));
-    return () => {
-      active = false;
-    };
-  }, [formId, reset, tFormErrors]);
+  // If form data is not provided, do not render the form
+  if (!form) return null;
 
   const onSubmit = async (data: Record<string, unknown>) => {
     if (!form) return;
@@ -368,10 +341,6 @@ export const RenderForm: React.FC<Props> = ({ formId }) => {
       return <TextRenderer node={root} index={0} className="mb-0 max-w-none leading-normal" />;
     },
   };
-
-  if (loading) return <div>{tCommon("loading")}</div>;
-  if (error) return <div className="text-red-600">{error}</div>;
-  if (!form) return null;
 
   if (submitted) {
     if (form.confirmationType === "message")
