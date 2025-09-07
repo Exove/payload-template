@@ -4,7 +4,7 @@ This is a starter template for building web applications with Payload CMS and SQ
 
 ## ✨ Features
 
-- **Database**: SQLite with @libsql/client
+- **Database**: PostgreSQL
 - **CMS**: Payload CMS v3
 - **Runtime**: Node.js (^18.20.2 || >=20.9.0)
 - **Framework**: Next.js 15 with Turbopack
@@ -111,7 +111,7 @@ Bulk reindexing script:
 
 - Clears existing indexes
 - Fetches all published documents from all collections
-- Indexes documents by language (`fi` and `en`)
+- Indexes documents by language
 - Handles categories and rich text content processing
 - Error handling and comprehensive logging
 
@@ -149,12 +149,6 @@ Documents are automatically indexed:
 - **Bulk reindex**: Using the `pnpm reindex` command
 
 #### 📋 Supported Collections
-
-The following collections are automatically indexed:
-
-- `articles` (published only)
-- `news`
-- `collection-pages`
 
 To modify which collections are indexed, update the `INDEXABLE_COLLECTIONS` array in `src/lib/constants.ts`:
 
