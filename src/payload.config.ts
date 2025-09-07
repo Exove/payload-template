@@ -86,7 +86,9 @@ export default buildConfig({
           // Hide all default fields in admin UI
           fields.forEach((f) => {
             if (typeof f === "object" && f && "admin" in f) {
-              const withAdmin = f as { admin?: { hidden?: boolean } };
+              const withAdmin = f as { name?: string; admin?: { hidden?: boolean } };
+              // Keep the form name visible
+              if (withAdmin.name === "form" || withAdmin.name === "name") return;
               withAdmin.admin = { ...withAdmin.admin, hidden: true };
             }
           });
