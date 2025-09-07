@@ -16,7 +16,6 @@ This is a starter template for building web applications with Payload CMS and SQ
   - Motion for animations
   - Sonner for notifications
 - **Internationalization**: next-intl
-- **SSO Authentication**: NextAuth.js
 - **SEO**: Payload CMS SEO plugin
 - **Rich Text Editor**: Payload CMS Lexical editor
 
@@ -24,36 +23,25 @@ This is a starter template for building web applications with Payload CMS and SQ
 
 1. Clone this repository
 
-2. Copy the `.env.example` file as `.env` and fill in the required variables
-
-```bash
-cp .env.example .env
-```
-
-3. Install dependencies:
-
-```bash
-pnpm i
-```
-
-4. Start the development environment:
+2. Start the development environment:
 
 ```bash
 pnpm dev
 ```
 
-5. Open the admin UI at http://localhost:3000/admin or the website at http://localhost:3000
+3. Open the admin UI at http://localhost:3000/admin or the website at http://localhost:3000
 
 ## 📜 Available Scripts
 
 - `pnpm dev` - Start development server with Turbopack
-- `pnpm devsafe` - Start development server with clean .next directory
 - `pnpm build` - Build the application
 - `pnpm start` - Start production server
 - `pnpm generate:types` - Generate Payload CMS types
 - `pnpm generate:importmap` - Generate import map
 - `pnpm reindex` - Reindex data to Algolia
-- `pnpm seed` - Run database seeding script
+- `pnpm create:admin` - Create admin user
+- `pnpm db:export` - Export database
+- `pnpm db:import` - Import database
 - `pnpm format` - Format all files with Prettier
 
 ## 📁 Project Structure
