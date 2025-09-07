@@ -344,7 +344,13 @@ export const RenderForm: React.FC<Props> = ({ initialForm }) => {
 
   if (submitted) {
     if (form.confirmationType === "message")
-      return <div>{form.confirmationMessage?.root?.children[0]?.value || "Thank you!"}</div>;
+      return (
+        <TextRenderer
+          node={form.confirmationMessage?.root}
+          index={0}
+          className="mb-0 max-w-none leading-normal"
+        />
+      );
     if (form.confirmationType === "redirect" && form.redirect?.url) return null;
   }
 
