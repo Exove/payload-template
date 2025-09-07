@@ -108,6 +108,9 @@
       "emailInvalid": "Enter a valid email address",
       "selectOption": "Please select an option",
       "checkboxRequired": "This field must be checked"
-    }
+    },
+    "select": "Select",
+    "submit": "Submit",
+    "submitting": "Submitting..."
   }
 }

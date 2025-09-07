@@ -92,7 +92,7 @@ async function submitForm(values: Record<string, unknown>, form: Form) {
 }
 
 export const RenderForm: React.FC<Props> = ({ initialForm }) => {
-  const tFormErrors = useTranslations("forms.errors");
+  const t = useTranslations("forms");
   const form = initialForm ?? null;
   const [submitting, setSubmitting] = React.useState(false);
   const [submitted, setSubmitted] = React.useState(false);
@@ -110,7 +110,7 @@ export const RenderForm: React.FC<Props> = ({ initialForm }) => {
     formState: { errors },
   } = formMethods;
 
-  if (!form) return <div className="text-red-600">{tFormErrors("failedToLoadForm")}</div>;
+  if (!form) return <div className="text-red-600">{t("errors.failedToLoadForm")}</div>;
 
   const onSubmit = async (data: Record<string, unknown>) => {
     if (!form) return;
@@ -143,7 +143,7 @@ export const RenderForm: React.FC<Props> = ({ initialForm }) => {
             aria-invalid={!!error || undefined}
             aria-describedby={error ? errorId : undefined}
             {...register(textField.name, {
-              required: textField.required ? tFormErrors("fieldRequired") : false,
+              required: textField.required ? t("errors.fieldRequired") : false,
             })}
             placeholder={(textField as { placeholder?: string }).placeholder}
           />
@@ -165,7 +165,7 @@ export const RenderForm: React.FC<Props> = ({ initialForm }) => {
             aria-invalid={!!error || undefined}
             aria-describedby={error ? errorId : undefined}
             {...register(numberField.name, {
-              required: numberField.required ? tFormErrors("fieldRequired") : false,
+              required: numberField.required ? t("errors.fieldRequired") : false,
             })}
           />
           <FormErrorMessage id={errorId} message={error?.message} />
@@ -186,10 +186,10 @@ export const RenderForm: React.FC<Props> = ({ initialForm }) => {
             aria-invalid={!!error || undefined}
             aria-describedby={error ? errorId : undefined}
             {...register(emailField.name, {
-              required: emailField.required ? tFormErrors("fieldRequired") : false,
+              required: emailField.required ? t("errors.fieldRequired") : false,
               pattern: {
                 value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: tFormErrors("emailInvalid"),
+                message: t("errors.emailInvalid"),
               },
             })}
             placeholder={(emailField as { placeholder?: string }).placeholder}
@@ -213,7 +213,7 @@ export const RenderForm: React.FC<Props> = ({ initialForm }) => {
             aria-invalid={!!error || undefined}
             aria-describedby={error ? errorId : undefined}
             {...register(textareaField.name, {
-              required: textareaField.required ? tFormErrors("fieldRequired") : false,
+              required: textareaField.required ? t("errors.fieldRequired") : false,
             })}
             placeholder={(textareaField as { placeholder?: string }).placeholder}
           />
@@ -234,12 +234,12 @@ export const RenderForm: React.FC<Props> = ({ initialForm }) => {
             aria-invalid={!!error || undefined}
             aria-describedby={error ? errorId : undefined}
             {...register(selectField.name, {
-              required: selectField.required ? tFormErrors("selectOption") : false,
+              required: selectField.required ? t("errors.selectOption") : false,
             })}
             defaultValue=""
           >
             <option value="" disabled>
-              {selectField.placeholder || "Select"}
+              {selectField.placeholder || t("select")}
             </option>
             {selectField.options?.map((option) => (
               <option key={option.value} value={option.value}>
@@ -271,7 +271,7 @@ export const RenderForm: React.FC<Props> = ({ initialForm }) => {
                   value={option.value}
                   aria-describedby={error ? errorId : undefined}
                   {...register(radioField.name, {
-                    required: radioField.required ? tFormErrors("selectOption") : false,
+                    required: radioField.required ? t("errors.selectOption") : false,
                   })}
                 />
                 {option.label ? (
@@ -299,7 +299,7 @@ export const RenderForm: React.FC<Props> = ({ initialForm }) => {
               aria-invalid={!!error || undefined}
               aria-describedby={error ? errorId : undefined}
               {...register(checkboxField.name, {
-                required: checkboxField.required ? tFormErrors("checkboxRequired") : false,
+                required: checkboxField.required ? t("errors.checkboxRequired") : false,
               })}
             />
             {checkboxField.label ? (
@@ -326,7 +326,7 @@ export const RenderForm: React.FC<Props> = ({ initialForm }) => {
             aria-invalid={!!error || undefined}
             aria-describedby={error ? errorId : undefined}
             {...register(dateField.name, {
-              required: dateField.required ? tFormErrors("fieldRequired") : false,
+              required: dateField.required ? t("errors.fieldRequired") : false,
             })}
             placeholder={(dateField as { placeholder?: string }).placeholder}
           />
@@ -376,7 +376,7 @@ export const RenderForm: React.FC<Props> = ({ initialForm }) => {
       })}
       <div>
         <Button type="submit" disabled={submitting} variant="secondary">
-          {submitting ? "Submitting…" : form.submitButtonLabel || "Submit"}
+          {submitting ? t("submitting") : form.submitButtonLabel || t("submit")}
         </Button>
       </div>
     </form>

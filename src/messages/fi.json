@@ -107,6 +107,9 @@
       "emailInvalid": "Syötä kelvollinen sähköpostiosoite",
       "selectOption": "Valitse jokin vaihtoehto",
       "checkboxRequired": "Tämä valinta on pakollinen"
-    }
+    },
+    "select": "Valitse",
+    "submit": "Lähetä",
+    "submitting": "Lähetetään..."
   }
 }
