@@ -60,7 +60,9 @@ export function FormSubmissionViewer() {
 
   return (
     <div>
-      <table style={{ borderCollapse: "collapse", width: "100%" }}>
+      <table
+        style={{ borderCollapse: "collapse", width: "100%", fontSize: "14px", maxWidth: "800px" }}
+      >
         <thead>
           <tr>
             <th
