@@ -81,6 +81,29 @@ export default buildConfig({
       },
       formSubmissionOverrides: {
         admin: { group: "Forms" },
+        fields: ({ defaultFields }) => {
+          const fields = [...defaultFields];
+          // Hide all default fields in admin UI
+          fields.forEach((f) => {
+            if (typeof f === "object" && f && "admin" in f) {
+              const withAdmin = f as { admin?: { hidden?: boolean } };
+              withAdmin.admin = { ...withAdmin.admin, hidden: true };
+            }
+          });
+          // Add our UI viewer as the only visible field
+          const viewerField = {
+            name: "submissionViewer",
+            type: "ui",
+            admin: {
+              components: {
+                Field: "@/components/admin-ui/FormSubmissionViewer#FormSubmissionViewer",
+              },
+              description: "Readable view of submitted values",
+            },
+          } as unknown as (typeof defaultFields)[number];
+          fields.push(viewerField);
+          return fields;
+        },
       },
     }),
   ],
