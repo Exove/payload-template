@@ -1,5 +1,6 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from "@payloadcms/db-postgres";
+import { resendAdapter } from "@payloadcms/email-resend";
 import { payloadCloudPlugin } from "@payloadcms/payload-cloud";
 import { formBuilderPlugin } from "@payloadcms/plugin-form-builder";
 import { nestedDocsPlugin } from "@payloadcms/plugin-nested-docs";
@@ -38,6 +39,11 @@ export default buildConfig({
       supportedTimezones: [{ label: "Helsinki (EET/EEST)", value: "Europe/Helsinki" }],
     },
   },
+  email: resendAdapter({
+    apiKey: process.env.RESEND_API_KEY || "",
+    defaultFromAddress: process.env.RESEND_FROM_ADDRESS || "no-reply@example.com",
+    defaultFromName: process.env.RESEND_FROM_NAME || "Demo app",
+  }),
   collections: [Users, Media, Articles, CollectionPage, News, Categories, Contacts],
   globals: [FrontPage, MainMenu, FooterMenu, Footer],
   editor: lexicalEditor({
