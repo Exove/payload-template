@@ -9,6 +9,7 @@ import { Legend } from "@/components/forms/Legend";
 import { Radio } from "@/components/forms/Radio";
 import { Select } from "@/components/forms/Select";
 import { Textarea } from "@/components/forms/Textarea";
+import { useRouter } from "@/i18n/routing";
 import type {
   CheckboxField,
   DateField,
@@ -24,7 +25,6 @@ import type {
 } from "@payloadcms/plugin-form-builder/types";
 import type { SerializedElementNode } from "@payloadcms/richtext-lexical/lexical";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { TextRenderer } from "../TextRenderer";
@@ -98,6 +98,25 @@ export const RenderForm: React.FC<Props> = ({ initialForm }) => {
   const [submitted, setSubmitted] = React.useState(false);
   const router = useRouter();
 
+  const resolveRedirectUrl = React.useCallback((formToResolve: Form | null | undefined) => {
+    if (!formToResolve || !formToResolve.redirect) return undefined;
+    const redirect = formToResolve.redirect;
+    if (redirect.type === "custom") {
+      const url = (redirect.url || "").trim();
+      return url !== "" ? url : undefined;
+    }
+    if (redirect.type === "reference") {
+      const ref = redirect.reference as { relationTo: string; value: unknown } | null | undefined;
+      if (!ref || !ref.value) return undefined;
+      const value = ref.value as { slug?: unknown } | number;
+      if (typeof value === "object" && value && typeof value.slug === "string") {
+        return `/${ref.relationTo}/${value.slug}`;
+      }
+      return undefined;
+    }
+    return undefined;
+  }, []);
+
   const defaultValues = React.useMemo(() => {
     if (form?.fields) return buildInitial(form.fields);
     return {};
@@ -119,8 +138,9 @@ export const RenderForm: React.FC<Props> = ({ initialForm }) => {
       setSubmitting(true);
       await submitForm(data, form);
       setSubmitted(true);
-      if (form.confirmationType === "redirect" && form.redirect?.url) {
-        router.push(form.redirect.url);
+      if (form.confirmationType === "redirect") {
+        const url = resolveRedirectUrl(form);
+        if (url) router.push(url);
       }
     } finally {
       setSubmitting(false);
@@ -351,7 +371,7 @@ export const RenderForm: React.FC<Props> = ({ initialForm }) => {
           className="mb-0 max-w-none leading-normal"
         />
       );
-    if (form.confirmationType === "redirect" && form.redirect?.url) return null;
+    if (form.confirmationType === "redirect" && resolveRedirectUrl(form)) return null;
   }
 
   return (
