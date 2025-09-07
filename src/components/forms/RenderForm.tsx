@@ -114,6 +114,7 @@ export const RenderForm: React.FC<Props> = ({ initialForm }) => {
 
   const onSubmit = async (data: Record<string, unknown>) => {
     if (!form) return;
+    if (data._human) return;
     try {
       setSubmitting(true);
       await submitForm(data, form);
@@ -349,6 +350,11 @@ export const RenderForm: React.FC<Props> = ({ initialForm }) => {
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit(onSubmit)} noValidate>
+      {/* Honeypot field: should remain empty. Bots often fill it. */}
+      <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", opacity: 0 }}>
+        <label htmlFor="_human">Am I a human?</label>
+        <input id="_human" tabIndex={-1} autoComplete="off" {...register("_human")} />
+      </div>
       {form.fields?.map((field, index) => {
         const key =
           ("name" in field && (field as unknown as { name?: string }).name) ||
