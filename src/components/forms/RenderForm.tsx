@@ -110,8 +110,7 @@ export const RenderForm: React.FC<Props> = ({ initialForm }) => {
     formState: { errors },
   } = formMethods;
 
-  // If form data is not provided, do not render the form
-  if (!form) return null;
+  if (!form) return <div className="text-red-600">{tFormErrors("failedToLoadForm")}</div>;
 
   const onSubmit = async (data: Record<string, unknown>) => {
     if (!form) return;
