@@ -77,6 +77,7 @@ The project uses several development tools:
 - Prettier for code formatting
 - Husky for Git hooks
 - lint-staged for pre-commit checks
+- Docker for local database
 
 ## 🔍 Search & Algolia
 
