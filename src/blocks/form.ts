@@ -14,18 +14,5 @@ export const formBlock: Block = {
       relationTo: "forms",
       required: true,
     },
-    {
-      name: "enableIntro",
-      label: "Enable Intro Content",
-      type: "checkbox",
-    },
-    {
-      name: "introContent",
-      label: "Intro Content",
-      type: "richText",
-      admin: {
-        condition: (_, siblingData) => Boolean(siblingData?.enableIntro),
-      },
-    },
   ],
 };
