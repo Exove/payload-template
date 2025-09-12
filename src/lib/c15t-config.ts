@@ -1,9 +1,8 @@
-import type { Locale } from "@/types/locales";
 import type { ConsentManagerOptions } from "@c15t/nextjs";
 
 export type C15TClientOptions = Omit<ConsentManagerOptions, "callbacks">;
 
-export const buildC15TClientOptions = (locale: Locale): C15TClientOptions => {
+export const buildC15TClientOptions = (locale: string): C15TClientOptions => {
   return {
     mode: "c15t",
     backendURL: "/api/c15t",
