@@ -25,7 +25,6 @@
     "db:import": "bash ./scripts/db-import.sh"
   },
   "dependencies": {
-    "@c15t/backend": "^1.6.0",
     "@c15t/nextjs": "^1.6.0",
     "@headlessui/react": "^2.2.7",
     "@heroicons/react": "^2.2.0",
@@ -38,12 +37,10 @@
     "@payloadcms/richtext-lexical": "^3.54.0",
     "@payloadcms/ui": "^3.54.0",
     "algoliasearch": "^5.37.0",
-    "drizzle-orm": "^0.44.5",
     "motion": "^12.4.6",
     "next": "^15.5.2",
     "next-intl": "^4.3.6",
     "payload": "^3.54.0",
-    "pg": "^8.16.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-instantsearch": "^7.7.0",
@@ -53,7 +50,6 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
     "@types/node": "^24.3.1",
-    "@types/pg": "^8.15.5",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
     "autoprefixer": "^10.4.21",
