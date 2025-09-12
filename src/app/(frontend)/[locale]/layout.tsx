@@ -1,5 +1,6 @@
 import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/Toaster";
+import { buildC15TClientOptions } from "@/lib/c15t-config";
 import { SITE_NAME } from "@/lib/constants";
 import { Locale } from "@/types/locales";
 import { ConsentManagerDialog, ConsentManagerProvider, CookieBanner } from "@c15t/nextjs";
@@ -36,14 +37,7 @@ export default async function RootLayout({ children, params }: Props) {
     <html lang={locale}>
       <body className={`${inter.className} flex min-h-screen flex-col bg-stone-900 text-white`}>
         <NextIntlClientProvider messages={messages}>
-          <ConsentManagerProvider
-            options={{
-              mode: "c15t",
-              backendURL: "/api/c15t",
-              consentCategories: ["necessary", "marketing"], // Optional: Specify which consent categories to show in the banner.
-              ignoreGeoLocation: true, // Useful for development to always view the banner.
-            }}
-          >
+          <ConsentManagerProvider options={buildC15TClientOptions(locale)}>
             <div className="flex-grow">{children}</div>
             <Footer />
             <Toaster />
