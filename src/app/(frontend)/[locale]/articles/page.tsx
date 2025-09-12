@@ -3,16 +3,17 @@ import { ListingTemplate } from "@/components/templates/ListingTemplate";
 import { SITE_NAME } from "@/lib/constants";
 import { Locale } from "@/types/locales";
 import configPromise from "@payload-config";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { getPayload } from "payload";
 
 type Props = {
   searchParams: Promise<{ page?: string }>;
+  params: Promise<{ locale: Locale }>;
 };
 
-export default async function ArticlesPage({ searchParams }: Props) {
+export default async function ArticlesPage({ searchParams, params }: Props) {
   try {
-    const locale = (await getLocale()) as Locale;
+    const { locale } = await params;
     const { page } = await searchParams;
     const currentPage = Number(page) || 1;
     const perPage = 40;

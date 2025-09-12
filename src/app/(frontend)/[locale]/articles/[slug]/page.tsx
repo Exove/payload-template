@@ -8,20 +8,19 @@ import { prepareOpenGraphImages } from "@/lib/utils";
 import { Locale } from "@/types/locales";
 import configPromise from "@payload-config";
 import { Metadata } from "next";
-import { getLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
 export const dynamic = "force-static";
 
 type Props = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: Locale }>;
   preview: boolean;
 };
 
 export async function getArticleBySlug({ params, preview = false }: Props) {
   try {
-    const locale = (await getLocale()) as Locale;
+    const { locale } = await params;
     const { slug } = await params;
 
     const payload = await getPayload({
