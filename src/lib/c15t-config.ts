@@ -17,13 +17,13 @@ export const buildC15TClientOptions = (locale: Locale): C15TClientOptions => {
       translations: {
         en: {
           common: {
-            acceptAll: "Accept all cookies",
-            rejectAll: "Reject non-essential",
-            customize: "Customize settings",
+            acceptAll: "Accept all",
+            rejectAll: "Deny",
+            customize: "Consent settings",
             save: "Save preferences",
           },
           cookieBanner: {
-            title: "Cookie settings",
+            title: "We value your privacy",
             description:
               "We use cookies to personalize content, remember your settings, and analyze traffic.",
           },
@@ -56,13 +56,13 @@ export const buildC15TClientOptions = (locale: Locale): C15TClientOptions => {
         },
         fi: {
           common: {
-            acceptAll: "Hyväksy kaikki evästeet",
-            rejectAll: "Hylkää ei-välttämättömät",
-            customize: "Mukauta asetuksia",
+            acceptAll: "Hyväksy kaikki",
+            rejectAll: "Hylkää",
+            customize: "Valitse",
             save: "Tallenna valinnat",
           },
           cookieBanner: {
-            title: "Käytämme evästeitä",
+            title: "Arvostamme yksityisyyttäsi",
             description:
               "Tämä sivusto käyttää evästeitä parantaakseen selauskokemustasi ja analysoidakseen sivuston liikennettä.",
           },
