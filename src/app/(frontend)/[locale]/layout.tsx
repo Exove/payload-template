@@ -41,7 +41,11 @@ export default async function RootLayout({ children, params }: Props) {
             <div className="flex-grow">{children}</div>
             <Footer />
             <Toaster />
-            <CookieBanner />
+            <CookieBanner
+              theme={{
+                "banner.footer.customize-button": "!text-blue-400",
+              }}
+            />
             <ConsentManagerDialog />
           </ConsentManagerProvider>
         </NextIntlClientProvider>

@@ -8,7 +8,7 @@ import { Pool } from "pg";
 export const runtime = "nodejs";
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL ?? process.env.DATABASE_URI,
+  connectionString: process.env.DATABASE_URI,
 });
 
 // Enable Drizzle relational query builder by providing schema
@@ -21,13 +21,7 @@ const handler = c15tInstance({
     db: drizzleDb,
     provider: "postgresql",
   }),
-  trustedOrigins: ["localhost", "vercel.app"],
-  advanced: {
-    disableGeoLocation: true,
-    openapi: {
-      enabled: true,
-    },
-  },
+  trustedOrigins: ["localhost"], // TODO: Add the actual domain
   logger: {
     level: "error",
   },
