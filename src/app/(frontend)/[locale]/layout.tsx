@@ -1,9 +1,10 @@
 import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/Toaster";
 import { SITE_NAME } from "@/lib/constants";
+import { Locale } from "@/types/locales";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages, setRequestLocale } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -11,6 +12,9 @@ const inter = Inter({ subsets: ["latin"] });
 
 type Props = {
   children: React.ReactNode;
+  params: Promise<{
+    locale: Locale;
+  }>;
 };
 
 export const metadata: Metadata = {
@@ -20,8 +24,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({ children }: Props) {
-  const locale = await getLocale();
+export default async function RootLayout({ children, params }: Props) {
+  const { locale } = await params;
 
   setRequestLocale(locale);
 

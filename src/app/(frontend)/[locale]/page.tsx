@@ -7,18 +7,21 @@ import { prepareOpenGraphImages } from "@/lib/utils";
 import { Locale } from "@/types/locales";
 import configPromise from "@payload-config";
 import { Metadata } from "next";
-import { getLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
 export const dynamic = "force-static";
 export const revalidate = 60; // This is needed for dynamic components to update
 
-async function getFrontPage() {
-  try {
-    const locale = (await getLocale()) as Locale;
-    const isDraftMode = false; // Simplified for performance - no draft mode in static rendering
+type Props = {
+  params: Promise<{ locale: Locale }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 
+async function getFrontPage({ params }: Props) {
+  const { locale } = await params;
+  try {
+    const isDraftMode = false; // Simplified for performance - no draft mode in static rendering
     const payload = await getPayload({
       config: configPromise,
     });
@@ -37,8 +40,8 @@ async function getFrontPage() {
   }
 }
 
-export default async function FrontPage() {
-  const { frontPage, error } = await getFrontPage();
+export default async function FrontPage(props: Props) {
+  const { frontPage, error } = await getFrontPage(props);
 
   if (error) {
     return <ErrorTemplate error={error} />;
@@ -55,9 +58,9 @@ export default async function FrontPage() {
   );
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
   try {
-    const { frontPage } = await getFrontPage();
+    const { frontPage } = await getFrontPage(props);
     const openGraphImages = prepareOpenGraphImages(frontPage?.meta?.image);
 
     return {

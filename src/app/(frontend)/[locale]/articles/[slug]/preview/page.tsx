@@ -1,10 +1,11 @@
+import { Locale } from "@/types/locales";
 import { notFound } from "next/navigation";
 import ArticlePage from "../page";
 
 export const dynamic = "force-dynamic";
 
 type Props = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: Locale }>;
   searchParams: Promise<{ token?: string }>;
 };
 
