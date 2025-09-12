@@ -17,77 +17,79 @@ export const buildC15TClientOptions = (locale: Locale): C15TClientOptions => {
       translations: {
         en: {
           common: {
-            acceptAll: "Accept all",
-            rejectAll: "Reject all",
-            customize: "Customize",
-            save: "Save",
+            acceptAll: "Accept all cookies",
+            rejectAll: "Reject non-essential",
+            customize: "Customize settings",
+            save: "Save preferences",
           },
           cookieBanner: {
-            title: "Cookies",
-            description: "We use cookies to improve your experience.",
+            title: "Cookie settings",
+            description:
+              "We use cookies to personalize content, remember your settings, and analyze traffic.",
           },
           consentManagerDialog: {
-            title: "Privacy preferences",
-            description: "Manage your cookie preferences.",
+            title: "Privacy settings",
+            description: "Choose which cookies we can use. You can change your choices anytime.",
           },
           consentTypes: {
             necessary: {
               title: "Necessary",
-              description: "Required for the site to function.",
+              description: "Required for core site functionality and cannot be disabled.",
             },
             marketing: {
               title: "Marketing",
-              description: "Used to deliver personalized ads.",
+              description: "Show relevant ads and measure their effectiveness.",
             },
             measurement: {
-              title: "Measurement",
-              description: "Helps us understand site usage.",
+              title: "Analytics",
+              description: "Help us understand site usage to improve our services.",
             },
             functionality: {
-              title: "Functionality",
-              description: "Enables enhanced features.",
+              title: "Preferences",
+              description: "Remember your settings to provide enhanced features.",
             },
             experience: {
-              title: "Experience",
-              description: "Improves user interactions.",
+              title: "Personalization",
+              description: "Tailor content and features to your preferences.",
             },
           },
         },
         fi: {
           common: {
-            acceptAll: "Hyväksy kaikki",
-            rejectAll: "Hylkää kaikki",
-            customize: "Muokkaa",
-            save: "Tallenna",
+            acceptAll: "Hyväksy kaikki evästeet",
+            rejectAll: "Hylkää ei-välttämättömät",
+            customize: "Mukauta asetuksia",
+            save: "Tallenna valinnat",
           },
           cookieBanner: {
-            title: "Evästeet",
-            description: "Käytämme evästeitä parantaaksemme käyttökokemustasi.",
+            title: "Käytämme evästeitä",
+            description:
+              "Tämä sivusto käyttää evästeitä parantaakseen selauskokemustasi ja analysoidakseen sivuston liikennettä.",
           },
           consentManagerDialog: {
-            title: "Yksityisyysasetukset",
-            description: "Hallitse evästeasetuksiasi.",
+            title: "Tietosuoja-asetukset",
+            description: "Valitse, mitä evästetyyppejä voimme käyttää.",
           },
           consentTypes: {
             necessary: {
-              title: "Välttämätön",
-              description: "Tarvitaan sivuston toimintaan.",
+              title: "Välttämättömät",
+              description: "Tarvitaan sivuston perustoimintoihin, eikä niitä voi poistaa käytöstä.",
             },
             marketing: {
               title: "Markkinointi",
-              description: "Käytetään personoitujen mainosten näyttämiseen.",
+              description: "Näyttää sinulle relevantteja mainoksia ja mittaa niiden tehoa.",
             },
             measurement: {
-              title: "Mittaus",
-              description: "Auttaa meitä ymmärtämään sivuston käyttöä.",
+              title: "Analytiikka",
+              description: "Auttaa ymmärtämään sivuston käyttöä ja kehittämään palvelua.",
             },
             functionality: {
-              title: "Toiminnallisuus",
-              description: "Mahdollistaa parannetut ominaisuudet.",
+              title: "Toiminnalliset asetukset",
+              description: "Muistaa asetuksesi ja mahdollistaa laajennetut toiminnot.",
             },
             experience: {
-              title: "Käyttökokemus",
-              description: "Parantaa käyttäjän vuorovaikutusta.",
+              title: "Personointi ja käyttökokemus",
+              description: "Räätälöi sisältöä ja toimintoja mieltymystesi mukaan.",
             },
           },
         },
