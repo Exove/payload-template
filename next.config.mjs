@@ -8,6 +8,9 @@ const nextConfig = {
   // Your Next.js config here
   compress: true,
   images: { unoptimized: false },
+  experimental: {
+    serverComponentsExternalPackages: ["pg"],
+  },
 };
 
 export default withNextIntl(withPayload(nextConfig));
