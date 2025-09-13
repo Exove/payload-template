@@ -4,6 +4,7 @@ import TopBanner from "@/components/TopBanner";
 import ArticleTemplate from "@/components/templates/ArticleTemplate";
 import ErrorTemplate from "@/components/templates/ErrorTemplate";
 import { SITE_NAME } from "@/lib/constants";
+import { captureServerException } from "@/lib/posthog-server";
 import { prepareOpenGraphImages } from "@/lib/utils";
 import { Locale } from "@/types/locales";
 import configPromise from "@payload-config";
@@ -48,10 +49,17 @@ export default async function ArticlePage(props: Props) {
 
   if (error) {
     console.error("Error fetching article:", error);
+    captureServerException(error, { where: "getArticleBySlug" });
     return <ErrorTemplate error={error} />;
   }
 
   if (!article) {
+    const { slug, locale } = await props.params;
+    captureServerException(new Error("Article not found"), {
+      slug,
+      locale,
+      route: "/[locale]/articles/[slug]",
+    });
     notFound();
   }
 
