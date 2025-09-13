@@ -1,6 +1,23 @@
+import { defineConfig } from "@c15t/backend/v2";
+import { kyselyAdapter } from "@c15t/backend/v2/db/adapters/kysely";
 import type { ConsentManagerOptions } from "@c15t/nextjs";
+import Database from "better-sqlite3";
+import { Kysely, SqliteDialect } from "kysely";
 
 export type C15TClientOptions = Omit<ConsentManagerOptions, "callbacks">;
+
+const database = new Database("./c15t.sqlite");
+database.pragma("foreign_keys = ON");
+
+const db = new Kysely({
+  dialect: new SqliteDialect({
+    database,
+  }),
+});
+
+export default defineConfig({
+  adapter: kyselyAdapter({ provider: "sqlite", db }),
+});
 
 export const buildC15TClientOptions = (locale: string): C15TClientOptions => {
   return {

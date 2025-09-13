@@ -1,4 +1,4 @@
-import config from "@/lib/c15t-backend.config";
+import config from "@/lib/c15t-config";
 import { c15tInstance } from "@c15t/backend/v2";
 import type { NextRequest } from "next/server";
 
