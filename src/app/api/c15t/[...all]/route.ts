@@ -7,14 +7,14 @@ const handler = c15tInstance({
   appName: "c15t-self-host",
   basePath: "/api/c15t",
   trustedOrigins: ["localhost", "vercel.app"],
-  advanced: {
-    disableGeoLocation: true,
-    openapi: {
-      enabled: true,
-    },
-  },
+  // advanced: {
+  //   disableGeoLocation: true,
+  //   openapi: {
+  //     enabled: true,
+  //   },
+  // },
   logger: {
-    level: "debug",
+    level: "error",
   },
 });
 

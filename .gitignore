@@ -44,4 +44,6 @@ next-env.d.ts
 
 *.sql
 
+c15t.sqlite
+
 /media
