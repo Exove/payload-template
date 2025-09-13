@@ -18,6 +18,8 @@ This is a starter template for building web applications with Payload CMS and SQ
 - **Internationalization**: next-intl
 - **SEO**: Payload CMS SEO plugin
 - **Rich Text Editor**: Payload CMS Lexical editor
+- **Analytics**: PostHog
+- **Consent Management**: C15T
 
 ## 🛠️ Installation
 
@@ -169,3 +171,20 @@ NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
 ```
 
 **Note**: Don't use production credentials in development environment!
+
+## 📈 Analytics (PostHog)
+
+This project integrates PostHog with consent-aware initialization. To enable analytics, set the following environment variables:
+
+```bash
+NEXT_PUBLIC_POSTHOG_KEY=phc_...
+# Optional (defaults to EU cloud)
+NEXT_PUBLIC_POSTHOG_HOST=https://eu.posthog.com
+```
+
+Feature flags used:
+
+- `autocapture-enabled` – controls PostHog autocapture (off by default)
+- `session-recording-enabled` – controls session recording (off by default)
+
+Consent handling uses `@c15t/nextjs`; analytics starts only when the user has granted the "measurement" purpose.
