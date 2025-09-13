@@ -29,12 +29,12 @@ export const buildC15TClientOptions = (locale: string): C15TClientOptions => {
       colorScheme: "dark",
     },
     translations: {
-      defaultLanguage: locale,
+      defaultLanguage: locale === "fi" ? "fi" : "en",
       translations: {
         en: {
           common: {
             acceptAll: "Accept all",
-            rejectAll: "Deny",
+            rejectAll: "Only necessary",
             customize: "Consent settings",
             save: "Save preferences",
           },
@@ -73,7 +73,7 @@ export const buildC15TClientOptions = (locale: string): C15TClientOptions => {
         fi: {
           common: {
             acceptAll: "Hyväksy kaikki",
-            rejectAll: "Hylkää",
+            rejectAll: "Vain pakolliset",
             customize: "Valitse",
             save: "Tallenna valinnat",
           },
@@ -119,4 +119,5 @@ export const c15tBannerTheme: NonNullable<CookieBannerProps["theme"]> = {
     "!text-gray-400 !ring-0 !bg-transparent hover:!ring-1 hover:ring-gray-400",
   "banner.footer.accept-button": "!text-gray-400 hover:!ring-1 hover:ring-gray-400",
   "banner.footer.reject-button": "!text-gray-400 hover:!ring-1 hover:ring-gray-400",
+  "banner.card": "!rounded-2xl",
 };
