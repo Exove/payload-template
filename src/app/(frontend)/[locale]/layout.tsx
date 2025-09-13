@@ -1,4 +1,5 @@
 import { Footer } from "@/components/Footer";
+import TestNonEssentialCookie from "@/components/TestNonEssentialCookie";
 import { Toaster } from "@/components/Toaster";
 import { buildC15TClientOptions, c15tBannerTheme } from "@/lib/c15t-config";
 import { SITE_NAME } from "@/lib/constants";
@@ -39,6 +40,7 @@ export default async function RootLayout({ children, params }: Props) {
       >
         <NextIntlClientProvider messages={messages}>
           <ConsentManagerProvider options={buildC15TClientOptions(locale)}>
+            <TestNonEssentialCookie />
             <div className="flex-grow">{children}</div>
             <Footer />
             <Toaster />
