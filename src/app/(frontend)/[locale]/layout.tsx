@@ -1,7 +1,9 @@
 import { Footer } from "@/components/Footer";
+import TestNonEssentialCookie from "@/components/TestNonEssentialCookie";
 import { Toaster } from "@/components/Toaster";
+import { buildC15TClientOptions, c15tBannerTheme } from "@/lib/c15t-config";
 import { SITE_NAME } from "@/lib/constants";
-import { Locale } from "@/types/locales";
+import { ConsentManagerDialog, ConsentManagerProvider, CookieBanner } from "@c15t/nextjs";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -13,7 +15,7 @@ const inter = Inter({ subsets: ["latin"] });
 type Props = {
   children: React.ReactNode;
   params: Promise<{
-    locale: Locale;
+    locale: string;
   }>;
 };
 
@@ -33,11 +35,18 @@ export default async function RootLayout({ children, params }: Props) {
 
   return (
     <html lang={locale}>
-      <body className={`${inter.className} flex min-h-screen flex-col bg-stone-900 text-white`}>
+      <body
+        className={`${inter.className} flex min-h-screen flex-col bg-stone-900 text-white ring`}
+      >
         <NextIntlClientProvider messages={messages}>
-          <div className="flex-grow">{children}</div>
-          <Footer />
-          <Toaster />
+          <ConsentManagerProvider options={buildC15TClientOptions(locale)}>
+            <TestNonEssentialCookie />
+            <div className="flex-grow">{children}</div>
+            <Footer />
+            <Toaster />
+            <CookieBanner theme={c15tBannerTheme} />
+            <ConsentManagerDialog />
+          </ConsentManagerProvider>
         </NextIntlClientProvider>
       </body>
     </html>
