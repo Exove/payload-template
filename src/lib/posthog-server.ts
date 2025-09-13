@@ -37,14 +37,15 @@ export function captureServerException(error: unknown, properties?: Record<strin
       $exception_type: err.name,
       $exception_level: "error",
       $exception_fingerprint: `${err.name}:${err.message}`,
-      // Minimal list entry to satisfy Error tracking schema
-      $exception_list: [
-        {
-          type: err.name,
-          value: err.message,
-          stacktrace: { frames: [] },
-        },
-      ],
+      // // Minimal list entry to satisfy Error tracking schema
+      // // TODO: remove if it works without it
+      // $exception_list: [
+      //   {
+      //     type: err.name,
+      //     value: err.message,
+      //     stacktrace: { frames: [] },
+      //   },
+      // ],
       ...properties,
     },
   });
