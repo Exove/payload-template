@@ -1,6 +1,6 @@
 import { defineConfig } from "@c15t/backend/v2";
 import { kyselyAdapter } from "@c15t/backend/v2/db/adapters/kysely";
-import type { ConsentManagerOptions } from "@c15t/nextjs";
+import type { ConsentManagerOptions, CookieBannerProps } from "@c15t/nextjs";
 import Database from "better-sqlite3";
 import { Kysely, SqliteDialect } from "kysely";
 
@@ -112,4 +112,11 @@ export const buildC15TClientOptions = (locale: string): C15TClientOptions => {
       },
     },
   };
+};
+
+export const c15tBannerTheme: NonNullable<CookieBannerProps["theme"]> = {
+  "banner.footer.customize-button":
+    "!text-gray-400 !ring-0 !bg-transparent hover:!ring-1 hover:ring-gray-400",
+  "banner.footer.accept-button": "!text-gray-400 hover:!ring-1 hover:ring-gray-400",
+  "banner.footer.reject-button": "!text-gray-400 hover:!ring-1 hover:ring-gray-400",
 };

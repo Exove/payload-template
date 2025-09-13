@@ -1,6 +1,6 @@
 import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/Toaster";
-import { buildC15TClientOptions } from "@/lib/c15t-config";
+import { buildC15TClientOptions, c15tBannerTheme } from "@/lib/c15t-config";
 import { SITE_NAME } from "@/lib/constants";
 import { ConsentManagerDialog, ConsentManagerProvider, CookieBanner } from "@c15t/nextjs";
 import type { Metadata } from "next";
@@ -42,14 +42,7 @@ export default async function RootLayout({ children, params }: Props) {
             <div className="flex-grow">{children}</div>
             <Footer />
             <Toaster />
-            <CookieBanner
-              theme={{
-                "banner.footer.customize-button":
-                  "!text-gray-400 !ring-0 !bg-transparent hover:!ring-1 hover:ring-gray-400",
-                "banner.footer.accept-button": "!text-gray-400 hover:!ring-1 hover:ring-gray-400",
-                "banner.footer.reject-button": "!text-gray-400 hover:!ring-1 hover:ring-gray-400",
-              }}
-            />
+            <CookieBanner theme={c15tBannerTheme} />
             <ConsentManagerDialog />
           </ConsentManagerProvider>
         </NextIntlClientProvider>
