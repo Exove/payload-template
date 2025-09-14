@@ -47,12 +47,17 @@ export default function AnalyticsProvider({ locale }: Props) {
         posthogRef.current = posthog;
         posthog.init(POSTHOG_KEY, {
           api_host: POSTHOG_HOST,
-          autocapture: false,
-          capture_pageview: false,
+          autocapture: true,
+          capture_pageview: true,
           capture_pageleave: true,
-          disable_session_recording: true,
+          disable_session_recording: false,
           mask_all_text: true,
           mask_all_element_attributes: true,
+          capture_heatmaps: true,
+          capture_performance: true,
+          capture_dead_clicks: true,
+          capture_exceptions: true,
+          debug: true,
           loaded: (ph: PostHog) => {
             ph.onFeatureFlags(() => {
               const srEnabled = ph.featureFlags.isFeatureEnabled?.("session-recording-enabled");

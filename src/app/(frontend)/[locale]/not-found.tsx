@@ -2,6 +2,7 @@ import Button from "@/components/Button";
 import Container from "@/components/Container";
 import Header from "@/components/Header";
 import Heading from "@/components/Heading";
+import NotFoundErrorCapture from "@/components/NotFoundErrorCapture";
 import { getTranslations } from "next-intl/server";
 
 export default async function NotFoundTemplate() {
@@ -9,6 +10,7 @@ export default async function NotFoundTemplate() {
 
   return (
     <Container>
+      <NotFoundErrorCapture />
       <Header />
       <main
         id="main-content"
