@@ -10,5 +10,7 @@ export const config = {
     // i18n routes
     "/",
     "/(fi|en)/:path*",
+    // Match all non-locale paths (excluding api/admin/Next internals/static files)
+    "/((?!api|admin|_next|_vercel|.*\\..*).*)",
   ],
 };
