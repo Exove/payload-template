@@ -33,20 +33,22 @@ export default function ArticleTemplate({ article }: ArticleTemplateProps) {
       <Heading level="h1" size="lg" className="mb-6">
         {article.title}
       </Heading>
-      <div className="mb-12 flex gap-4 text-sm text-stone-400">
-        <time dateTime={article.publishedDate || ""}>
-          {formatDateShort(article.publishedDate || "", locale)}
-        </time>
-        {typeof article.author === "object" && (
-          <>
-            <span>•</span>
+      {(article.publishedDate || article.author) && (
+        <div className="mb-12 flex gap-4 text-sm text-stone-400">
+          {article.publishedDate && (
+            <time dateTime={article.publishedDate || ""}>
+              {formatDateShort(article.publishedDate || "", locale)}
+            </time>
+          )}
+          {article.author && article.publishedDate && <span>•</span>}
+          {article.author && typeof article.author === "object" && (
             <span>{article.author?.name}</span>
-          </>
-        )}
-      </div>
+          )}
+        </div>
+      )}
       <div className="mx-auto max-w-screen-lg">
         <BlockRenderer nodes={article.content?.root?.children as NodeTypes[]} />
-        <div className="mx-auto mt-10 max-w-prose">
+        <div className="mt-10">
           <ShareButtons />
         </div>
       </div>
