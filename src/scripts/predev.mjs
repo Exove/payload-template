@@ -26,9 +26,7 @@ function ensureNodeModulesInstalled() {
     try {
       execSync("pnpm install --frozen-lockfile", { stdio: "inherit" });
     } catch {
-      console.warn(
-        "Failed to install dependencies with pnpm. Please run 'pnpm install' manually."
-      );
+      console.warn("Failed to install dependencies with pnpm. Please run 'pnpm install' manually.");
     }
   }
 }
@@ -46,9 +44,10 @@ function startPostgresWithDockerCompose() {
     }
   }
 
-  console.warn(
-    "Could not start Postgres via Docker Compose. Make sure Docker is installed and running."
+  console.error(
+    "Could not start Postgres via Docker Compose. Make sure Docker is installed and running.",
   );
+  process.exit(1);
 }
 
 function main() {
@@ -58,5 +57,3 @@ function main() {
 }
 
 main();
-
-
