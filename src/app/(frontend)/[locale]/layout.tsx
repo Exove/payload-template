@@ -19,16 +19,14 @@ type Props = {
 export const metadata: Metadata = {
   title: SITE_NAME,
   icons: {
-    icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='20' fill='blue'/%3E%3C/svg%3E",
+    icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='25' fill='gray'/%3E%3C/svg%3E",
   },
 };
 
 export default async function RootLayout({ children, params }: Props) {
-  const { locale } = await params;
-
-  setRequestLocale(locale);
-
   const messages = await getMessages();
+  const { locale } = await params;
+  setRequestLocale(locale);
 
   return (
     <html lang={locale}>
