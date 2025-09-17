@@ -99,5 +99,53 @@
     "title": "Sivua ei löytynyt",
     "description": "Valitettavasti etsimääsi sivua ei löytynyt.",
     "backHome": "Takaisin etusivulle"
+  },
+  "cookies": {
+    "title": "Evästetiedot",
+    "description": "Tämä sivu tarjoaa yksityiskohtaiset tiedot kaikista verkkosivustollamme käytetyistä evästeistä GDPR-vaatimusten mukaisesti.",
+    "categories": {
+      "necessary": {
+        "title": "Välttämättömät evästeet",
+        "description": "Nämä evästeet ovat välttämättömiä verkkosivuston moitteettoman toiminnan kannalta, eikä niitä voi poistaa käytöstä."
+      },
+      "measurement": {
+        "title": "Analytiikkaevästeet",
+        "description": "Nämä evästeet auttavat meitä ymmärtämään, miten kävijät käyttävät verkkosivustoamme."
+      },
+      "marketing": {
+        "title": "Markkinointievästeet",
+        "description": "Näitä evästeitä käytetään näyttämään sinulle relevantteja mainoksia."
+      },
+      "functionality": {
+        "title": "Toiminnalliset evästeet",
+        "description": "Nämä evästeet muistavat asetuksesi ja mieltymyksesi."
+      }
+    },
+    "cookieDetails": {
+      "name": "Evästeen nimi",
+      "value": "Arvo",
+      "domain": "Verkkotunnus",
+      "path": "Polku",
+      "expires": "Vanhenee",
+      "secure": "Turvallinen",
+      "httpOnly": "Vain HTTP",
+      "sameSite": "SameSite",
+      "category": "Kategoria",
+      "purpose": "Tarkoitus",
+      "provider": "Tarjoaja",
+      "session": "Istuntoeväste",
+      "persistent": "Pysyvä eväste",
+      "yes": "Kyllä",
+      "no": "Ei",
+      "notSet": "Ei asetettu"
+    },
+    "noCookies": "Tässä kategoriassa ei ole evästeitä.",
+    "refreshCookies": "Päivitä evästeluettelo",
+    "lastUpdated": "Päivitetty viimeksi: {date}",
+    "cookieConsent": {
+      "title": "Evästeiden suostumustila",
+      "description": "Nykyiset evästeiden suostumusasetuksesi:",
+      "changeSettings": "Muuta evästeasetuksia"
+    }
   }
 }

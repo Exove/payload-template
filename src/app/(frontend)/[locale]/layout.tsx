@@ -1,3 +1,4 @@
+import CookieConsentTrigger from "@/components/CookieConsentTrigger";
 import { Footer } from "@/components/Footer";
 import TestNonEssentialCookie from "@/components/TestNonEssentialCookie";
 import { Toaster } from "@/components/Toaster";
@@ -41,6 +42,7 @@ export default async function RootLayout({ children, params }: Props) {
         <NextIntlClientProvider messages={messages}>
           <ConsentManagerProvider options={buildC15TClientOptions(locale)}>
             <TestNonEssentialCookie />
+            <CookieConsentTrigger />
             <div className="flex-grow">{children}</div>
             <Footer />
             <Toaster />

@@ -40,6 +40,7 @@
     "@payloadcms/ui": "^3.54.0",
     "algoliasearch": "^5.37.0",
     "better-sqlite3": "^12.2.0",
+    "cookies-next": "^6.1.0",
     "kysely": "^0.28.5",
     "motion": "^12.4.6",
     "next": "^15.5.2",
