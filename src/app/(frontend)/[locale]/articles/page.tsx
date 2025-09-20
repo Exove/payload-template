@@ -8,20 +8,16 @@ import configPromise from "@payload-config";
 import { getTranslations } from "next-intl/server";
 import { getPayload } from "payload";
 
+export const dynamic = "force-static";
+
 type Props = {
-  searchParams: Promise<{ page?: string }>;
   params: Promise<{ locale: Locale }>;
 };
 
-const ITEMS_PER_PAGE = 40;
-
-export default async function ArticlesPage({ searchParams, params }: Props) {
+export default async function ArticlesPage({ params }: Props) {
   const { locale } = await params;
 
   try {
-    const { page } = await searchParams;
-    const currentPage = Number(page) || 1;
-
     const payload = await getPayload({
       config: configPromise,
     });
@@ -32,9 +28,14 @@ export default async function ArticlesPage({ searchParams, params }: Props) {
       locale: locale,
       fallbackLocale: false,
       draft: false,
-      limit: ITEMS_PER_PAGE,
-      page: currentPage,
+      pagination: false, // Get all articles
       depth: 0,
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        publishedDate: true,
+      },
       where: {
         title: {
           exists: true,
@@ -46,13 +47,7 @@ export default async function ArticlesPage({ searchParams, params }: Props) {
     return (
       <Container>
         <Header />
-        <ListingTemplate
-          articles={articles.docs}
-          totalDocs={articles.totalDocs}
-          totalPages={articles.totalPages}
-          currentPage={currentPage}
-          locale={locale}
-        />
+        <ListingTemplate articles={articles.docs} locale={locale} />
       </Container>
     );
   } catch (error) {

@@ -1,37 +1,59 @@
+"use client";
+
 import { Link } from "@/i18n/routing";
 import { formatDateLong } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
+import { useCallback, useMemo } from "react";
 import { Article } from "../../payload-types";
 import Heading from "../Heading";
 
+const ITEMS_PER_PAGE = 40;
+
 export type ListingTemplateProps = {
   articles: Article[];
-  totalDocs: number;
-  totalPages: number;
-  currentPage: number;
   locale: string;
 };
 
-export function ListingTemplate({
-  articles,
-  totalDocs,
-  totalPages,
-  currentPage,
-  locale,
-}: ListingTemplateProps) {
+export function ListingTemplate({ articles, locale }: ListingTemplateProps) {
   const t = useTranslations();
+  const searchParams = useSearchParams();
+
+  const currentPage = Number(searchParams.get("page")) || 1;
+  const totalPages = Math.ceil(articles.length / ITEMS_PER_PAGE);
+
+  // Calculate which articles to show for current page
+  const paginatedArticles = useMemo(() => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    return articles.slice(startIndex, endIndex);
+  }, [articles, currentPage]);
+
+  const createPageUrl = useCallback(
+    (page: number) => {
+      const params = new URLSearchParams(searchParams.toString());
+      if (page === 1) {
+        params.delete("page");
+      } else {
+        params.set("page", page.toString());
+      }
+      const queryString = params.toString();
+      return `/articles${queryString ? `?${queryString}` : ""}`;
+    },
+    [searchParams],
+  );
 
   return (
     <main id="main-content" className="mx-auto flex max-w-screen-md flex-col gap-8 py-16">
       <Heading level="h1" size="lg" className="mb-8">
         {t("articles.title")}
       </Heading>
-      {totalDocs && (
+      {articles.length > 0 && (
         <div className="text-stone-400">
-          {t("listing.totalDocs")}: {totalDocs}
+          {t("listing.totalDocs")}: {articles.length}
         </div>
       )}
-      {articles.map((article) => (
+      {paginatedArticles.map((article) => (
         <div
           key={article.id}
           className="group relative rounded-lg bg-stone-800 p-6 transition-all hover:ring-1 hover:ring-amber-500"
@@ -54,7 +76,7 @@ export function ListingTemplate({
         <div className="mt-8 flex justify-center gap-4">
           {currentPage > 1 && (
             <Link
-              href={`/articles?page=${currentPage - 1}`}
+              href={createPageUrl(currentPage - 1)}
               className="rounded-md bg-stone-800 px-4 py-2 text-sm font-medium text-stone-100 ring-1 ring-stone-700 transition-colors hover:bg-stone-700 hover:text-amber-500"
             >
               {t("listing.previousPage")}
@@ -65,7 +87,7 @@ export function ListingTemplate({
           </span>
           {currentPage < totalPages && (
             <Link
-              href={`/articles?page=${currentPage + 1}`}
+              href={createPageUrl(currentPage + 1)}
               className="rounded-md bg-stone-800 px-4 py-2 text-sm font-medium text-stone-100 ring-1 ring-stone-700 transition-colors hover:bg-stone-700 hover:text-amber-500"
             >
               {t("listing.nextPage")}
