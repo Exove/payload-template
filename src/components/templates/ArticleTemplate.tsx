@@ -2,33 +2,25 @@ import { BlockRenderer, NodeTypes } from "@/components/BlockRenderer";
 import { Link } from "@/i18n/routing";
 import { formatDateShort } from "@/lib/utils";
 import { Article } from "@/payload-types";
-import { Locale } from "@/types/locales";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Heading from "../Heading";
 import ShareButtons from "../ShareButtons";
 
 interface ArticleTemplateProps {
   article: Article;
-  locale: Locale;
-  t: {
-    title: string;
-    share: {
-      title: string;
-      copied: string;
-      copyLink: string;
-    };
-  };
 }
 
-export default function ArticleTemplate({ article, locale, t }: ArticleTemplateProps) {
+export default function ArticleTemplate({ article }: ArticleTemplateProps) {
+  const t = useTranslations("articles");
+  const locale = useLocale();
+
   return (
     <main id="main-content" className="mx-auto max-w-[800px] py-12">
       <div className="mb-6 flex items-center gap-2 text-sm text-stone-400 hover:text-stone-300">
         <ChevronLeftIcon className="size-4 stroke-2" />
-        <Link href="/articles" locale={locale}>
-          {t.title}
-        </Link>
+        <Link href="/articles">{t("title")}</Link>
       </div>
       {typeof article.image === "object" && article.image?.url && (
         <Image
@@ -59,7 +51,7 @@ export default function ArticleTemplate({ article, locale, t }: ArticleTemplateP
       <div className="mx-auto max-w-screen-lg">
         <BlockRenderer nodes={article.content?.root?.children as NodeTypes[]} />
         <div className="mt-10">
-          <ShareButtons t={t.share} />
+          <ShareButtons />
         </div>
       </div>
     </main>

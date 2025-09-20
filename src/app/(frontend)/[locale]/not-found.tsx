@@ -2,16 +2,14 @@ import Button from "@/components/Button";
 import Container from "@/components/Container";
 import Header from "@/components/Header";
 import Heading from "@/components/Heading";
-import { Locale } from "@/types/locales";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 export default async function NotFoundTemplate() {
   const t = await getTranslations("notFound");
-  const locale = await getLocale();
 
   return (
     <Container>
-      <Header locale={locale as Locale} />
+      <Header />
       <main
         id="main-content"
         className="mx-auto flex max-w-screen-md flex-col items-center justify-center gap-8 py-16 text-center"

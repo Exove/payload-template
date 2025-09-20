@@ -1,20 +1,16 @@
 "use client";
 
-import { Locale } from "@/types/locales";
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/react";
 import { CheckIcon, LanguageIcon } from "@heroicons/react/24/outline";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
 import { Fragment } from "react";
 
-type Props = {
-  locale: Locale;
-};
-
-export default function LanguageSwitcher({ locale }: Props) {
+export default function LanguageSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations("languageSwitcher");
+  const locale = useLocale();
 
   const handleLocaleChange = (newLocale: string) => {
     const newPath = pathname.replace(`/${locale}`, `/${newLocale}`);

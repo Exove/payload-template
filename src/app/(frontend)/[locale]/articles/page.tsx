@@ -44,7 +44,7 @@ export default async function ArticlesPage({ searchParams, params }: Props) {
 
     return (
       <Container>
-        <Header locale={locale} />
+        <Header />
         <ListingTemplate
           articles={articles.docs}
           totalDocs={articles.totalDocs}
@@ -56,7 +56,7 @@ export default async function ArticlesPage({ searchParams, params }: Props) {
     );
   } catch (error) {
     console.error("Error fetching articles:", error);
-    return <ErrorTemplate locale={locale} error={error as Error} />;
+    return <ErrorTemplate error={error as Error} />;
   }
 }
 

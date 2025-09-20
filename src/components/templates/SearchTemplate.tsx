@@ -7,7 +7,7 @@ import { Link } from "@/i18n/routing";
 import { ALGOLIA_INDEX_NAME } from "@/lib/constants";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { algoliasearch } from "algoliasearch";
-import { Locale, useTranslations } from "next-intl";
+import { Locale, useLocale, useTranslations } from "next-intl";
 import {
   Configure,
   InstantSearch,
@@ -199,7 +199,9 @@ type Props = {
   locale: Locale;
 };
 
-export default function SearchTemplate({ locale }: Props) {
+export default function SearchTemplate() {
+  const locale = useLocale();
+
   return (
     <main id="main-content" className="mx-auto mb-40 max-w-screen-md py-16">
       <InstantSearch

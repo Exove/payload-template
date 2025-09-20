@@ -2,21 +2,18 @@
 
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/react";
 import { ArrowUpOnSquareIcon, ClipboardIcon } from "@heroicons/react/24/outline";
+import { useTranslations } from "next-intl";
 import { Fragment, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { FacebookIcon, LinkedInIcon } from "./Icons";
 interface ShareButtonsProps {
   url?: string;
-  t: {
-    title: string;
-    copied: string;
-    copyLink: string;
-  };
 }
 
-export default function ShareButtons({ url, t }: ShareButtonsProps) {
+export default function ShareButtons({ url }: ShareButtonsProps) {
   const [currentUrl, setCurrentUrl] = useState<string>(url || "");
   const [copySuccess, setCopySuccess] = useState(false);
+  const t = useTranslations("share");
 
   useEffect(() => {
     // If no URL is provided, use the current URL
@@ -42,7 +39,7 @@ export default function ShareButtons({ url, t }: ShareButtonsProps) {
       await navigator.clipboard.writeText(currentUrl);
       setCopySuccess(true);
       setTimeout(() => setCopySuccess(false), 2000);
-      toast.success(t.copied);
+      toast.success(t("copied"));
     } catch (err) {
       console.error("Failed to copy URL:", err);
     }
@@ -52,7 +49,7 @@ export default function ShareButtons({ url, t }: ShareButtonsProps) {
     {
       id: "copy",
       icon: <ClipboardIcon className="h-5 w-5" />,
-      label: copySuccess ? t.copied : t.copyLink,
+      label: copySuccess ? t("copied") : t("copyLink"),
       onClick: copyToClipboard,
     },
     {
@@ -74,7 +71,7 @@ export default function ShareButtons({ url, t }: ShareButtonsProps) {
       <MenuButton className="flex items-center gap-2 text-sm text-stone-400 hover:text-stone-300">
         <span className="flex items-center gap-2">
           <ArrowUpOnSquareIcon className="h-5 w-5" />
-          {t.title}
+          {t("title")}
         </span>
       </MenuButton>
 
