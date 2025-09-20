@@ -41,7 +41,6 @@ async function getFrontPage({ params }: Props) {
 }
 
 export default async function FrontPage(props: Props) {
-  const { locale } = await props.params;
   const { frontPage, error } = await getFrontPage(props);
 
   if (error) {
@@ -53,7 +52,7 @@ export default async function FrontPage(props: Props) {
 
   return (
     <Container>
-      <Header locale={locale} />
+      <Header />
       <FrontPageTemplate content={frontPage} />
     </Container>
   );

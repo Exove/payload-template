@@ -1,5 +1,3 @@
-import Container from "@/components/Container";
-import Header from "@/components/Header";
 import ErrorTemplate from "@/components/templates/ErrorTemplate";
 import { ListingTemplate } from "@/components/templates/ListingTemplate";
 import { SITE_NAME } from "@/lib/constants";
@@ -42,16 +40,13 @@ export default async function ArticlesPage({ searchParams, params }: Props) {
     });
 
     return (
-      <Container>
-        <Header locale={locale} />
-        <ListingTemplate
-          articles={articles.docs}
-          totalDocs={articles.totalDocs}
-          totalPages={articles.totalPages}
-          currentPage={currentPage}
-          locale={locale}
-        />
-      </Container>
+      <ListingTemplate
+        articles={articles.docs}
+        totalDocs={articles.totalDocs}
+        totalPages={articles.totalPages}
+        currentPage={currentPage}
+        locale={locale}
+      />
     );
   } catch (error) {
     console.error("Error fetching articles:", error);
