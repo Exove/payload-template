@@ -1,19 +1,33 @@
-import { Link } from "@/i18n/routing";
+import { Link, usePathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { usePagination } from "react-instantsearch";
 
 export default function SearchPagination() {
-  const { pages, currentRefinement, nbPages, isFirstPage, isLastPage, refine, createURL } =
-    usePagination();
+  const { pages, currentRefinement, nbPages, isFirstPage, isLastPage, refine } = usePagination();
   const t = useTranslations("search");
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const handlePageChange = (page: number) => {
     refine(page);
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }, 100);
+  };
+
+  // Create relative URL to avoid hydration issues
+  const createRelativeURL = (page: number) => {
+    const params = new URLSearchParams(searchParams);
+    if (page === 1) {
+      params.delete("page");
+    } else {
+      params.set("page", page.toString());
+    }
+    const queryString = params.toString();
+    return `${pathname}${queryString ? `?${queryString}` : ""}`;
   };
 
   if (nbPages <= 1) return null;
@@ -39,7 +53,7 @@ export default function SearchPagination() {
           return (
             <li key={page}>
               <Link
-                href={createURL(page)}
+                href={createRelativeURL(page + 1)}
                 onClick={(event) => {
                   event.preventDefault();
                   handlePageChange(page);
