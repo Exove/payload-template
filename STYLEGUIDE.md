@@ -90,10 +90,7 @@ This document outlines the coding standards and naming conventions for the proje
      };
      ```
 
-3. Constants
-   - Component internal constants
-
-4. Component
+3. Component
    - Use named function with export default syntax
    - Destructure props parameters
    - Check required props values at the beginning of the component
@@ -126,10 +123,7 @@ export type ComponentProps = {
   optional?: boolean;
 };
 
-const CONSTANT_VALUE = 'some-value';
-
 export default function Component({ required, optional }: ComponentProps) {
-  if (!required) return null;
 
   const helperFunction = () => {
     // helper function logic
