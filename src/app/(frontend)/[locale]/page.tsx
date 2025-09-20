@@ -2,6 +2,7 @@ import Container from "@/components/Container";
 import Header from "@/components/Header";
 import ErrorTemplate from "@/components/templates/ErrorTemplate";
 import FrontPageTemplate from "@/components/templates/FrontPageTemplate";
+import TopBanner from "@/components/TopBanner";
 import { SITE_NAME } from "@/lib/constants";
 import { prepareOpenGraphImages } from "@/lib/utils";
 import { Locale } from "@/types/locales";
@@ -11,16 +12,16 @@ import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
 export const dynamic = "force-static";
-export const revalidate = 60; // This is needed for dynamic components to update
+export const revalidate = 60;
 
 type Props = {
   params: Promise<{ locale: Locale }>;
+  preview: boolean;
 };
 
-async function getFrontPage({ params }: Props) {
+async function getFrontPage({ params, preview = false }: Props) {
   const { locale } = await params;
   try {
-    const isDraftMode = false; // Simplified for performance - no draft mode in static rendering
     const payload = await getPayload({
       config: configPromise,
     });
@@ -28,7 +29,7 @@ async function getFrontPage({ params }: Props) {
     const frontPage = await payload.findGlobal({
       slug: "front-page",
       locale: locale,
-      draft: isDraftMode,
+      draft: preview,
     });
 
     return { frontPage: frontPage, error: null };
@@ -46,10 +47,13 @@ export default async function FrontPage(props: Props) {
   if (!frontPage) return notFound();
 
   return (
-    <Container>
-      <Header />
-      <FrontPageTemplate content={frontPage} />
-    </Container>
+    <>
+      {props.preview && <TopBanner label="Preview" />}
+      <Container>
+        <Header />
+        <FrontPageTemplate content={frontPage} />
+      </Container>
+    </>
   );
 }
 

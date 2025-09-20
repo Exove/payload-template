@@ -25,6 +25,9 @@ export const FrontPage: GlobalConfig = {
   },
   admin: {
     group: "Pages",
+    preview: (_doc, { locale }) => {
+      return `/${locale}/preview?token=${process.env.PREVIEW_SECRET}`;
+    },
   },
   fields: [
     {
@@ -51,6 +54,9 @@ export const FrontPage: GlobalConfig = {
       ],
     },
   ],
+  versions: {
+    drafts: true,
+  },
   hooks: {
     afterChange: [revalidateFrontPageHook],
   },

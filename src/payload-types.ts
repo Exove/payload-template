@@ -634,6 +634,7 @@ export interface FrontPage {
      */
     image?: (number | null) | Media;
   };
+  _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1061,6 +1062,7 @@ export interface FrontPageSelect<T extends boolean = true> {
         description?: T;
         image?: T;
       };
+  _status?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
