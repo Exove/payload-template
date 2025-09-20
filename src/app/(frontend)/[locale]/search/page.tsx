@@ -2,8 +2,7 @@ import Container from "@/components/Container";
 import Header from "@/components/Header";
 import SearchTemplate from "@/components/templates/SearchTemplate";
 
-// Force dynamic rendering to enable SSR for search
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 export default async function SearchPage() {
   return (

@@ -41,7 +41,7 @@ function SearchBox() {
         value={query}
         onChange={(e) => refine(e.target.value)}
         placeholder={t("searchPlaceholder")}
-        // autoFocus
+        autoFocus
         className="w-full rounded-lg border border-stone-700 bg-stone-900 px-4 py-3 text-white placeholder-stone-400"
       />
       {query && (
