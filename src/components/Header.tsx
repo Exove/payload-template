@@ -1,5 +1,6 @@
 import { Link } from "@/i18n/routing";
 import { SITE_NAME } from "@/lib/constants";
+import { Locale } from "@/types/locales";
 import { MenuItem } from "@/types/menu";
 import configPromise from "@payload-config";
 import { getTranslations } from "next-intl/server";
@@ -8,7 +9,11 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import { MainMenu, MobileMenu } from "./MainMenu";
 import SearchSidePanel from "./SearchPanel";
 
-export default async function Header() {
+type Props = {
+  locale?: Locale;
+};
+
+export default async function Header({ locale = "fi" }: Props) {
   const t = await getTranslations("header");
   const payload = await getPayload({
     config: configPromise,
@@ -46,7 +51,7 @@ export default async function Header() {
             <SearchSidePanel />
           </li>
           <li>
-            <LanguageSwitcher />
+            <LanguageSwitcher locale={locale} />
           </li>
         </ul>
       </div>

@@ -15,7 +15,6 @@ export const revalidate = 60; // This is needed for dynamic components to update
 
 type Props = {
   params: Promise<{ locale: Locale }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 async function getFrontPage({ params }: Props) {
@@ -42,17 +41,14 @@ async function getFrontPage({ params }: Props) {
 
 export default async function FrontPage(props: Props) {
   const { frontPage, error } = await getFrontPage(props);
+  const { locale } = await props.params;
 
-  if (error) {
-    return <ErrorTemplate error={error} />;
-  }
-  if (!frontPage) {
-    notFound();
-  }
+  if (error) return <ErrorTemplate error={error} />;
+  if (!frontPage) return notFound();
 
   return (
     <Container>
-      <Header />
+      <Header locale={locale} />
       <FrontPageTemplate content={frontPage} />
     </Container>
   );
