@@ -4,13 +4,13 @@ import { useTranslations } from "next-intl";
 import { Article } from "../../payload-types";
 import Heading from "../Heading";
 
-interface ListingTemplateProps {
+export type ListingTemplateProps = {
   articles: Article[];
   totalDocs: number;
   totalPages: number;
   currentPage: number;
   locale: string;
-}
+};
 
 export function ListingTemplate({
   articles,

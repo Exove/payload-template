@@ -18,12 +18,12 @@ import {
   useStats,
 } from "react-instantsearch";
 
-interface Hit {
+type Hit = {
   objectID: string;
   title: string;
   slug: string;
   collection?: string;
-}
+};
 
 const searchClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID || "",

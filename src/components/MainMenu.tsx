@@ -10,9 +10,9 @@ import { parseMenuLinks } from "../lib/parse-link";
 import { MenuItem } from "../types/menu";
 import SidePanelMenu from "./SidePanelMenu";
 
-interface MainMenuProps {
+export type MainMenuProps = {
   items: MenuItem[];
-}
+};
 
 export function MainMenu({ items }: MainMenuProps) {
   const renderMenuItem = (item: MenuItem) => {

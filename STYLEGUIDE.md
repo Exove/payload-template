@@ -80,6 +80,7 @@ This document outlines the coding standards and naming conventions for the proje
 
 2. Types and interfaces
    - Component Props types should be defined separately as export type
+   - Use `type` instead of `interface`
    - Name the type with the component name and `Props` suffix
    - Example:
      ```typescript

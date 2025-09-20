@@ -2,7 +2,7 @@ import { algoliasearch, SearchClient } from "algoliasearch";
 import { Payload } from "payload";
 import { ALGOLIA_INDEX_NAME } from "./constants";
 
-export interface IndexableDocument {
+export type IndexableDocument = {
   objectID: string | number;
   title: string;
   content?: RichTextContent | null;
@@ -13,7 +13,7 @@ export interface IndexableDocument {
   collection: string;
   locale: string;
   [key: string]: unknown;
-}
+};
 
 type RichTextContent = {
   [k: string]: unknown;

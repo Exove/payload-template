@@ -9,11 +9,11 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { InstantSearch, useHits, useSearchBox, useStats } from "react-instantsearch";
 import SidePanel from "./SidePanel";
 
-interface Hit {
+type Hit = {
   title: string;
   slug: string;
   collection?: string;
-}
+};
 
 const SearchContext = createContext<{
   query: string;

@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils";
-interface HeadingProps {
+export type HeadingProps = {
   level: "h1" | "h2" | "h3" | "h4";
   size?: "xl" | "lg" | "md" | "sm" | "xs";
   children: string;
   className?: string;
-}
+};
 
 export default function Heading({ level, size, children, className }: HeadingProps) {
   const Tag = level;

@@ -9,16 +9,16 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import SidePanel from "./SidePanel";
 
-interface MenuItem {
+type MenuItem = {
   title: string;
   url: string;
   sublinks?: MenuItem[];
-}
+};
 
-interface SidePanelMenuProps {
+export type SidePanelMenuProps = {
   items: MenuItem[] | MainMenuItem[];
   isMainMenuItems?: boolean;
-}
+};
 
 // Helper function to convert MainMenuItem type to MenuItem type
 const convertMainMenuItems = (menuItems: MainMenuItem[]): MenuItem[] => {

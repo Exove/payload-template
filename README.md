@@ -21,7 +21,7 @@ This is a starter template for building web applications with Payload CMS and SQ
 
 ## 🛠️ Installation
 
-1. Clone this repository
+1. Clone this repository and make sure Docker is running
 
 2. Start the development environment:
 

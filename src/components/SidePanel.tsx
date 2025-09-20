@@ -6,7 +6,7 @@ import { ChevronRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useTranslations } from "next-intl";
 import React, { Fragment, useState } from "react";
 
-interface MenuDialogProps {
+export type MenuDialogProps = {
   openLabel: React.ReactNode;
   children: React.ReactNode;
   footer?: React.ReactNode;
@@ -18,7 +18,7 @@ interface MenuDialogProps {
   showBackButton?: boolean;
   onBack?: () => void;
   onClose?: () => void;
-}
+};
 
 export default function SidePanel({
   children,

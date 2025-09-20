@@ -6,9 +6,9 @@ import { useTranslations } from "next-intl";
 import { Fragment, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { FacebookIcon, LinkedInIcon } from "./Icons";
-interface ShareButtonsProps {
+export type ShareButtonsProps = {
   url?: string;
-}
+};
 
 export default function ShareButtons({ url }: ShareButtonsProps) {
   const [currentUrl, setCurrentUrl] = useState<string>(url || "");

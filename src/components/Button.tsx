@@ -3,7 +3,7 @@
 import { Link } from "@/i18n/routing";
 import clsx from "clsx";
 
-interface ButtonProps {
+export type ButtonProps = {
   style?: "primary" | "secondary" | "text" | "disabled";
   children: React.ReactNode;
   href?: string;
@@ -13,7 +13,7 @@ interface ButtonProps {
   fullWidth?: boolean;
   id?: string;
   disabled?: boolean;
-}
+};
 
 export default function Button({
   type,

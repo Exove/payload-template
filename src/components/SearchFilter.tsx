@@ -10,12 +10,12 @@ import { useTranslations } from "next-intl";
 import { Fragment } from "react";
 import { useRefinementList } from "react-instantsearch";
 
-interface SearchFilterProps {
+export type SearchFilterProps = {
   attribute: string;
   operator: "or" | "and";
   placeholder?: string;
   title: string;
-}
+};
 
 export default function SearchFilter({
   attribute = "categories",

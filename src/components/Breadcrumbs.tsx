@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useEffect } from "react";
 
-interface BreadcrumbsProps {
+export type BreadcrumbsProps = {
   path: Array<{ title: string; url: string }>;
-}
+};
 
 export default function Breadcrumbs({ path = [] }: BreadcrumbsProps) {
   useEffect(() => {

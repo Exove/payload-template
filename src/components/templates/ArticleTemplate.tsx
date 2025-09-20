@@ -8,9 +8,9 @@ import Image from "next/image";
 import Heading from "../Heading";
 import ShareButtons from "../ShareButtons";
 
-interface ArticleTemplateProps {
+export type ArticleTemplateProps = {
   article: Article;
-}
+};
 
 export default function ArticleTemplate({ article }: ArticleTemplateProps) {
   const t = useTranslations("articles");
