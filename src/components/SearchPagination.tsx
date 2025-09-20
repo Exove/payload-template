@@ -1,3 +1,4 @@
+import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { useTranslations } from "next-intl";
@@ -37,7 +38,7 @@ export default function SearchPagination() {
 
           return (
             <li key={page}>
-              <a
+              <Link
                 href={createURL(page)}
                 onClick={(event) => {
                   event.preventDefault();
@@ -53,7 +54,7 @@ export default function SearchPagination() {
                 aria-current={isActive ? "page" : undefined}
               >
                 {page + 1}
-              </a>
+              </Link>
             </li>
           );
         })}
