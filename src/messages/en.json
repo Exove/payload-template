@@ -11,7 +11,9 @@
     "previousPage": "Previous page",
     "nextPage": "Next page",
     "totalDocs": "Total",
-    "showMore": "Show more"
+    "showMore": "Show more",
+    "showMoreDescription": "Show more articles. {remaining} articles remaining out of {total} total articles.",
+    "newContentLoaded": "{count} new articles loaded"
   },
   "blocks": {
     "linkList": {
