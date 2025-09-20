@@ -14,7 +14,8 @@ type Props = {
 };
 
 export default async function Header({ locale = "fi" }: Props) {
-  const t = await getTranslations("header");
+  const tHeader = await getTranslations({ locale, namespace: "header" });
+  const tSearch = await getTranslations({ locale, namespace: "search" });
   const payload = await getPayload({
     config: configPromise,
   });
@@ -27,7 +28,7 @@ export default async function Header({ locale = "fi" }: Props) {
   return (
     <header>
       <a href="#main-content" className="sr-only focus:not-sr-only">
-        {t("skipToContent")}
+        {tHeader("skipToContent")}
       </a>
       <div className="flex w-full justify-center pt-4 xl:hidden">
         <Link href="/" className="text-xl font-bold">
@@ -48,7 +49,17 @@ export default async function Header({ locale = "fi" }: Props) {
         </div>
         <ul className="flex items-center justify-end gap-8 lg:w-[300px]">
           <li>
-            <SearchSidePanel locale={locale} />
+            <SearchSidePanel
+              locale={locale}
+              t={{
+                result: tSearch("result"),
+                results: tSearch("results"),
+                searchPlaceholder: tSearch("searchPlaceholder"),
+                clearSearch: tSearch("clearSearch"),
+                advancedSearch: tSearch("advancedSearch"),
+                search: tSearch("search"),
+              }}
+            />
           </li>
           <li>
             <LanguageSwitcher locale={locale} />

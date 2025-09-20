@@ -1,16 +1,20 @@
 "use client";
+
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/react";
 import { ArrowUpOnSquareIcon, ClipboardIcon } from "@heroicons/react/24/outline";
-import { useTranslations } from "next-intl";
 import { Fragment, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { FacebookIcon, LinkedInIcon } from "./Icons";
 interface ShareButtonsProps {
   url?: string;
+  t: {
+    title: string;
+    copied: string;
+    copyLink: string;
+  };
 }
 
-export default function ShareButtons({ url }: ShareButtonsProps) {
-  const t = useTranslations();
+export default function ShareButtons({ url, t }: ShareButtonsProps) {
   const [currentUrl, setCurrentUrl] = useState<string>(url || "");
   const [copySuccess, setCopySuccess] = useState(false);
 
@@ -38,7 +42,7 @@ export default function ShareButtons({ url }: ShareButtonsProps) {
       await navigator.clipboard.writeText(currentUrl);
       setCopySuccess(true);
       setTimeout(() => setCopySuccess(false), 2000);
-      toast.success(t("share.copied"));
+      toast.success(t.copied);
     } catch (err) {
       console.error("Failed to copy URL:", err);
     }
@@ -48,19 +52,19 @@ export default function ShareButtons({ url }: ShareButtonsProps) {
     {
       id: "copy",
       icon: <ClipboardIcon className="h-5 w-5" />,
-      label: copySuccess ? t("share.copied") : t("share.copyLink"),
+      label: copySuccess ? t.copied : t.copyLink,
       onClick: copyToClipboard,
     },
     {
       id: "facebook",
       icon: <FacebookIcon className="h-5 w-5" />,
-      label: t("share.facebook"),
+      label: "Facebook",
       onClick: () => handleShare("facebook"),
     },
     {
       id: "linkedin",
       icon: <LinkedInIcon className="h-5 w-5" />,
-      label: t("share.linkedin"),
+      label: "LinkedIn",
       onClick: () => handleShare("linkedin"),
     },
   ];
@@ -70,7 +74,7 @@ export default function ShareButtons({ url }: ShareButtonsProps) {
       <MenuButton className="flex items-center gap-2 text-sm text-stone-400 hover:text-stone-300">
         <span className="flex items-center gap-2">
           <ArrowUpOnSquareIcon className="h-5 w-5" />
-          {t("share.title")}
+          {t.title}
         </span>
       </MenuButton>
 

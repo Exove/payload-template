@@ -11,6 +11,14 @@ import SidePanel from "./SidePanel";
 
 type Props = {
   locale: Locale;
+  t: {
+    result: string;
+    results: string;
+    searchPlaceholder: string;
+    clearSearch: string;
+    advancedSearch: string;
+    search: string;
+  };
 };
 
 interface Hit {
@@ -67,24 +75,17 @@ const searchClient = {
 } as typeof algoliaClient;
 
 // Only used for screen readers
-function SearchStats({ locale }: Props) {
+function SearchStats({ t }: Props) {
   const { nbHits } = useStats();
 
   return (
     <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">
-      {nbHits}{" "}
-      {nbHits === 1
-        ? locale === "fi"
-          ? "tulos"
-          : "result"
-        : locale === "fi"
-          ? "tuloksia"
-          : "results"}
+      {nbHits} {nbHits === 1 ? t.result : t.results}
     </div>
   );
 }
 
-function CustomHits({ locale }: Props) {
+function CustomHits({ locale }: { locale: Locale }) {
   const { items } = useHits<Hit>();
 
   if (!items || items.length === 0) {
@@ -111,12 +112,10 @@ function CustomHits({ locale }: Props) {
 }
 
 function CustomSearchBox({
-  locale,
+  locale: _locale,
+  t,
   inSidePanel = false,
-}: {
-  locale: Locale;
-  inSidePanel?: boolean;
-}) {
+}: Props & { inSidePanel?: boolean }) {
   const { query, refine } = useSearchBox();
   const inputRef = useRef<HTMLInputElement>(null);
   const { setSearchQuery } = useContext(SearchContext);
@@ -148,14 +147,14 @@ function CustomSearchBox({
         value={query}
         onChange={(e) => refine(e.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder={locale === "fi" ? "Kirjoita hakusana..." : "Enter search term..."}
+        placeholder={t.searchPlaceholder}
         className="search-panel-input w-full rounded-lg border border-stone-700 bg-stone-900 px-4 py-3 text-white placeholder-stone-400 focus:border-amber-500 focus:outline-none"
       />
       {query && (
         <button
           onClick={() => refine("")}
           className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-white"
-          aria-label={locale === "fi" ? "Tyhjennä haku" : "Clear search"}
+          aria-label={t.clearSearch}
           tabIndex={-1}
         >
           <XMarkIcon className="h-5 w-5 stroke-2" />
@@ -165,41 +164,40 @@ function CustomSearchBox({
   );
 }
 
-function AdvancedSearchLink({ locale }: Props) {
+function AdvancedSearchLink({ locale, t }: Props) {
   const { query } = useContext(SearchContext);
   return (
     <div className="pb-10 pt-4 text-center">
       <Link
         href={`/search${query ? `?q=${encodeURIComponent(query)}` : ""}`}
         className="p-4 text-amber-500 underline-offset-2 hover:underline"
+        locale={locale}
       >
-        {locale === "fi" ? "Edistynyt haku" : "Advanced search"}
+        {t.advancedSearch}
       </Link>
     </div>
   );
 }
 
-export default function SearchSidePanel({ locale }: Props) {
+export default function SearchSidePanel({ locale, t }: Props) {
   return (
     <SearchContextProvider>
       <SidePanel
         openLabel={
           <button className="group flex items-center gap-2">
             <MagnifyingGlassIcon className="h-5 w-5 group-hover:text-amber-500" />
-            <div className="sr-only text-xs font-medium uppercase xl:not-sr-only">
-              {locale === "fi" ? "Haku" : "Search"}
-            </div>
+            <div className="sr-only text-xs font-medium uppercase xl:not-sr-only">{t.search}</div>
           </button>
         }
-        title={locale === "fi" ? "Haku" : "Search"}
-        footer={<AdvancedSearchLink locale={locale} />}
+        title={t.search}
+        footer={<AdvancedSearchLink locale={locale} t={t} />}
       >
         <div className="flex flex-col gap-2">
           <InstantSearch searchClient={searchClient} indexName={`${ALGOLIA_INDEX_NAME}_${locale}`}>
             <div className="sticky top-0 z-10 bg-stone-800 pb-2 pt-4">
-              <CustomSearchBox locale={locale} inSidePanel={true} />
+              <CustomSearchBox locale={locale} t={t} inSidePanel={true} />
             </div>
-            <SearchStats locale={locale} />
+            <SearchStats locale={locale} t={t} />
             <CustomHits locale={locale} />
           </InstantSearch>
         </div>

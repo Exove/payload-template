@@ -8,6 +8,7 @@ import { prepareOpenGraphImages } from "@/lib/utils";
 import { Locale } from "@/types/locales";
 import configPromise from "@payload-config";
 import { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
@@ -44,6 +45,11 @@ export async function getArticleBySlug({ params, preview = false }: Props) {
 }
 
 export default async function ArticlePage(props: Props) {
+  const { locale } = await props.params;
+  setRequestLocale(locale);
+  const tArticles = await getTranslations({ locale, namespace: "articles" });
+  const tShare = await getTranslations({ locale, namespace: "share" });
+
   const { article, error } = await getArticleBySlug(props);
 
   if (error) {
@@ -59,8 +65,19 @@ export default async function ArticlePage(props: Props) {
     <>
       {props.preview && <TopBanner label="Preview" />}
       <Container>
-        <Header />
-        <ArticleTemplate article={article} />
+        <Header locale={locale} />
+        <ArticleTemplate
+          article={article}
+          locale={locale}
+          t={{
+            title: tArticles("title"),
+            share: {
+              title: tShare("title"),
+              copied: tShare("copied"),
+              copyLink: tShare("copyLink"),
+            },
+          }}
+        />
       </Container>
     </>
   );
