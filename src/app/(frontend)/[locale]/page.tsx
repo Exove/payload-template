@@ -16,10 +16,9 @@ export const revalidate = 60;
 
 type Props = {
   params: Promise<{ locale: Locale }>;
-  preview: boolean;
 };
 
-async function getFrontPage({ params, preview = false }: Props) {
+async function getFrontPage({ params }: Props, preview = false) {
   const { locale } = await params;
   try {
     const payload = await getPayload({
@@ -40,15 +39,15 @@ async function getFrontPage({ params, preview = false }: Props) {
   }
 }
 
-export default async function FrontPage(props: Props) {
-  const { frontPage, error } = await getFrontPage(props);
+export default async function FrontPage({ params }: Props, preview = false) {
+  const { frontPage, error } = await getFrontPage({ params }, preview);
 
   if (error) return <ErrorTemplate error={error as Error} />;
   if (!frontPage) return notFound();
 
   return (
     <>
-      {props.preview && <TopBanner label="Preview" />}
+      {preview && <TopBanner label="Preview" />}
       <Container>
         <Header />
         <FrontPageTemplate content={frontPage} />

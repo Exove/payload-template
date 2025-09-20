@@ -15,7 +15,7 @@ export const dynamic = "force-static";
 
 type Props = {
   params: Promise<{ slug: string; locale: Locale }>;
-  preview: boolean;
+  preview?: boolean;
 };
 
 export async function getArticleBySlug({ params, preview = false }: Props) {
