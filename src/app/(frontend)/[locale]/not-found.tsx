@@ -2,6 +2,7 @@ import Button from "@/components/Button";
 import Container from "@/components/Container";
 import Header from "@/components/Header";
 import Heading from "@/components/Heading";
+import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 
 export default async function NotFoundTemplate() {
@@ -18,7 +19,9 @@ export default async function NotFoundTemplate() {
           {`404 - ${t("title")}`}
         </Heading>
         <p className="mb-8 text-stone-400">{t("description")}</p>
-        <Button href="/">{t("backHome")}</Button>
+        <Button asChild={true}>
+          <Link href="/">{t("backHome")}</Link>
+        </Button>
       </main>
     </Container>
   );

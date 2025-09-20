@@ -1,3 +1,4 @@
+import { Link } from "@/i18n/routing";
 import { parseLink } from "@/lib/parse-link";
 import { CTABlock as CTABlockType } from "@/payload-types";
 import Button from "../Button";
@@ -16,7 +17,9 @@ export function CTABlock({ block }: Props) {
       {block.text && <p className="text-lg leading-relaxed text-stone-300">{block.text}</p>}
       {linkUrl && (
         <div className="mt-10 flex justify-center gap-4">
-          <Button href={linkUrl}>{linkLabel}</Button>
+          <Button asChild={true}>
+            <Link href={linkUrl}>{linkLabel}</Link>
+          </Button>
         </div>
       )}
     </div>

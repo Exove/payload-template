@@ -1,12 +1,13 @@
 "use client";
 
+import { Button } from "@/components/Button";
+import Heading from "@/components/Heading";
 import { Link } from "@/i18n/routing";
 import { formatDateLong } from "@/lib/utils";
+import { Article } from "@/payload-types";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useRef, useState } from "react";
-import { Article } from "../../payload-types";
-import Heading from "../Heading";
 
 const ITEMS_PER_PAGE = 25;
 
@@ -97,13 +98,9 @@ export function ListingTemplate({ articles, locale }: ListingTemplateProps) {
 
       {hasMoreArticles && (
         <div className="mt-8 flex justify-center">
-          <button
-            onClick={handleShowMore}
-            className="rounded-md bg-stone-800 px-6 py-3 text-sm font-medium text-stone-100 ring-1 ring-stone-700 transition-colors hover:bg-stone-700 hover:text-amber-500"
-            aria-describedby="show-more-description"
-          >
+          <Button onClick={handleShowMore} aria-describedby="show-more-description">
             {t("listing.showMore")}
-          </button>
+          </Button>
           <span id="show-more-description" className="sr-only">
             {t("listing.showMoreDescription", {
               remaining: remainingArticles,
