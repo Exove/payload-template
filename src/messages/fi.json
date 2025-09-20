@@ -10,7 +10,8 @@
     "pagination": "Sivutus",
     "previousPage": "Edellinen sivu",
     "nextPage": "Seuraava sivu",
-    "totalDocs": "Yhteensä"
+    "totalDocs": "Yhteensä",
+    "showMore": "Näytä lisää"
   },
   "blocks": {
     "linkList": {

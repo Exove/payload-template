@@ -10,7 +10,8 @@
     "pagination": "Pagination",
     "previousPage": "Previous page",
     "nextPage": "Next page",
-    "totalDocs": "Total"
+    "totalDocs": "Total",
+    "showMore": "Show more"
   },
   "blocks": {
     "linkList": {
