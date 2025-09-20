@@ -13,13 +13,14 @@ type Props = {
   params: Promise<{ locale: Locale }>;
 };
 
+const ITEMS_PER_PAGE = 40;
+
 export default async function ArticlesPage({ searchParams, params }: Props) {
   const { locale } = await params;
 
   try {
     const { page } = await searchParams;
     const currentPage = Number(page) || 1;
-    const perPage = 40;
 
     const payload = await getPayload({
       config: configPromise,
@@ -31,7 +32,7 @@ export default async function ArticlesPage({ searchParams, params }: Props) {
       locale: locale,
       fallbackLocale: false,
       draft: false,
-      limit: perPage,
+      limit: ITEMS_PER_PAGE,
       page: currentPage,
       depth: 0,
       where: {
