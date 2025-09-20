@@ -10,13 +10,13 @@ import { algoliasearch } from "algoliasearch";
 import { Locale, useLocale, useTranslations } from "next-intl";
 import {
   Configure,
-  InstantSearch,
   useCurrentRefinements,
   useHits,
   useSearchBox,
   useSortBy,
   useStats,
 } from "react-instantsearch";
+import { InstantSearchNext } from "react-instantsearch-nextjs";
 
 type Hit = {
   objectID: string;
@@ -41,7 +41,7 @@ function SearchBox() {
         value={query}
         onChange={(e) => refine(e.target.value)}
         placeholder={t("searchPlaceholder")}
-        autoFocus
+        // autoFocus
         className="w-full rounded-lg border border-stone-700 bg-stone-900 px-4 py-3 text-white placeholder-stone-400"
       />
       {query && (
@@ -204,7 +204,7 @@ export default function SearchTemplate() {
 
   return (
     <main id="main-content" className="mx-auto mb-40 max-w-screen-md py-16">
-      <InstantSearch
+      <InstantSearchNext
         searchClient={searchClient}
         indexName={`${ALGOLIA_INDEX_NAME}_${locale}`}
         routing={{
@@ -247,7 +247,7 @@ export default function SearchTemplate() {
       >
         <Configure hitsPerPage={20} />
         <SearchComponents locale={locale} />
-      </InstantSearch>
+      </InstantSearchNext>
     </main>
   );
 }
