@@ -48,7 +48,7 @@ export default async function Header({ locale = "fi" }: Props) {
         </div>
         <ul className="flex items-center justify-end gap-8 lg:w-[300px]">
           <li>
-            <SearchSidePanel />
+            <SearchSidePanel locale={locale} />
           </li>
           <li>
             <LanguageSwitcher locale={locale} />
