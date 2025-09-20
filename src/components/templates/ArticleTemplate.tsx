@@ -26,7 +26,9 @@ export default function ArticleTemplate({ article, locale, t }: ArticleTemplateP
     <main id="main-content" className="mx-auto max-w-[800px] py-12">
       <div className="mb-6 flex items-center gap-2 text-sm text-stone-400 hover:text-stone-300">
         <ChevronLeftIcon className="size-4 stroke-2" />
-        <Link href="/articles">{t.title}</Link>
+        <Link href="/articles" locale={locale}>
+          {t.title}
+        </Link>
       </div>
       {typeof article.image === "object" && article.image?.url && (
         <Image

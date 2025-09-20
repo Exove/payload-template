@@ -10,10 +10,10 @@ import { MainMenu, MobileMenu } from "./MainMenu";
 import SearchSidePanel from "./SearchPanel";
 
 type Props = {
-  locale?: Locale;
+  locale: Locale;
 };
 
-export default async function Header({ locale = "fi" }: Props) {
+export default async function Header({ locale }: Props) {
   const tHeader = await getTranslations({ locale, namespace: "header" });
   const tSearch = await getTranslations({ locale, namespace: "search" });
   const payload = await getPayload({

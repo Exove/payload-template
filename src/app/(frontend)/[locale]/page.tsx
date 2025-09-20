@@ -43,7 +43,7 @@ export default async function FrontPage(props: Props) {
   const { frontPage, error } = await getFrontPage(props);
   const { locale } = await props.params;
 
-  if (error) return <ErrorTemplate error={error} />;
+  if (error) return <ErrorTemplate locale={locale} error={error as Error} />;
   if (!frontPage) return notFound();
 
   return (

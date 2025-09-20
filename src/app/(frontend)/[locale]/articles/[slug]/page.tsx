@@ -54,7 +54,7 @@ export default async function ArticlePage(props: Props) {
 
   if (error) {
     console.error("Error fetching article:", error);
-    return <ErrorTemplate error={error} />;
+    return <ErrorTemplate locale={locale} error={error as Error} />;
   }
 
   if (!article) {
