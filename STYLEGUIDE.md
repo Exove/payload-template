@@ -116,7 +116,7 @@ This document outlines the coding standards and naming conventions for the proje
 ```typescript
 import { ExternalDependency } from 'external-lib';
 import { InternalComponent } from '@/components';
-import { SomeType } from '@/types';
+import type { SomeType } from '@/types';
 
 export type ComponentProps = {
   required: string;
