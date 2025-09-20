@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import TopBanner from "@/components/TopBanner";
 import ArticleTemplate from "@/components/templates/ArticleTemplate";
 import ErrorTemplate from "@/components/templates/ErrorTemplate";
+import { redirect } from "@/i18n/routing";
 import { SITE_NAME } from "@/lib/constants";
 import { prepareOpenGraphImages } from "@/lib/utils";
 import { Locale } from "@/types/locales";
@@ -33,6 +34,7 @@ export async function getArticleBySlug({ params, preview = false }: Props) {
         slug: { equals: slug },
       },
       locale: locale,
+      fallbackLocale: false,
       draft: preview,
     });
 
@@ -45,6 +47,7 @@ export async function getArticleBySlug({ params, preview = false }: Props) {
 
 export default async function ArticlePage(props: Props) {
   const { article, error } = await getArticleBySlug(props);
+  const { locale } = await props.params;
 
   if (error) {
     console.error("Error fetching article:", error);
@@ -55,11 +58,16 @@ export default async function ArticlePage(props: Props) {
     notFound();
   }
 
+  // Redirect to front page if no localized content found
+  if (!article.title) {
+    redirect({ href: "/", locale });
+  }
+
   return (
     <>
       {props.preview && <TopBanner label="Preview" />}
       <Container>
-        <Header />
+        <Header locale={locale} />
         <ArticleTemplate article={article} />
       </Container>
     </>

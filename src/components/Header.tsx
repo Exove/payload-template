@@ -1,5 +1,6 @@
 import { Link } from "@/i18n/routing";
 import { SITE_NAME } from "@/lib/constants";
+import { Locale } from "@/types/locales";
 import { MenuItem } from "@/types/menu";
 import configPromise from "@payload-config";
 import { getTranslations } from "next-intl/server";
@@ -8,7 +9,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import { MainMenu, MobileMenu } from "./MainMenu";
 import SearchSidePanel from "./SearchPanel";
 
-export default async function Header() {
+export default async function Header({ locale }: { locale: Locale }) {
   const t = await getTranslations("header");
   const payload = await getPayload({
     config: configPromise,
@@ -18,6 +19,8 @@ export default async function Header() {
     slug: "main-menu",
     depth: 1,
   });
+
+  console.log("locale", locale);
 
   return (
     <header>
@@ -43,10 +46,10 @@ export default async function Header() {
         </div>
         <ul className="flex items-center justify-end gap-8 lg:w-[300px]">
           <li>
-            <SearchSidePanel />
+            <SearchSidePanel locale={locale} />
           </li>
           <li>
-            <LanguageSwitcher />
+            <LanguageSwitcher locale={locale} />
           </li>
         </ul>
       </div>
