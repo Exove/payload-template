@@ -7,7 +7,7 @@ import { Link } from "@/i18n/routing";
 import { ALGOLIA_INDEX_NAME } from "@/lib/constants";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { algoliasearch } from "algoliasearch";
-import { useLocale, useTranslations } from "next-intl";
+import { Locale, useTranslations } from "next-intl";
 import {
   Configure,
   InstantSearch,
@@ -69,14 +69,14 @@ function SearchStats() {
   );
 }
 
-function SortBy() {
+function SortBy({ locale }: Props) {
   const { options, currentRefinement, refine } = useSortBy({
     items: [
-      { label: "relevance", value: `${ALGOLIA_INDEX_NAME}_${useLocale()}` },
-      { label: "titleAZ", value: `${ALGOLIA_INDEX_NAME}_${useLocale()}_title_asc` },
-      { label: "titleZA", value: `${ALGOLIA_INDEX_NAME}_${useLocale()}_title_desc` },
-      { label: "newest", value: `${ALGOLIA_INDEX_NAME}_${useLocale()}_created_desc` },
-      { label: "oldest", value: `${ALGOLIA_INDEX_NAME}_${useLocale()}_created_asc` },
+      { label: "relevance", value: `${ALGOLIA_INDEX_NAME}_${locale}` },
+      { label: "titleAZ", value: `${ALGOLIA_INDEX_NAME}_${locale}_title_asc` },
+      { label: "titleZA", value: `${ALGOLIA_INDEX_NAME}_${locale}_title_desc` },
+      { label: "newest", value: `${ALGOLIA_INDEX_NAME}_${locale}_created_desc` },
+      { label: "oldest", value: `${ALGOLIA_INDEX_NAME}_${locale}_created_asc` },
     ],
   });
   const t = useTranslations("search");
@@ -161,7 +161,7 @@ function SearchResults() {
   );
 }
 
-function SearchComponents() {
+function SearchComponents({ locale }: Props) {
   const t = useTranslations("search");
 
   return (
@@ -182,7 +182,7 @@ function SearchComponents() {
             <SearchStats />
             <span className="flex items-center gap-2">
               <span className="text-stone-400">{t("sortBy")}:</span>
-              <SortBy />
+              <SortBy locale={locale} />
             </span>
           </div>
           <div className="space-y-12">
@@ -195,9 +195,11 @@ function SearchComponents() {
   );
 }
 
-export default function SearchTemplate() {
-  const locale = useLocale();
+type Props = {
+  locale: Locale;
+};
 
+export default function SearchTemplate({ locale }: Props) {
   return (
     <main id="main-content" className="mx-auto mb-40 max-w-screen-md py-16">
       <InstantSearch
@@ -242,7 +244,7 @@ export default function SearchTemplate() {
         }}
       >
         <Configure hitsPerPage={20} />
-        <SearchComponents />
+        <SearchComponents locale={locale} />
       </InstantSearch>
     </main>
   );
