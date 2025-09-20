@@ -15,7 +15,7 @@ export const Articles: CollectionConfig = {
   admin: {
     useAsTitle: "title",
     group: "Pages",
-    defaultColumns: ["title", "createdBy", "updatedAt", "createdAt"],
+    defaultColumns: ["title", "_status", "createdBy", "updatedAt"],
     preview: (doc, { locale }) => {
       if (doc?.slug) {
         return `/${locale}/articles/${doc.slug}/preview?token=${process.env.PREVIEW_SECRET}`;

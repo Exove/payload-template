@@ -10,10 +10,8 @@ import { fileURLToPath } from "url";
 
 import { Articles } from "./collections/articles";
 import { Categories } from "./collections/categories";
-import { CollectionPage } from "./collections/collection-page";
 import { Contacts } from "./collections/contacts";
 import { Media } from "./collections/media";
-import { News } from "./collections/news";
 import { Users } from "./collections/users";
 import { seoConfig } from "./fields/seo";
 import { Footer } from "./globals/Footer";
@@ -37,7 +35,7 @@ export default buildConfig({
       supportedTimezones: [{ label: "Helsinki (EET/EEST)", value: "Europe/Helsinki" }],
     },
   },
-  collections: [Users, Media, Articles, CollectionPage, News, Categories, Contacts],
+  collections: [Users, Media, Articles, Categories, Contacts],
   globals: [FrontPage, MainMenu, FooterMenu, Footer],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [...defaultFeatures],

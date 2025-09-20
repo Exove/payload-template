@@ -2,16 +2,13 @@ import { seoPlugin } from "@payloadcms/plugin-seo";
 import { Field } from "payload";
 
 export const seoConfig = seoPlugin({
-  collections: ["articles", "news", "collection-page"],
+  collections: ["articles"],
   globals: ["front-page"],
   uploadsCollection: "media",
   generateURL: ({ doc, collectionSlug }) => {
     if (doc?.slug) {
       if (collectionSlug === "articles") {
         return `${process.env.NEXT_PUBLIC_ROOT_URL}/articles/${doc.slug}`;
-      }
-      if (collectionSlug === "news") {
-        return `${process.env.NEXT_PUBLIC_ROOT_URL}/news/${doc.slug}`;
       }
       return `${process.env.NEXT_PUBLIC_ROOT_URL}/${collectionSlug}/${doc.slug}`;
     }

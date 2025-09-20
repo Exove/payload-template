@@ -1,6 +1,6 @@
 import { Block, getPayload } from "payload";
 
-type CollectionType = "articles" | "news" | "collection-pages";
+type CollectionType = "articles";
 
 export const dynamicListBlock: Block = {
   slug: "dynamicList",
@@ -17,8 +17,6 @@ export const dynamicListBlock: Block = {
       required: true,
       options: [
         { label: "Articles", value: "articles" },
-        { label: "News", value: "news" },
-        { label: "Collection Pages", value: "collection-pages" },
         { label: "Contacts", value: "contacts" },
       ],
     },
@@ -182,7 +180,7 @@ export const dynamicListBlock: Block = {
         {
           name: "reference",
           type: "relationship",
-          relationTo: ["articles", "news", "collection-pages"],
+          relationTo: ["articles"],
           required: true,
         },
       ],

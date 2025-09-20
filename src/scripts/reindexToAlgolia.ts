@@ -5,7 +5,7 @@ import {
   indexDocumentToAlgolia,
 } from "@/lib/algolia-utils";
 import { INDEXABLE_COLLECTIONS, IndexableCollectionSlug } from "@/lib/constants";
-import { Article, CollectionPage, News } from "@/payload-types";
+import { Article } from "@/payload-types";
 import { getPayload } from "payload";
 import config from "../payload.config";
 
@@ -15,7 +15,7 @@ type RichTextContent = {
 }[];
 
 // Type guard to check if document is an Article
-const isArticle = (doc: Article | News | CollectionPage): doc is Article => {
+const isArticle = (doc: Article): doc is Article => {
   return "categories" in doc && "publishedDate" in doc;
 };
 

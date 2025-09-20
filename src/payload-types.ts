@@ -23,8 +23,6 @@ export interface Config {
     users: User;
     media: Media;
     articles: Article;
-    'collection-pages': CollectionPage;
-    news: News;
     categories: Category;
     contacts: Contact;
     'payload-locked-documents': PayloadLockedDocument;
@@ -36,8 +34,6 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     articles: ArticlesSelect<false> | ArticlesSelect<true>;
-    'collection-pages': CollectionPagesSelect<false> | CollectionPagesSelect<true>;
-    news: NewsSelect<false> | NewsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     contacts: ContactsSelect<false> | ContactsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -244,88 +240,6 @@ export interface Category {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "collection-pages".
- */
-export interface CollectionPage {
-  id: number;
-  title: string;
-  description?: string | null;
-  image?: (number | null) | Media;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * The slug is automatically generated from the title if empty
-   */
-  slug: string;
-  createdBy?: (number | null) | User;
-  /**
-   * If checked, the post is displayed at the top of lists
-   */
-  sticky?: boolean | null;
-  collection?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "news".
- */
-export interface News {
-  id: number;
-  title: string;
-  description?: string | null;
-  image?: (number | null) | Media;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * The slug is automatically generated from the title if empty
-   */
-  slug: string;
-  createdBy?: (number | null) | User;
-  /**
-   * If checked, the post is displayed at the top of lists
-   */
-  sticky?: boolean | null;
-  collection?: string | null;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -342,14 +256,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'articles';
         value: number | Article;
-      } | null)
-    | ({
-        relationTo: 'collection-pages';
-        value: number | CollectionPage;
-      } | null)
-    | ({
-        relationTo: 'news';
-        value: number | News;
       } | null)
     | ({
         relationTo: 'categories';
@@ -505,45 +411,6 @@ export interface ArticlesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "collection-pages_select".
- */
-export interface CollectionPagesSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  image?: T;
-  content?: T;
-  slug?: T;
-  createdBy?: T;
-  sticky?: T;
-  collection?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "news_select".
- */
-export interface NewsSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  image?: T;
-  content?: T;
-  slug?: T;
-  createdBy?: T;
-  sticky?: T;
-  collection?: T;
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories_select".
  */
 export interface CategoriesSelect<T extends boolean = true> {
@@ -650,19 +517,10 @@ export interface HeroBlock {
   link?: {
     label?: string | null;
     isExternal?: boolean | null;
-    internalUrl?:
-      | ({
-          relationTo: 'articles';
-          value: number | Article;
-        } | null)
-      | ({
-          relationTo: 'collection-pages';
-          value: number | CollectionPage;
-        } | null)
-      | ({
-          relationTo: 'news';
-          value: number | News;
-        } | null);
+    internalUrl?: {
+      relationTo: 'articles';
+      value: number | Article;
+    } | null;
     externalUrl?: string | null;
   };
   id?: string | null;
@@ -678,19 +536,10 @@ export interface CTABlock {
   link?: {
     label?: string | null;
     isExternal?: boolean | null;
-    internalUrl?:
-      | ({
-          relationTo: 'articles';
-          value: number | Article;
-        } | null)
-      | ({
-          relationTo: 'collection-pages';
-          value: number | CollectionPage;
-        } | null)
-      | ({
-          relationTo: 'news';
-          value: number | News;
-        } | null);
+    internalUrl?: {
+      relationTo: 'articles';
+      value: number | Article;
+    } | null;
     externalUrl?: string | null;
   };
   id?: string | null;
@@ -708,19 +557,10 @@ export interface LargeFeaturedPostBlock {
   link?: {
     label?: string | null;
     isExternal?: boolean | null;
-    internalUrl?:
-      | ({
-          relationTo: 'articles';
-          value: number | Article;
-        } | null)
-      | ({
-          relationTo: 'collection-pages';
-          value: number | CollectionPage;
-        } | null)
-      | ({
-          relationTo: 'news';
-          value: number | News;
-        } | null);
+    internalUrl?: {
+      relationTo: 'articles';
+      value: number | Article;
+    } | null;
     externalUrl?: string | null;
   };
   id?: string | null;
@@ -738,19 +578,10 @@ export interface SmallFeaturedPostsWrapperBlock {
     image: number | Media;
     link?: {
       isExternal?: boolean | null;
-      internalUrl?:
-        | ({
-            relationTo: 'articles';
-            value: number | Article;
-          } | null)
-        | ({
-            relationTo: 'collection-pages';
-            value: number | CollectionPage;
-          } | null)
-        | ({
-            relationTo: 'news';
-            value: number | News;
-          } | null);
+      internalUrl?: {
+        relationTo: 'articles';
+        value: number | Article;
+      } | null;
       externalUrl?: string | null;
     };
     id?: string | null;
@@ -770,19 +601,10 @@ export interface LinkListBlock {
     | {
         label?: string | null;
         isExternal?: boolean | null;
-        internalUrl?:
-          | ({
-              relationTo: 'articles';
-              value: number | Article;
-            } | null)
-          | ({
-              relationTo: 'collection-pages';
-              value: number | CollectionPage;
-            } | null)
-          | ({
-              relationTo: 'news';
-              value: number | News;
-            } | null);
+        internalUrl?: {
+          relationTo: 'articles';
+          value: number | Article;
+        } | null;
         externalUrl?: string | null;
         id?: string | null;
       }[]
@@ -851,26 +673,17 @@ export interface QuoteBlock {
  * via the `definition` "DynamicListBlock".
  */
 export interface DynamicListBlock {
-  collections: ('articles' | 'news' | 'collection-pages' | 'contacts')[];
+  collections: ('articles' | 'contacts')[];
   language: 'fi' | 'en';
   sortBy: 'createdAt' | 'updatedAt' | 'publishedDate';
   sortOrder: 'asc' | 'desc';
   limit: number;
   items?:
     | {
-        reference:
-          | {
-              relationTo: 'articles';
-              value: number | Article;
-            }
-          | {
-              relationTo: 'news';
-              value: number | News;
-            }
-          | {
-              relationTo: 'collection-pages';
-              value: number | CollectionPage;
-            };
+        reference: {
+          relationTo: 'articles';
+          value: number | Article;
+        };
         id?: string | null;
       }[]
     | null;
@@ -889,19 +702,10 @@ export interface MainMenu {
     addLinks?: boolean | null;
     link?: {
       isExternal?: boolean | null;
-      internalUrl?:
-        | ({
-            relationTo: 'articles';
-            value: number | Article;
-          } | null)
-        | ({
-            relationTo: 'collection-pages';
-            value: number | CollectionPage;
-          } | null)
-        | ({
-            relationTo: 'news';
-            value: number | News;
-          } | null);
+      internalUrl?: {
+        relationTo: 'articles';
+        value: number | Article;
+      } | null;
       externalUrl?: string | null;
     };
     children?:
@@ -910,19 +714,10 @@ export interface MainMenu {
           addLinks?: boolean | null;
           link?: {
             isExternal?: boolean | null;
-            internalUrl?:
-              | ({
-                  relationTo: 'articles';
-                  value: number | Article;
-                } | null)
-              | ({
-                  relationTo: 'collection-pages';
-                  value: number | CollectionPage;
-                } | null)
-              | ({
-                  relationTo: 'news';
-                  value: number | News;
-                } | null);
+            internalUrl?: {
+              relationTo: 'articles';
+              value: number | Article;
+            } | null;
             externalUrl?: string | null;
           };
           grandchildren?:
@@ -930,19 +725,10 @@ export interface MainMenu {
                 label: string;
                 link?: {
                   isExternal?: boolean | null;
-                  internalUrl?:
-                    | ({
-                        relationTo: 'articles';
-                        value: number | Article;
-                      } | null)
-                    | ({
-                        relationTo: 'collection-pages';
-                        value: number | CollectionPage;
-                      } | null)
-                    | ({
-                        relationTo: 'news';
-                        value: number | News;
-                      } | null);
+                  internalUrl?: {
+                    relationTo: 'articles';
+                    value: number | Article;
+                  } | null;
                   externalUrl?: string | null;
                 };
                 id?: string | null;
@@ -969,19 +755,10 @@ export interface FooterMenu {
           link?: {
             label?: string | null;
             isExternal?: boolean | null;
-            internalUrl?:
-              | ({
-                  relationTo: 'articles';
-                  value: number | Article;
-                } | null)
-              | ({
-                  relationTo: 'collection-pages';
-                  value: number | CollectionPage;
-                } | null)
-              | ({
-                  relationTo: 'news';
-                  value: number | News;
-                } | null);
+            internalUrl?: {
+              relationTo: 'articles';
+              value: number | Article;
+            } | null;
             externalUrl?: string | null;
           };
           id?: string | null;
