@@ -10,6 +10,8 @@ This document outlines the coding standards and naming conventions for the proje
   - Example: `format-date.ts`, `use-auth.ts`
 - **Payload CMS Collections**: kebab-case with `.ts` extension
   - Example: `users.ts`, `blog-posts.ts`
+- **Payload CMS Globals**: PascalCase with `.ts` extension
+  - Example: `FrontPage.ts`, `MainMenu.ts`
 - **Payload CMS Blocks**: kebab-case with `.ts` extension
   - Example: `hero.ts`, `dynamic-list.ts`
 - **Tests**: Same name as the tested file + `.test` or `.spec`
@@ -59,21 +61,24 @@ This document outlines the coding standards and naming conventions for the proje
 
 - **Collections**: PascalCase, plural form
   - Example: `Users`, `Posts`
+  - Slugs: kebab-case (e.g., `slug: "blog-posts"`)
+- **Globals**: PascalCase, singular form
+  - Example: `FrontPage`, `MainMenu`
+  - Slugs: kebab-case (e.g., `slug: "front-page"`)
 - **Fields**: camelCase
   - Example: `firstName`, `createdAt`
 - **Relations**: camelCase
   - Example: `author`, `categories`
 - **Blocks**: PascalCase + Block suffix
   - Example: `HeroBlock`, `ContentBlock`
+  - Slugs: camelCase (e.g., `slug: "dynamicList"`)
 
 ## File Organization in Components
 
 1. Imports
-
    - Automatically sorted by prettier
 
 2. Types and interfaces
-
    - Component Props types should be defined separately as export type
    - Name the type with the component name and `Props` suffix
    - Example:
@@ -85,11 +90,9 @@ This document outlines the coding standards and naming conventions for the proje
      ```
 
 3. Constants
-
    - Component internal constants
 
 4. Component
-
    - Use named function with export default syntax
    - Destructure props parameters
    - Check required props values at the beginning of the component
