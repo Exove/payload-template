@@ -1,7 +1,6 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { payloadCloudPlugin } from "@payloadcms/payload-cloud";
-import { nestedDocsPlugin } from "@payloadcms/plugin-nested-docs";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import path from "path";
 import { buildConfig } from "payload";
@@ -57,12 +56,5 @@ export default buildConfig({
     disable: true,
   },
   sharp,
-  plugins: [
-    payloadCloudPlugin(),
-    seoConfig,
-    nestedDocsPlugin({
-      collections: ["categories"],
-      generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ""),
-    }),
-  ],
+  plugins: [payloadCloudPlugin(), seoConfig],
 });

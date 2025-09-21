@@ -3,12 +3,12 @@ import { CollectionConfig } from "payload";
 
 export const Categories: CollectionConfig = {
   slug: "categories",
+  folders: true,
   admin: {
     group: "Taxonomy",
     useAsTitle: "label",
-    defaultColumns: ["label", "slug", "parent", "updatedAt"],
+    defaultColumns: ["label", "slug", "updatedAt", "folder"],
   },
-  defaultSort: "parent",
   fields: [
     {
       name: "label",
