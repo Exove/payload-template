@@ -9,6 +9,7 @@ export const Media: CollectionConfig = {
   admin: {
     group: "Misc",
   },
+  folders: true,
   fields: [
     {
       name: "alt",
