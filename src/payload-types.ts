@@ -229,6 +229,10 @@ export interface Category {
   id: number;
   label: string;
   /**
+   * Auto-generated display name with folder path
+   */
+  displayName?: string | null;
+  /**
    * The slug is automatically generated from the label if empty
    */
   slug: string;
@@ -443,6 +447,7 @@ export interface ArticlesSelect<T extends boolean = true> {
  */
 export interface CategoriesSelect<T extends boolean = true> {
   label?: T;
+  displayName?: T;
   slug?: T;
   folder?: T;
   updatedAt?: T;
