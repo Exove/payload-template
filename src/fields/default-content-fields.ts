@@ -1,4 +1,5 @@
 import {
+  accordionBlock,
   contactsBlock,
   ctaBlock,
   largeFeaturedPostBlock,
@@ -43,6 +44,7 @@ export const defaultContentFields: Field[] = [
           }),
           BlocksFeature({
             blocks: [
+              accordionBlock,
               mediaBlock,
               largeFeaturedPostBlock,
               smallFeaturedPostsWrapperBlock,

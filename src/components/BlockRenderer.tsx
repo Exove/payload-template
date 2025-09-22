@@ -1,4 +1,5 @@
 import type {
+  AccordionBlock as AccordionBlockType,
   ContactsBlock as ContactsBlockType,
   CTABlock as CTABlockType,
   DynamicListBlock as DynamicListBlockType,
@@ -11,6 +12,7 @@ import type {
   VideoEmbedBlock as VideoEmbedBlockType,
 } from "@/payload-types";
 import { DefaultNodeTypes, SerializedBlockNode } from "@payloadcms/richtext-lexical";
+import { AccordionBlock } from "./blocks/AccordionBlock";
 import { ContactsBlock } from "./blocks/ContactsBlock";
 import { CTABlock } from "./blocks/CTABlock";
 import DynamicListBlock from "./blocks/DynamicListBlock";
@@ -23,6 +25,7 @@ import SmallFeaturedPostsBlock from "./blocks/SmallFeaturedPostsBlock";
 import { VideoEmbedBlock } from "./blocks/VideoEmbedBlock";
 import { TextRenderer } from "./TextRenderer";
 type BaseBlockTypes =
+  | AccordionBlockType
   | CTABlockType
   | MediaBlockType
   | QuoteBlockType
@@ -47,6 +50,8 @@ export const BlockRenderer = ({ nodes, blocks }: Props) => {
 
   const renderBlock = (block: BaseBlockTypes) => {
     switch (block.blockType) {
+      case "accordion":
+        return <AccordionBlock key={block.id} block={block} />;
       case "cta":
         return <CTABlock key={block.id} block={block} />;
       case "media":
