@@ -494,7 +494,6 @@ export interface FrontPage {
   hero?: HeroBlock[] | null;
   content?:
     | (
-        | CTABlock
         | LargeFeaturedPostBlock
         | SmallFeaturedPostsWrapperBlock
         | LinkListBlock
@@ -537,26 +536,6 @@ export interface HeroBlock {
   };
   id?: string | null;
   blockName?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CTABlock".
- */
-export interface CTABlock {
-  title: string;
-  text?: string | null;
-  link?: {
-    label?: string | null;
-    isExternal?: boolean | null;
-    internalUrl?: {
-      relationTo: 'articles';
-      value: number | Article;
-    } | null;
-    externalUrl?: string | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'cta';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -834,7 +813,6 @@ export interface FrontPageSelect<T extends boolean = true> {
   content?:
     | T
     | {
-        cta?: T | CTABlockSelect<T>;
         largeFeaturedPost?: T | LargeFeaturedPostBlockSelect<T>;
         smallFeaturedPostsWrapper?: T | SmallFeaturedPostsWrapperBlockSelect<T>;
         linkList?: T | LinkListBlockSelect<T>;
@@ -865,24 +843,6 @@ export interface HeroBlockSelect<T extends boolean = true> {
   title?: T;
   description?: T;
   image?: T;
-  link?:
-    | T
-    | {
-        label?: T;
-        isExternal?: T;
-        internalUrl?: T;
-        externalUrl?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CTABlock_select".
- */
-export interface CTABlockSelect<T extends boolean = true> {
-  title?: T;
-  text?: T;
   link?:
     | T
     | {

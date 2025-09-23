@@ -1,6 +1,5 @@
 export { accordionBlock } from "./accordion";
 export { contactsBlock } from "./contact-people";
-export { ctaBlock } from "./cta";
 export {
   largeFeaturedPostBlock,
   smallFeaturedPostBlock,

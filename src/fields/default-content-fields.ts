@@ -1,7 +1,6 @@
 import {
   accordionBlock,
   contactsBlock,
-  ctaBlock,
   largeFeaturedPostBlock,
   linkListBlock,
   mediaBlock,
@@ -50,7 +49,6 @@ export const defaultContentFields: Field[] = [
               mediaBlock,
               largeFeaturedPostBlock,
               smallFeaturedPostsWrapperBlock,
-              ctaBlock,
               linkListBlock,
               contactsBlock,
               videoEmbedBlock,

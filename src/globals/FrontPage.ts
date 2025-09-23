@@ -1,6 +1,5 @@
 import {
   contactsBlock,
-  ctaBlock,
   heroBlock,
   largeFeaturedPostBlock,
   linkListBlock,
@@ -42,7 +41,6 @@ export const FrontPage: GlobalConfig = {
       type: "blocks",
       localized: true,
       blocks: [
-        ctaBlock,
         largeFeaturedPostBlock,
         smallFeaturedPostsWrapperBlock,
         linkListBlock,
