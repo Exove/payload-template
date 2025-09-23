@@ -48,11 +48,9 @@ export default function ArticleTemplate({ article }: ArticleTemplateProps) {
           )}
         </div>
       )}
-      <div className="mx-auto max-w-screen-lg">
+      <div className="mx-auto max-w-screen-lg space-y-20">
         <BlockRenderer nodes={article.content?.root?.children as NodeTypes[]} />
-        <div className="mt-10">
-          <ShareButtons />
-        </div>
+        <ShareButtons />
       </div>
     </main>
   );

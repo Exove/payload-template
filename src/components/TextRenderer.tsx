@@ -100,7 +100,7 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
       // If there are no children, return null to avoid rendering an empty paragraph
       if (!children || (Array.isArray(children) && children.every((child) => !child))) return null;
       return (
-        <p className="mx-auto mb-4 max-w-prose leading-relaxed" key={index}>
+        <p className="mx-auto mb-4 leading-relaxed" key={index}>
           {children}
         </p>
       );
@@ -110,7 +110,7 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
         ?.map((child) => (child as SerializedTextNode).text)
         .join("");
       return (
-        <div className="mx-auto mt-8 max-w-prose">
+        <div className="mx-auto mt-8">
           {headingNode.tag === "h2" && (
             <Heading level={headingNode.tag} size="md">
               {headingText}

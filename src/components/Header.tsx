@@ -35,7 +35,7 @@ export default async function Header() {
           <MobileMenu items={mainMenu.items as MenuItem[]} />
         </div>
         <div className="lg:w-[300px]">
-          <Link href="/" className="hidden text-xl font-bold xl:block">
+          <Link href="/" className="hidden text-xl font-bold xl:inline-block">
             {SITE_NAME}
           </Link>
         </div>

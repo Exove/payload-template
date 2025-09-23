@@ -9,6 +9,7 @@ import type {
   MediaBlock as MediaBlockType,
   QuoteBlock as QuoteBlockType,
   SmallFeaturedPostsWrapperBlock as SmallFeaturedPostsWrapperBlockType,
+  TabsBlock as TabsBlockType,
   VideoEmbedBlock as VideoEmbedBlockType,
 } from "@/payload-types";
 import { DefaultNodeTypes, SerializedBlockNode } from "@payloadcms/richtext-lexical";
@@ -22,6 +23,7 @@ import { LinkListBlock } from "./blocks/LinkListBlock";
 import { MediaBlock } from "./blocks/MediaBlock";
 import { QuoteBlock } from "./blocks/QuoteBlock";
 import SmallFeaturedPostsBlock from "./blocks/SmallFeaturedPostsBlock";
+import { TabsBlock } from "./blocks/TabsBlock";
 import { VideoEmbedBlock } from "./blocks/VideoEmbedBlock";
 import { TextRenderer } from "./TextRenderer";
 type BaseBlockTypes =
@@ -35,7 +37,8 @@ type BaseBlockTypes =
   | SmallFeaturedPostsWrapperBlockType
   | ContactsBlockType
   | HeroBlockType
-  | DynamicListBlockType;
+  | DynamicListBlockType
+  | TabsBlockType;
 
 export type NodeTypes = DefaultNodeTypes | SerializedBlockNode<BaseBlockTypes>;
 type BlockTypes = BaseBlockTypes;
@@ -58,6 +61,8 @@ export const BlockRenderer = ({ nodes, blocks }: Props) => {
         return <MediaBlock key={block.id} block={block} />;
       case "quote":
         return <QuoteBlock key={block.id} block={block} />;
+      case "tabs":
+        return <TabsBlock key={block.id} block={block} />;
       case "videoEmbed":
         return <VideoEmbedBlock key={block.id} block={block} />;
       case "contacts":

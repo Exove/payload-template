@@ -7,6 +7,7 @@ import {
   mediaBlock,
   quoteBlock,
   smallFeaturedPostsWrapperBlock,
+  tabsBlock,
   videoEmbedBlock,
 } from "@/blocks";
 import { BlocksFeature, HeadingFeature, lexicalEditor } from "@payloadcms/richtext-lexical";
@@ -45,6 +46,7 @@ export const defaultContentFields: Field[] = [
           BlocksFeature({
             blocks: [
               accordionBlock,
+              tabsBlock,
               mediaBlock,
               largeFeaturedPostBlock,
               smallFeaturedPostsWrapperBlock,
