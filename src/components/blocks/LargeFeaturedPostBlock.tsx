@@ -18,9 +18,11 @@ export function LargeFeaturedPostBlock({ block }: Props) {
           <div className="relative aspect-video w-full sm:aspect-square">
             <Image
               src={block.image.url}
-              alt={block.image.alt || block.title || ""}
+              alt={block.image.alt}
               fill
-              className="object-cover"
+              className="max-w-[512px] object-cover"
+              sizes="(max-width: 512px) 100vw, 512px"
+              style={{ objectPosition: `${block.image.focalX}% ${block.image.focalY}%` }}
               priority
             />
           </div>

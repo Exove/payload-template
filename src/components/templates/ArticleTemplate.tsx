@@ -38,9 +38,9 @@ export default function ArticleTemplate({ article }: ArticleTemplateProps) {
           >
             <Image
               src={article.image.url}
-              alt={article.image.alt || ""}
+              alt={article.image.alt}
               width={800}
-              height={article.image.sizes?.large?.height || 1080}
+              height={1200}
               className="aspect-video w-full max-w-[800px] rounded-lg object-cover"
               priority
               sizes="(max-width: 800px) 100vw, 800px"
@@ -50,7 +50,7 @@ export default function ArticleTemplate({ article }: ArticleTemplateProps) {
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
             src={article.image.url}
-            alt={article.image.alt || ""}
+            alt={article.image.alt}
             caption={article.image.caption || undefined}
             width={article.image.width || 1920}
             height={article.image.height || 1080}

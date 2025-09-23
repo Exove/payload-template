@@ -13,13 +13,10 @@ export type CardProps = {
 export default function Card({ image, title, text, href }: CardProps) {
   if (!href || !title) return null;
 
-  console.log(image);
-
   return (
     <div className="relative overflow-hidden rounded-lg bg-stone-800 transition-all duration-300 hover:ring-1 hover:ring-amber-500">
       {image?.url && (
         <div className="relative h-64 w-full">
-          {/* Focal point cropped image */}
           <Image
             src={image.url}
             alt={image.alt}
