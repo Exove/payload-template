@@ -31,18 +31,19 @@ export default function ArticleTemplate({ article }: ArticleTemplateProps) {
         <>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="mb-10 block cursor-zoom-in transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="mb-10 block w-full cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             aria-label={t("common.openFullScreen", {
               alt: article.image.alt,
             })}
           >
             <Image
-              src={article.image.sizes?.large?.url || article.image.url}
+              src={article.image.url}
               alt={article.image.alt || ""}
-              width={1920}
-              height={1080}
+              width={800}
+              height={article.image.sizes?.large?.height || 1080}
               className="aspect-video w-full max-w-[800px] rounded-lg object-cover"
               priority
+              sizes="(max-width: 800px) 100vw, 800px"
             />
           </button>
           <ImageModal

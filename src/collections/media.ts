@@ -27,34 +27,11 @@ export const Media: CollectionConfig = {
     },
   ],
   upload: {
-    adminThumbnail: "medium",
+    adminThumbnail: "adminThumbnail",
     imageSizes: [
       {
-        name: "tiny",
-        width: 100,
-        height: 100,
-        formatOptions: {
-          format: "webp",
-          options: {
-            quality: 85,
-          },
-        },
-        withoutEnlargement: true,
-      },
-      {
-        name: "medium",
+        name: "adminThumbnail",
         width: 640,
-        formatOptions: {
-          format: "webp",
-          options: {
-            quality: 85,
-          },
-        },
-        withoutEnlargement: true,
-      },
-      {
-        name: "large",
-        width: 1024,
         formatOptions: {
           format: "webp",
           options: {
@@ -65,8 +42,11 @@ export const Media: CollectionConfig = {
       },
     ],
     resizeOptions: {
-      fit: "cover",
+      width: 1600,
+      height: 1200,
+      fit: "inside",
       position: "center",
+      withoutEnlargement: true,
     },
   },
 };
