@@ -120,6 +120,10 @@ export interface User {
 export interface Media {
   id: number;
   alt: string;
+  /**
+   * Optional caption text displayed when image is viewed in modal
+   */
+  caption?: string | null;
   folder?: (number | null) | FolderInterface;
   updatedAt: string;
   createdAt: string;
@@ -373,6 +377,7 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  caption?: T;
   folder?: T;
   updatedAt?: T;
   createdAt?: T;

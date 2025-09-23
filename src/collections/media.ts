@@ -17,6 +17,14 @@ export const Media: CollectionConfig = {
       localized: true,
       required: true,
     },
+    {
+      name: "caption",
+      type: "text",
+      localized: true,
+      admin: {
+        description: "Optional caption text displayed when image is viewed in modal",
+      },
+    },
   ],
   upload: {
     adminThumbnail: "medium",

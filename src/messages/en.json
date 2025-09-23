@@ -33,8 +33,10 @@
     "error": "Error loading content",
     "notFound": "Page not found",
     "readMore": "Read more",
-    "close": "Close"
+    "close": "Close",
+    "openFullScreen": "Open image in full screen: {alt}"
   },
+
   "navigation": {
     "home": "Home",
     "articles": "Articles"
