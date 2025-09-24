@@ -35,13 +35,12 @@ export default function DynamicListBlock({ block, className }: Props) {
         {items?.map((item, index) => {
           if (!item || typeof item === "number") return null;
           return (
-            <li key={item.slug + index}>
-              <Card
-                title={item.title}
-                href={`/${item.collection}/${item.slug}`}
-                image={getImageData(item)}
-              />
-            </li>
+            <Card
+              key={item.slug + index}
+              title={item.title}
+              href={`/${item.collection}/${item.slug}`}
+              image={getImageData(item)}
+            />
           );
         })}
       </ul>

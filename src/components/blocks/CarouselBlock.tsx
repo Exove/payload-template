@@ -42,13 +42,13 @@ export default function CarouselBlock({ block, className }: Props) {
             const { linkUrl } = parseLink(item.link);
             if (linkUrl) {
               return (
-                <CarouselItem key={item.id} className="pl-2 md:basis-1/2 md:pl-4 lg:basis-1/3">
+                <CarouselItem key={item.id} className="flex pl-2 md:basis-1/2 md:pl-4 lg:basis-1/3">
                   <Card
                     image={typeof item.image === "object" ? item.image : undefined}
                     title={item.title}
                     text={item.text}
                     href={linkUrl}
-                    className="border border-transparent hover:border-amber-500 hover:ring-0"
+                    className="h-full w-full border border-transparent hover:border-amber-500 hover:ring-0"
                   />
                 </CarouselItem>
               );
