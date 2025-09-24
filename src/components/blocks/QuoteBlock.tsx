@@ -8,7 +8,9 @@ type Props = {
 export function QuoteBlock({ block }: Props) {
   return (
     <blockquote className="relative mx-auto max-w-3xl pt-12 sm:px-8">
-      <span className="absolute left-4 top-0 font-serif text-7xl text-stone-600">&ldquo;</span>
+      <span className="absolute left-0 top-0 font-serif text-7xl text-stone-600 sm:left-4">
+        &ldquo;
+      </span>
       <p className="relative mb-6 font-serif text-2xl italic">{block.quote}</p>
       {block.author && (
         <footer className="text-stone-300">

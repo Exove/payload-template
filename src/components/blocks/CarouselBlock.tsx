@@ -30,7 +30,7 @@ export default function CarouselBlock({ block }: Props) {
         className="w-full max-w-none"
       >
         {/* Mobile navigation buttons at the top */}
-        <div className="mb-4 flex justify-center gap-4 md:hidden">
+        <div className="mb-4 flex justify-center gap-4 xl:hidden">
           <CarouselPrevious className="relative left-0 top-0 translate-x-0 translate-y-0" />
           <CarouselNext className="relative right-0 top-0 translate-x-0 translate-y-0" />
         </div>
@@ -55,8 +55,8 @@ export default function CarouselBlock({ block }: Props) {
         </CarouselContent>
 
         {/* Desktop navigation buttons on the sides */}
-        <CarouselPrevious className="hidden md:flex" />
-        <CarouselNext className="hidden md:flex" />
+        <CarouselPrevious className="hidden xl:flex" />
+        <CarouselNext className="hidden xl:flex" />
       </Carousel>
     </div>
   );
