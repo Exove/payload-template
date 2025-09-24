@@ -29,6 +29,9 @@ export const linkFieldWithLabel: Field[] = [
   {
     name: "label",
     type: "text",
+    admin: {
+      description: "If no label is provided, the title of the linked page will be used",
+    },
   },
   ...linkField,
 ];

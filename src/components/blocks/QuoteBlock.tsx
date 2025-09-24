@@ -1,13 +1,15 @@
+import { cn } from "@/lib/utils";
 import { QuoteBlock as QuoteBlockType } from "@/payload-types";
 import Image from "next/image";
 
 type Props = {
   block: QuoteBlockType;
+  className?: string;
 };
 
-export function QuoteBlock({ block }: Props) {
+export function QuoteBlock({ block, className }: Props) {
   return (
-    <blockquote className="relative mx-auto max-w-3xl pt-12 sm:px-8">
+    <blockquote className={cn("relative mx-auto my-24 max-w-3xl pt-12 sm:px-8", className)}>
       <span className="absolute left-0 top-0 font-serif text-7xl text-stone-600 sm:left-4">
         &ldquo;
       </span>

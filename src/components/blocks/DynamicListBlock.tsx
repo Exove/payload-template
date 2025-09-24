@@ -1,8 +1,11 @@
+import Card from "@/components/Card";
+import Heading from "@/components/Heading";
+import { cn } from "@/lib/utils";
 import { DynamicListBlock as DynamicListBlockType, Media } from "@/payload-types";
-import Card from "../Card";
-import Heading from "../Heading";
+
 type Props = {
   block: DynamicListBlockType;
+  className?: string;
 };
 
 type ImageItemType = {
@@ -17,12 +20,12 @@ const getImageData = (item: ImageItemType): Media | undefined => {
   return undefined;
 };
 
-export default function DynamicListBlock({ block }: Props) {
+export default function DynamicListBlock({ block, className }: Props) {
   const items = block.items?.map((item) => item.reference.value);
   if (!items) return;
 
   return (
-    <div className="my-24 w-full">
+    <div className={cn("my-24 w-full", className)}>
       {block.blockName && (
         <Heading level="h2" size="md">
           {block.blockName}

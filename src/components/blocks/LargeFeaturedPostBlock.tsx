@@ -18,7 +18,9 @@ export function LargeFeaturedPostBlock({ block, className }: Props) {
     <div
       className={cn(
         "my-24 grid overflow-hidden rounded-xl bg-stone-800 text-center sm:grid-cols-2",
-        typeof block.image === "object" && block.image?.url ? "sm:grid-cols-2" : "sm:grid-cols-1",
+        typeof block.image === "object" && block.image?.url
+          ? "min-h-[350px] sm:grid-cols-2"
+          : "sm:grid-cols-1",
         className,
       )}
     >

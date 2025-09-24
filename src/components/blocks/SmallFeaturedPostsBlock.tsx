@@ -1,15 +1,17 @@
 import { parseLink } from "@/lib/parse-link";
+import { cn } from "@/lib/utils";
 import { SmallFeaturedPostsWrapperBlock as SmallFeaturedPostsWrapperBlockType } from "@/payload-types";
 import Card from "../Card";
 import Heading from "../Heading";
 
 type Props = {
   block: SmallFeaturedPostsWrapperBlockType;
+  className?: string;
 };
 
-export default function SmallFeaturedPostsBlock({ block }: Props) {
+export default function SmallFeaturedPostsBlock({ block, className }: Props) {
   return (
-    <div className="my-24 w-full">
+    <div className={cn("my-24 w-full", className)}>
       {block.blockName && (
         <Heading level="h2" size="md">
           {block.blockName}
@@ -24,7 +26,6 @@ export default function SmallFeaturedPostsBlock({ block }: Props) {
                 key={post.id}
                 image={typeof post.image === "object" ? post.image : undefined}
                 title={post.title}
-                text={post.text}
                 href={linkUrl}
               />
             );

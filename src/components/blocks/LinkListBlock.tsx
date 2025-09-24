@@ -1,15 +1,18 @@
 import { Link } from "@/i18n/routing";
 import { parseLink } from "@/lib/parse-link";
+import { cn } from "@/lib/utils";
 import { LinkListBlock as LinkListBlockType } from "@/payload-types";
 import { ArrowTopRightOnSquareIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import Heading from "../Heading";
+
 type Props = {
   block: LinkListBlockType;
+  className?: string;
 };
 
-export function LinkListBlock({ block }: Props) {
+export function LinkListBlock({ block, className }: Props) {
   return (
-    <div className="my-24">
+    <div className={cn("my-24", className)}>
       {block.blockName && (
         <Heading level="h2" size="md" className="mb-6">
           {block.blockName}

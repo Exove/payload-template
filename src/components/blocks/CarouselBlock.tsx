@@ -1,4 +1,5 @@
 import { parseLink } from "@/lib/parse-link";
+import { cn } from "@/lib/utils";
 import { CarouselBlock as CarouselBlockType } from "@/payload-types";
 import Card from "../Card";
 import {
@@ -12,11 +13,12 @@ import Heading from "../Heading";
 
 type Props = {
   block: CarouselBlockType;
+  className?: string;
 };
 
-export default function CarouselBlock({ block }: Props) {
+export default function CarouselBlock({ block, className }: Props) {
   return (
-    <div className="my-24 w-full">
+    <div className={cn("my-24 w-full", className)}>
       {block.blockName && (
         <Heading level="h2" size="md">
           {block.blockName}

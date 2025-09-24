@@ -95,11 +95,7 @@ export const BlockRenderer = ({ nodes, blocks }: Props) => {
       }
 
       if (node.type === "block" && node.fields) {
-        return (
-          <div className="space-y-20" key={index}>
-            {renderBlock(node.fields)}
-          </div>
-        );
+        return renderBlock(node.fields);
       }
 
       return null;
