@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
 import { Media } from "@/payload-types";
 import Image from "next/image";
 import Heading from "./Heading";
@@ -8,13 +9,19 @@ export type CardProps = {
   title: string;
   text?: string | null;
   href: string;
+  className?: string;
 };
 
-export default function Card({ image, title, text, href }: CardProps) {
+export default function Card({ image, title, text, href, className }: CardProps) {
   if (!href || !title) return null;
 
   return (
-    <div className="relative overflow-hidden rounded-lg bg-stone-800 transition-all duration-300 hover:ring-1 hover:ring-amber-500">
+    <div
+      className={cn(
+        "relative overflow-hidden rounded-lg bg-stone-800 transition-all duration-300 hover:ring-1 hover:ring-amber-500",
+        className,
+      )}
+    >
       {image?.url && (
         <div className="relative h-64 w-full">
           <Image

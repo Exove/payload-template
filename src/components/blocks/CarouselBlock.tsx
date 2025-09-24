@@ -46,6 +46,7 @@ export default function CarouselBlock({ block }: Props) {
                     title={item.title}
                     text={item.text}
                     href={linkUrl}
+                    className="border border-transparent hover:border-amber-500 hover:ring-0"
                   />
                 </CarouselItem>
               );

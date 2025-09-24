@@ -8,44 +8,45 @@ import Heading from "../Heading";
 
 type Props = {
   block: LargeFeaturedPostBlockType;
+  className?: string;
 };
 
-export function LargeFeaturedPostBlock({ block }: Props) {
+export function LargeFeaturedPostBlock({ block, className }: Props) {
   const { linkUrl, linkLabel } = parseLink(block.link);
+
   return (
-    <div className="my-24 text-center">
-      <div
-        className={cn(
-          "grid overflow-hidden rounded-xl bg-stone-800 sm:grid-cols-2",
-          typeof block.image === "object" && block.image?.url ? "sm:grid-cols-2" : "sm:grid-cols-1",
-        )}
-      >
-        {typeof block.image === "object" && block.image?.url && (
-          <div className="relative min-h-[250px] sm:min-h-0">
-            <Image
-              src={block.image.url}
-              alt={block.image.alt}
-              fill
-              className="object-cover"
-              sizes="(max-width: 640px) 100vw, 50vw"
-              style={{ objectPosition: `${block.image.focalX}% ${block.image.focalY}%` }}
-              priority
-            />
+    <div
+      className={cn(
+        "my-24 grid overflow-hidden rounded-xl bg-stone-800 text-center sm:grid-cols-2",
+        typeof block.image === "object" && block.image?.url ? "sm:grid-cols-2" : "sm:grid-cols-1",
+        className,
+      )}
+    >
+      {typeof block.image === "object" && block.image?.url && (
+        <div className="relative min-h-[250px] sm:min-h-0">
+          <Image
+            src={block.image.url}
+            alt={block.image.alt}
+            fill
+            className="object-cover"
+            sizes="(max-width: 640px) 100vw, 50vw"
+            style={{ objectPosition: `${block.image.focalX}% ${block.image.focalY}%` }}
+            priority
+          />
+        </div>
+      )}
+      <div className="flex flex-col justify-center p-10">
+        <Heading level="h2" size="lg">
+          {block.title}
+        </Heading>
+        <p className="text-lg leading-relaxed text-stone-300">{block.text}</p>
+        {linkUrl && (
+          <div className="mt-10 flex justify-center">
+            <Button asChild={true}>
+              <Link href={linkUrl}>{linkLabel || "Read more"}</Link>
+            </Button>
           </div>
         )}
-        <div className="flex flex-col justify-center p-10">
-          <Heading level="h2" size="lg">
-            {block.title}
-          </Heading>
-          <p className="text-lg leading-relaxed text-stone-300">{block.text}</p>
-          {linkUrl && (
-            <div className="mt-10 flex justify-center">
-              <Button asChild={true}>
-                <Link href={linkUrl}>{linkLabel || "Read more"}</Link>
-              </Button>
-            </div>
-          )}
-        </div>
       </div>
     </div>
   );
