@@ -35,12 +35,12 @@ export default function CarouselBlock({ block }: Props) {
           <CarouselNext className="relative right-0 top-0 translate-x-0 translate-y-0" />
         </div>
 
-        <CarouselContent className="ml-1 md:ml-1">
+        <CarouselContent className="-ml-2 md:-ml-4">
           {block.items.map((item) => {
             const { linkUrl } = parseLink(item.link);
             if (linkUrl) {
               return (
-                <CarouselItem key={item.id} className="p-1 pl-2 md:basis-1/2 md:pl-4 lg:basis-1/3">
+                <CarouselItem key={item.id} className="pl-2 md:basis-1/2 md:pl-4 lg:basis-1/3">
                   <Card
                     image={typeof item.image === "object" ? item.image : undefined}
                     title={item.title}
