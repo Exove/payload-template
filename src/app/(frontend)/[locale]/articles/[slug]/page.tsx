@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import TopBanner from "@/components/TopBanner";
 import ArticleTemplate from "@/components/templates/ArticleTemplate";
 import ErrorTemplate from "@/components/templates/ErrorTemplate";
+import { redirect } from "@/i18n/routing";
 import { SITE_NAME } from "@/lib/constants";
 import { prepareOpenGraphImages } from "@/lib/utils";
 import { Locale } from "@/types/locales";
@@ -33,6 +34,7 @@ export async function getArticleBySlug({ params, preview = false }: Props) {
         slug: { equals: slug },
       },
       locale: locale,
+      fallbackLocale: false,
       draft: preview,
     });
 
@@ -53,6 +55,10 @@ export default async function ArticlePage(props: Props) {
 
   if (!article) {
     notFound();
+  }
+
+  if (!article.title) {
+    redirect({ href: "/", locale: (await props.params).locale });
   }
 
   return (
