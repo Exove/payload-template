@@ -36,10 +36,6 @@ export const smallFeaturedPostBlock: Block = {
       required: true,
     },
     {
-      name: "text",
-      type: "textarea",
-    },
-    {
       name: "image",
       type: "upload",
       relationTo: "media",

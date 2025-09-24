@@ -1,4 +1,5 @@
 import {
+  carouselBlock,
   contactsBlock,
   heroBlock,
   largeFeaturedPostBlock,
@@ -41,6 +42,7 @@ export const FrontPage: GlobalConfig = {
       blocks: [
         largeFeaturedPostBlock,
         smallFeaturedPostsWrapperBlock,
+        carouselBlock,
         linkListBlock,
         contactsBlock,
         quoteBlock,

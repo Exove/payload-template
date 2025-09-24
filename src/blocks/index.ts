@@ -1,4 +1,5 @@
 export { accordionBlock } from "./accordion";
+export { carouselBlock, carouselItemBlock } from "./carousel";
 export { contactsBlock } from "./contact-people";
 export {
   largeFeaturedPostBlock,

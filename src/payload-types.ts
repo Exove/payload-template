@@ -496,6 +496,7 @@ export interface FrontPage {
     | (
         | LargeFeaturedPostBlock
         | SmallFeaturedPostsWrapperBlock
+        | CarouselBlock
         | LinkListBlock
         | ContactsBlock
         | QuoteBlock
@@ -563,7 +564,6 @@ export interface LargeFeaturedPostBlock {
 export interface SmallFeaturedPostsWrapperBlock {
   posts: {
     title: string;
-    text?: string | null;
     image: number | Media;
     link?: {
       isExternal?: boolean | null;
@@ -580,6 +580,29 @@ export interface SmallFeaturedPostsWrapperBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'smallFeaturedPostsWrapper';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CarouselBlock".
+ */
+export interface CarouselBlock {
+  items: {
+    title: string;
+    text?: string | null;
+    image: number | Media;
+    link?: {
+      isExternal?: boolean | null;
+      internalUrl?: {
+        relationTo: 'articles';
+        value: number | Article;
+      } | null;
+      externalUrl?: string | null;
+    };
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'carousel';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -787,6 +810,7 @@ export interface FrontPageSelect<T extends boolean = true> {
     | {
         largeFeaturedPost?: T | LargeFeaturedPostBlockSelect<T>;
         smallFeaturedPostsWrapper?: T | SmallFeaturedPostsWrapperBlockSelect<T>;
+        carousel?: T | CarouselBlockSelect<T>;
         linkList?: T | LinkListBlockSelect<T>;
         contacts?: T | ContactsBlockSelect<T>;
         quote?: T | QuoteBlockSelect<T>;
@@ -855,7 +879,6 @@ export interface SmallFeaturedPostsWrapperBlockSelect<T extends boolean = true> 
           | T
           | {
               title?: T;
-              text?: T;
               image?: T;
               link?:
                 | T
@@ -867,6 +890,29 @@ export interface SmallFeaturedPostsWrapperBlockSelect<T extends boolean = true> 
               id?: T;
               blockName?: T;
             };
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CarouselBlock_select".
+ */
+export interface CarouselBlockSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        image?: T;
+        link?:
+          | T
+          | {
+              isExternal?: T;
+              internalUrl?: T;
+              externalUrl?: T;
+            };
+        id?: T;
       };
   id?: T;
   blockName?: T;
