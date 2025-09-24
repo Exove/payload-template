@@ -3,10 +3,8 @@ import {
   heroBlock,
   largeFeaturedPostBlock,
   linkListBlock,
-  mediaBlock,
   quoteBlock,
   smallFeaturedPostsWrapperBlock,
-  videoEmbedBlock,
 } from "@/blocks";
 import { dynamicListBlock } from "@/blocks/dynamic-list";
 import { revalidatePath } from "next/cache";
@@ -45,8 +43,6 @@ export const FrontPage: GlobalConfig = {
         smallFeaturedPostsWrapperBlock,
         linkListBlock,
         contactsBlock,
-        videoEmbedBlock,
-        mediaBlock,
         quoteBlock,
         dynamicListBlock,
       ],

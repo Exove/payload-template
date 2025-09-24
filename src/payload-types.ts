@@ -498,8 +498,6 @@ export interface FrontPage {
         | SmallFeaturedPostsWrapperBlock
         | LinkListBlock
         | ContactsBlock
-        | VideoEmbedBlock
-        | MediaBlock
         | QuoteBlock
         | DynamicListBlock
       )[]
@@ -613,32 +611,6 @@ export interface ContactsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'contacts';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "VideoEmbedBlock".
- */
-export interface VideoEmbedBlock {
-  youtubeId: string;
-  alt?: string | null;
-  /**
-   * This will be displayed as a caption for the video
-   */
-  description?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'videoEmbed';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock".
- */
-export interface MediaBlock {
-  media: number | Media;
-  caption?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'media';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -817,8 +789,6 @@ export interface FrontPageSelect<T extends boolean = true> {
         smallFeaturedPostsWrapper?: T | SmallFeaturedPostsWrapperBlockSelect<T>;
         linkList?: T | LinkListBlockSelect<T>;
         contacts?: T | ContactsBlockSelect<T>;
-        videoEmbed?: T | VideoEmbedBlockSelect<T>;
-        media?: T | MediaBlockSelect<T>;
         quote?: T | QuoteBlockSelect<T>;
         dynamicList?: T | DynamicListBlockSelect<T>;
       };
@@ -924,27 +894,6 @@ export interface LinkListBlockSelect<T extends boolean = true> {
  */
 export interface ContactsBlockSelect<T extends boolean = true> {
   contacts?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "VideoEmbedBlock_select".
- */
-export interface VideoEmbedBlockSelect<T extends boolean = true> {
-  youtubeId?: T;
-  alt?: T;
-  description?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock_select".
- */
-export interface MediaBlockSelect<T extends boolean = true> {
-  media?: T;
-  caption?: T;
   id?: T;
   blockName?: T;
 }
@@ -1149,6 +1098,32 @@ export interface TabsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'tabs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlock".
+ */
+export interface MediaBlock {
+  media: number | Media;
+  caption?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'media';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoEmbedBlock".
+ */
+export interface VideoEmbedBlock {
+  youtubeId: string;
+  alt?: string | null;
+  /**
+   * This will be displayed as a caption for the video
+   */
+  description?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'videoEmbed';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

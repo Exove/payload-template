@@ -9,6 +9,10 @@ export type HeadingProps = {
 export default function Heading({ level, size, children, className }: HeadingProps) {
   const Tag = level;
 
+  if (!children) {
+    return null;
+  }
+
   // Create id from the text
   const id = children
     .toLowerCase()
