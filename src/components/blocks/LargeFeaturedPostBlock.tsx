@@ -18,9 +18,7 @@ export function LargeFeaturedPostBlock({ block, className }: Props) {
     <div
       className={cn(
         "my-24 grid overflow-hidden rounded-xl bg-stone-800 text-center sm:grid-cols-2",
-        typeof block.image === "object" && block.image?.url
-          ? "min-h-[350px] sm:grid-cols-2"
-          : "sm:grid-cols-1",
+        block.image ? "min-h-[350px] sm:grid-cols-2" : "sm:grid-cols-1",
         className,
       )}
     >
@@ -37,7 +35,12 @@ export function LargeFeaturedPostBlock({ block, className }: Props) {
           />
         </div>
       )}
-      <div className="flex flex-col justify-center p-10">
+      <div
+        className={cn(
+          "flex flex-col justify-center p-10",
+          !block.image && "mx-auto max-w-[800px] pt-14",
+        )}
+      >
         <Heading level="h2" size="lg">
           {block.title}
         </Heading>
