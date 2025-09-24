@@ -1,10 +1,10 @@
+import Button from "@/components/Button";
+import Heading from "@/components/Heading";
 import { Link } from "@/i18n/routing";
 import { parseLink } from "@/lib/parse-link";
 import { cn } from "@/lib/utils";
 import { LargeFeaturedPostBlock as LargeFeaturedPostBlockType } from "@/payload-types";
 import Image from "next/image";
-import Button from "../Button";
-import Heading from "../Heading";
 
 type Props = {
   block: LargeFeaturedPostBlockType;

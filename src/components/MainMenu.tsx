@@ -3,12 +3,12 @@
 import { Popover, PopoverButton, PopoverPanel, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
+import SidePanelMenu from "@/components/SidePanelMenu";
 import { Link } from "@/i18n/routing";
+import { parseMenuLinks } from "@/lib/parse-link";
+import { MenuItem } from "@/types/menu";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
-import { parseMenuLinks } from "../lib/parse-link";
-import { MenuItem } from "../types/menu";
-import SidePanelMenu from "./SidePanelMenu";
 
 export type MainMenuProps = {
   items: MenuItem[];

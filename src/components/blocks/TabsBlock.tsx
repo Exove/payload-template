@@ -1,7 +1,7 @@
+import { BlockRenderer, NodeTypes } from "@/components/BlockRenderer";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/Tabs";
 import { TabsBlock as TabsBlockType } from "@/payload-types";
 import { useId } from "react";
-import { BlockRenderer, NodeTypes } from "../BlockRenderer";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../Tabs";
 
 type TabsProps = {
   block: TabsBlockType;

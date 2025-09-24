@@ -1,7 +1,7 @@
+import Card from "@/components/Card";
 import { parseLink } from "@/lib/parse-link";
 import { cn } from "@/lib/utils";
 import { CarouselBlock as CarouselBlockType } from "@/payload-types";
-import Card from "../Card";
 import {
   Carousel,
   CarouselContent,

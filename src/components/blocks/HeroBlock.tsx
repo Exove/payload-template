@@ -1,9 +1,9 @@
 import Button from "@/components/Button";
+import Heading from "@/components/Heading";
 import { Link } from "@/i18n/routing";
 import { parseLink } from "@/lib/parse-link";
 import { HeroBlock as HeroBlockType } from "@/payload-types";
 import Image from "next/image";
-import Heading from "../Heading";
 
 type HeroProps = {
   block: HeroBlockType;

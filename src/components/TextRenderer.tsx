@@ -1,3 +1,4 @@
+import Heading from "@/components/Heading";
 import { Link } from "@/i18n/routing";
 import {
   IS_BOLD,
@@ -15,7 +16,6 @@ import type {
   SerializedLexicalNode,
 } from "@payloadcms/richtext-lexical/lexical";
 import { Fragment } from "react";
-import Heading from "./Heading";
 
 type HeadingNode = SerializedElementNode & {
   tag: "h1" | "h2" | "h3" | "h4";

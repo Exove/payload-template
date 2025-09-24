@@ -1,5 +1,6 @@
 "use client";
 
+import SidePanel from "@/components/SidePanel";
 import { Link, useRouter } from "@/i18n/routing";
 import { ALGOLIA_INDEX_NAME } from "@/lib/constants";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -7,7 +8,6 @@ import { algoliasearch } from "algoliasearch";
 import { useLocale, useTranslations } from "next-intl";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { InstantSearch, useHits, useSearchBox, useStats } from "react-instantsearch";
-import SidePanel from "./SidePanel";
 
 type Hit = {
   title: string;

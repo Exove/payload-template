@@ -1,5 +1,6 @@
 "use client";
 
+import SidePanel from "@/components/SidePanel";
 import { Link } from "@/i18n/routing";
 import { parseLink } from "@/lib/parse-link";
 import { MenuItem as MainMenuItem } from "@/types/menu";
@@ -7,7 +8,6 @@ import { Bars3Icon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence, motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import SidePanel from "./SidePanel";
 
 type MenuItem = {
   title: string;

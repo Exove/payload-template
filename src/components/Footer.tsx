@@ -1,11 +1,11 @@
+import Container from "@/components/Container";
+import Heading from "@/components/Heading";
+import { FacebookIcon, InstagramIcon, LinkedInIcon, YoutubeIcon } from "@/components/Icons";
 import { Link } from "@/i18n/routing";
 import { parseLink } from "@/lib/parse-link";
 import configPromise from "@payload-config";
 import { getTranslations } from "next-intl/server";
 import { getPayload } from "payload";
-import Container from "./Container";
-import Heading from "./Heading";
-import { FacebookIcon, InstagramIcon, LinkedInIcon, YoutubeIcon } from "./Icons";
 
 export async function Footer() {
   const payload = await getPayload({

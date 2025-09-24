@@ -1,12 +1,12 @@
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { MainMenu, MobileMenu } from "@/components/MainMenu";
+import SearchSidePanel from "@/components/SearchPanel";
 import { Link } from "@/i18n/routing";
 import { SITE_NAME } from "@/lib/constants";
 import { MenuItem } from "@/types/menu";
 import configPromise from "@payload-config";
 import { getTranslations } from "next-intl/server";
 import { getPayload } from "payload";
-import LanguageSwitcher from "./LanguageSwitcher";
-import { MainMenu, MobileMenu } from "./MainMenu";
-import SearchSidePanel from "./SearchPanel";
 
 export default async function Header() {
   const t = await getTranslations("header");

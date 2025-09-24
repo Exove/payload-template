@@ -1,11 +1,11 @@
 "use client";
 
+import { FacebookIcon, LinkedInIcon } from "@/components/Icons";
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/react";
 import { ArrowUpOnSquareIcon, ClipboardIcon } from "@heroicons/react/24/outline";
 import { useTranslations } from "next-intl";
 import { Fragment, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { FacebookIcon, LinkedInIcon } from "./Icons";
 export type ShareButtonsProps = {
   url?: string;
 };

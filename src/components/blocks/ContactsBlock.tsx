@@ -1,14 +1,17 @@
+import Heading from "@/components/Heading";
+import { cn } from "@/lib/utils";
 import { ContactsBlock as ContactsBlockType } from "@/payload-types";
-import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
+import { EnvelopeIcon, PhoneIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import Heading from "../Heading";
+
 type Props = {
   block: ContactsBlockType;
+  className?: string;
 };
 
-export function ContactsBlock({ block }: Props) {
+export function ContactsBlock({ block, className }: Props) {
   return (
-    <div className="my-24">
+    <div className={cn("my-24", className)}>
       {block.blockName && (
         <Heading level="h2" size="md">
           {block.blockName}
@@ -19,17 +22,24 @@ export function ContactsBlock({ block }: Props) {
           (contact) =>
             typeof contact === "object" && (
               <div key={contact.id} className="relative rounded-xl bg-stone-800 p-6">
-                {typeof contact.image === "object" && contact.image?.url && (
-                  <div className="mb-4 overflow-hidden">
+                <div className="relative mb-4 h-48 w-full overflow-hidden">
+                  {typeof contact.image === "object" && contact.image?.url ? (
                     <Image
                       src={contact.image.url}
                       alt={contact.image.alt || ""}
-                      width={contact.image.width || 400}
-                      height={contact.image.height || 400}
-                      className="h-48 w-full object-cover"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 320px"
+                      style={{
+                        objectPosition: `${contact.image.focalX}% ${contact.image.focalY}%`,
+                      }}
                     />
-                  </div>
-                )}
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center bg-stone-700">
+                      <UserCircleIcon className="h-14 w-14 text-stone-500" />
+                    </div>
+                  )}
+                </div>
                 <Heading level="h3" size="sm" className="mb-1 text-stone-400">
                   {contact.name}
                 </Heading>

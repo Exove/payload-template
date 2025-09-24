@@ -1,8 +1,8 @@
+import Card from "@/components/Card";
+import Heading from "@/components/Heading";
 import { parseLink } from "@/lib/parse-link";
 import { cn } from "@/lib/utils";
 import { SmallFeaturedPostsWrapperBlock as SmallFeaturedPostsWrapperBlockType } from "@/payload-types";
-import Card from "../Card";
-import Heading from "../Heading";
 
 type Props = {
   block: SmallFeaturedPostsWrapperBlockType;
