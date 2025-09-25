@@ -1,7 +1,7 @@
 import { accordionBlock, contactsBlock, linkListBlock, tabsBlock, videoEmbedBlock } from "@/blocks";
 import { BlocksFeature, HeadingFeature, lexicalEditor } from "@payloadcms/richtext-lexical";
 import { Field } from "payload";
-import { slugField } from "./slug";
+import { slugField } from "./slug-field";
 
 export const defaultContentFields: Field[] = [
   {

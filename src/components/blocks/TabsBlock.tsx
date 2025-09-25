@@ -1,4 +1,5 @@
 import { BlockRenderer, NodeTypes } from "@/components/BlockRenderer";
+import Heading from "@/components/Heading";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/Tabs";
 import { cn } from "@/lib/utils";
 import { TabsBlock as TabsBlockType } from "@/payload-types";
@@ -28,6 +29,11 @@ export function TabsBlock({ block, className }: TabsProps) {
 
   return (
     <div className={cn("my-8", className)}>
+      {block.blockName && (
+        <Heading level="h2" size="md" className="mb-4">
+          {block.blockName}
+        </Heading>
+      )}
       <Tabs defaultValue={defaultTab}>
         <TabsList>
           {tabsWithIds.map((tab) => (

@@ -1,4 +1,4 @@
-import { linkField } from "@/fields/link";
+import { linkField } from "@/fields/link-field";
 import { Block } from "payload";
 
 export const carouselBlock: Block = {

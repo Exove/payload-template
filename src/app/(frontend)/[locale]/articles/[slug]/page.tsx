@@ -78,7 +78,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   return {
     title: article?.meta?.title || `${article?.title} | ${SITE_NAME}`,
-    description: article?.meta?.description || article?.description,
+    description: article?.meta?.description || "",
     openGraph: openGraphImages ? { images: openGraphImages } : undefined,
   };
 }

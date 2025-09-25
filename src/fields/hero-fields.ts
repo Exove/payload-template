@@ -1,4 +1,4 @@
-import { linkFieldWithLabel } from "@/fields/link";
+import { linkFieldWithLabel } from "@/fields/link-field";
 import { Field } from "payload";
 
 export const heroFields: Field[] = [

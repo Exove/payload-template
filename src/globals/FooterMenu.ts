@@ -1,4 +1,4 @@
-import { linkFieldWithLabel } from "@/fields/link";
+import { linkFieldWithLabel } from "@/fields/link-field";
 import { revalidatePath } from "next/cache";
 import { GlobalAfterChangeHook, GlobalConfig } from "payload";
 

@@ -1,5 +1,5 @@
 import { Block, RichTextField } from "payload";
-import { richTextFields } from "../fields/rich-text";
+import { richTextFields } from "../fields/rich-text-field";
 
 export const accordionBlock: Block = {
   slug: "accordion",

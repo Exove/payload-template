@@ -12,7 +12,7 @@ import { Categories } from "@/collections/categories";
 import { Contacts } from "@/collections/contacts";
 import { Media } from "@/collections/media";
 import { Users } from "@/collections/users";
-import { seoConfig } from "@/fields/seo";
+import { seoConfig } from "@/fields/seo-field";
 import { Footer } from "@/globals/Footer";
 import { FooterMenu } from "@/globals/FooterMenu";
 import { FrontPage } from "@/globals/FrontPage";

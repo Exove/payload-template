@@ -1,4 +1,4 @@
-import { linkField, linkFieldWithLabel } from "@/fields/link";
+import { linkField, linkFieldWithLabel } from "@/fields/link-field";
 import { Block } from "payload";
 
 export const largeFeaturedPostBlock: Block = {
