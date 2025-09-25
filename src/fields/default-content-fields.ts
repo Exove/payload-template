@@ -1,4 +1,4 @@
-import { accordionBlock, contactsBlock, linkListBlock, videoEmbedBlock } from "@/blocks";
+import { accordionBlock, contactsBlock, linkListBlock, tabsBlock, videoEmbedBlock } from "@/blocks";
 import { BlocksFeature, HeadingFeature, lexicalEditor } from "@payloadcms/richtext-lexical";
 import { Field } from "payload";
 import { slugField } from "./slug-field";
@@ -64,5 +64,12 @@ export const defaultContentFields: Field[] = [
       position: "sidebar",
       description: "If checked, the post is displayed at the top of lists",
     },
+  },
+  // We need this for generated tabs types
+  {
+    name: "tabs",
+    type: "blocks",
+    blocks: [tabsBlock],
+    hidden: true,
   },
 ];

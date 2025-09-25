@@ -32,7 +32,7 @@ export function LinkListBlock({ block, className }: Props) {
                 >
                   <ChevronRightIcon className="h-4 w-4 text-amber-500 transition-transform duration-200 group-hover:translate-x-[2px]" />
                   <span>{linkLabel}</span>
-                  {isExternal && <ArrowTopRightOnSquareIcon className="ml-1 inline h-4 w-4" />}
+                  {isExternal && <ArrowTopRightOnSquareIcon className="h-4 w-4" />}
                 </Link>
               </li>
             );

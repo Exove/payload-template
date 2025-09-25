@@ -228,6 +228,7 @@ export interface Article {
    * If checked, the post is displayed at the top of lists
    */
   sticky?: boolean | null;
+  tabs?: TabsBlock[] | null;
   author?: (number | null) | Contact;
   categories?: (number | Category)[] | null;
   /**
@@ -246,6 +247,37 @@ export interface Article {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TabsBlock".
+ */
+export interface TabsBlock {
+  tabs: {
+    /**
+     * The text displayed on the tab button
+     */
+    label: string;
+    content: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'tabs';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -402,6 +434,11 @@ export interface ArticlesSelect<T extends boolean = true> {
   slug?: T;
   createdBy?: T;
   sticky?: T;
+  tabs?:
+    | T
+    | {
+        tabs?: T | TabsBlockSelect<T>;
+      };
   author?: T;
   categories?: T;
   publishedDate?: T;
@@ -416,6 +453,21 @@ export interface ArticlesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TabsBlock_select".
+ */
+export interface TabsBlockSelect<T extends boolean = true> {
+  tabs?:
+    | T
+    | {
+        label?: T;
+        content?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1145,37 +1197,6 @@ export interface AccordionBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'accordion';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TabsBlock".
- */
-export interface TabsBlock {
-  tabs: {
-    /**
-     * The text displayed on the tab button
-     */
-    label: string;
-    content: {
-      root: {
-        type: string;
-        children: {
-          type: string;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    };
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'tabs';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

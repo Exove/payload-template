@@ -16,8 +16,8 @@ export function AccordionTrigger({ children }: { children: React.ReactNode }) {
     >
       <div>{children}</div>
       <div className="relative h-6 w-6 shrink-0">
-        <PlusIcon className="absolute h-6 w-6 stroke-2 text-amber-600 transition-opacity duration-200 group-open:opacity-0" />
-        <MinusIcon className="absolute h-6 w-6 stroke-2 text-amber-600 opacity-0 transition-opacity duration-200 group-open:opacity-100" />
+        <PlusIcon className="absolute h-6 w-6 stroke-2 text-amber-500 transition-opacity duration-200 group-open:opacity-0" />
+        <MinusIcon className="absolute h-6 w-6 stroke-2 text-amber-500 opacity-0 transition-opacity duration-200 group-open:opacity-100" />
       </div>
     </summary>
   );
@@ -25,7 +25,7 @@ export function AccordionTrigger({ children }: { children: React.ReactNode }) {
 
 export function AccordionContent({ children }: { children: React.ReactNode }) {
   return (
-    <div className="overflow-hidden border-b border-transparent px-0 py-4 group-open:border-stone-600">
+    <div className="overflow-hidden border-b border-transparent px-0 py-4 text-stone-400 group-open:border-stone-600">
       {children}
     </div>
   );

@@ -132,9 +132,7 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
       return (
         <Tag
           className={`mx-auto mb-4 space-y-2 pl-8 ${
-            isOrderedList
-              ? "list-decimal marker:font-medium marker:text-amber-500"
-              : "list-disc marker:text-amber-500"
+            isOrderedList ? "list-decimal marker:font-medium" : "list-disc"
           }`}
           key={index}
         >
