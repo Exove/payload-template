@@ -203,7 +203,6 @@ export interface Category {
 export interface Article {
   id: number;
   title: string;
-  description?: string | null;
   image?: (number | null) | Media;
   content?: {
     root: {
@@ -398,7 +397,6 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface ArticlesSelect<T extends boolean = true> {
   title?: T;
-  description?: T;
   image?: T;
   content?: T;
   slug?: T;

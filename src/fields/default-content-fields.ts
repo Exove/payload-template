@@ -19,11 +19,6 @@ export const defaultContentFields: Field[] = [
     localized: true,
   },
   {
-    name: "description",
-    type: "textarea",
-    localized: true,
-  },
-  {
     name: "image",
     type: "upload",
     relationTo: "media",
