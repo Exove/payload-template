@@ -79,8 +79,6 @@ export const BlockRenderer = ({ nodes, blocks }: Props) => {
 
   const renderNodes = (nodesToRender: NodeTypes[]) => {
     return nodesToRender.map((node, index) => {
-      console.log("Node type:", node.type, node);
-
       if (
         node.type === "text" ||
         node.type === "heading" ||
