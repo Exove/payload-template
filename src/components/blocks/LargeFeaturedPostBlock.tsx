@@ -38,7 +38,7 @@ export function LargeFeaturedPostBlock({ block, className }: Props) {
       <div
         className={cn(
           "flex flex-col justify-center p-10",
-          !block.image && "mx-auto max-w-[800px] pt-14",
+          !block.image && "mx-auto max-w-[800px] py-14",
         )}
       >
         <Heading level="h2" size="lg">

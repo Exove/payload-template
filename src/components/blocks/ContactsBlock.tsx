@@ -1,7 +1,7 @@
 import Heading from "@/components/Heading";
 import { cn } from "@/lib/utils";
 import { ContactsBlock as ContactsBlockType } from "@/payload-types";
-import { EnvelopeIcon, PhoneIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 
 type Props = {
@@ -48,7 +48,6 @@ export function ContactsBlock({ block, className }: Props) {
                 )}
                 <div className="mt-4 space-y-2">
                   <p className="flex items-center text-stone-300">
-                    <EnvelopeIcon className="mr-2 h-4 w-4" />
                     <a
                       href={`mailto:${contact.email}`}
                       className="text-sm text-stone-300 hover:text-amber-500"
@@ -58,7 +57,6 @@ export function ContactsBlock({ block, className }: Props) {
                   </p>
                   {contact.phone && (
                     <p className="flex items-center text-stone-300">
-                      <PhoneIcon className="mr-2 h-4 w-4" />
                       <a
                         href={`tel:${contact.phone}`}
                         className="text-sm text-stone-300 hover:text-amber-500"
