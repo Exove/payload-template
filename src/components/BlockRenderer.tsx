@@ -84,6 +84,8 @@ export const BlockRenderer = ({ nodes, blocks }: Props) => {
 
   const renderNodes = (nodesToRender: NodeTypes[]) => {
     return nodesToRender.map((node, index) => {
+      console.log("Node type:", node.type, node);
+
       if (
         node.type === "text" ||
         node.type === "heading" ||
@@ -92,7 +94,9 @@ export const BlockRenderer = ({ nodes, blocks }: Props) => {
         node.type === "paragraph" ||
         node.type === "quote" ||
         node.type === "link" ||
-        node.type === "horizontalrule"
+        node.type === "horizontalrule" ||
+        node.type === "linebreak" ||
+        node.type === "upload"
       ) {
         return <TextRenderer key={index} node={node} index={index} />;
       }

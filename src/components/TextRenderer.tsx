@@ -9,12 +9,14 @@ import {
   IS_SUPERSCRIPT,
   IS_UNDERLINE,
 } from "@/lib/node-format";
+import type { Media } from "@/payload-types";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/20/solid";
 import { SerializedTextNode } from "@payloadcms/richtext-lexical";
 import type {
   SerializedElementNode,
   SerializedLexicalNode,
 } from "@payloadcms/richtext-lexical/lexical";
+import Image from "next/image";
 import { Fragment } from "react";
 
 type HeadingNode = SerializedElementNode & {
@@ -45,6 +47,11 @@ type LinkNode = SerializedElementNode & {
     newTab?: boolean;
     linkType?: "custom" | "internal";
   };
+};
+
+type UploadNode = SerializedElementNode & {
+  value: Media;
+  relationTo: string;
 };
 
 type NodeRendererProps = {
@@ -169,6 +176,43 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
           {renderChildren(node)}
           {url && <ArrowTopRightOnSquareIcon className="ml-1 inline h-4 w-4" />}
         </Link>
+      );
+    }
+    case "upload": {
+      const uploadNode = node as UploadNode;
+      const { value } = uploadNode;
+
+      console.log("uploadNode", uploadNode);
+
+      if (!value || uploadNode.relationTo !== "media") {
+        return null;
+      }
+
+      // Use thumbnail URL if available, otherwise use the main URL
+      const imageUrl = value.thumbnailURL || value.url;
+      const altText = value.alt || value.filename || "Image";
+
+      // Ensure we have required values for Next.js Image component
+      if (!imageUrl || !value.width || !value.height) {
+        return null;
+      }
+
+      return (
+        <figure className="mx-auto my-6" key={index}>
+          <Image
+            src={imageUrl}
+            alt={altText}
+            className="mx-auto max-w-full rounded-lg shadow-md"
+            width={656}
+            height={820}
+            priority={false}
+          />
+          {value.caption && (
+            <figcaption className="mt-2 text-center text-sm text-stone-600">
+              {value.caption}
+            </figcaption>
+          )}
+        </figure>
       );
     }
     case "horizontalrule":
