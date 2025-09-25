@@ -127,30 +127,24 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
     case "list": {
       const listNode = node as ListNode;
       const Tag = listNode.tag;
+      const isOrderedList = Tag === "ol";
       return (
-        <Tag className="list col-start-2" key={index}>
+        <Tag
+          className={`mx-auto mb-4 space-y-2 pl-6 ${
+            isOrderedList
+              ? "list-decimal marker:font-medium marker:text-amber-500"
+              : "list-disc marker:text-amber-500"
+          }`}
+          key={index}
+        >
           {renderChildren(node)}
         </Tag>
       );
     }
     case "listitem": {
       const listItemNode = node as ListItemNode;
-      if (listItemNode.checked != null) {
-        return (
-          <li
-            aria-checked={listItemNode.checked ? "true" : "false"}
-            className={listItemNode.checked ? "" : ""}
-            key={index}
-            role="checkbox"
-            tabIndex={-1}
-            value={listItemNode.value}
-          >
-            {renderChildren(node)}
-          </li>
-        );
-      }
       return (
-        <li key={index} value={listItemNode.value}>
+        <li key={index} value={listItemNode.value} className="leading-relaxed">
           {renderChildren(node)}
         </li>
       );
