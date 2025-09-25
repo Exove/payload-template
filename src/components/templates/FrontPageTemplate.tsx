@@ -18,7 +18,7 @@ export default function FrontPageTemplate({ content }: FrontPageTemplateProps) {
     <main id="main-content">
       {hero && (
         <section className="mb-24 mt-12 grid gap-8 lg:grid-cols-2">
-          <div className="flex flex-col items-center justify-center lg:items-start">
+          <div className="order-2 flex flex-col items-center justify-center lg:order-1 lg:items-start">
             <div>
               <Heading level="h1" size="xl">
                 {hero.title}
@@ -32,7 +32,7 @@ export default function FrontPageTemplate({ content }: FrontPageTemplateProps) {
             </div>
           </div>
           {typeof hero.image === "object" && hero.image?.url && (
-            <div className="relative aspect-video overflow-hidden rounded-lg">
+            <div className="relative order-1 aspect-video overflow-hidden rounded-2xl lg:order-2">
               <Image
                 src={hero.image.url}
                 alt={hero.image.alt || hero.title}
