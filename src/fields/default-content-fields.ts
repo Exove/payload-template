@@ -1,4 +1,4 @@
-import { accordionBlock, contactsBlock, linkListBlock, tabsBlock, videoEmbedBlock } from "@/blocks";
+import { accordionBlock, contactsBlock, linkListBlock, videoEmbedBlock } from "@/blocks";
 import { BlocksFeature, HeadingFeature, lexicalEditor } from "@payloadcms/richtext-lexical";
 import { Field } from "payload";
 import { slugField } from "./slug-field";
@@ -30,7 +30,7 @@ export const defaultContentFields: Field[] = [
             enabledHeadingSizes: ["h2", "h3"],
           }),
           BlocksFeature({
-            blocks: [accordionBlock, tabsBlock, linkListBlock, contactsBlock, videoEmbedBlock],
+            blocks: [accordionBlock, linkListBlock, contactsBlock, videoEmbedBlock],
           }),
         ];
       },
