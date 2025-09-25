@@ -12,7 +12,7 @@ export function VideoEmbedBlock({ block, className }: Props) {
   const t = useTranslations("blocks.videoEmbed");
 
   return (
-    <div className={cn("my-8", className)}>
+    <div className={cn("my-16", className)}>
       <figure className="mx-auto max-w-[720px]">
         <div className="relative aspect-video w-full">
           <YouTubeEmbed

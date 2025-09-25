@@ -12,7 +12,7 @@ type Props = {
 
 export function ContactsBlock({ block, className, context = "frontpage" }: Props) {
   return (
-    <div className={cn(context === "article" ? "my-8" : "my-24", className)}>
+    <div className={cn(context === "article" ? "mb-8 mt-16" : "my-24", className)}>
       {block.blockName && (
         <Heading level="h2" size="md">
           {block.blockName}

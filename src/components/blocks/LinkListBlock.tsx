@@ -13,7 +13,7 @@ type Props = {
 
 export function LinkListBlock({ block, className, context = "frontpage" }: Props) {
   return (
-    <div className={cn(context === "article" ? "my-8" : "my-24", className)}>
+    <div className={cn(context === "article" ? "my-12" : "my-24", className)}>
       {block.blockName && (
         <Heading level="h2" size="md" className="mb-6">
           {block.blockName}
