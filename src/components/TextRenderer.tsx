@@ -73,34 +73,32 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
     case "text": {
       const textNode = node as unknown as SerializedTextNode;
       if (!textNode.text) return null;
-      const content = <Fragment key={index}>{textNode.text}</Fragment>;
+      let content: React.ReactNode = textNode.text;
 
-      switch (textNode.format) {
-        case IS_BOLD:
-          return <strong key={index}>{content}</strong>;
-        case IS_ITALIC:
-          return <em key={index}>{content}</em>;
-        case IS_STRIKETHROUGH:
-          return (
-            <span key={index} style={{ textDecoration: "line-through" }}>
-              {content}
-            </span>
-          );
-        case IS_UNDERLINE:
-          return (
-            <span key={index} style={{ textDecoration: "underline" }}>
-              {content}
-            </span>
-          );
-        case IS_CODE:
-          return <code key={index}>{content}</code>;
-        case IS_SUBSCRIPT:
-          return <sub key={index}>{content}</sub>;
-        case IS_SUPERSCRIPT:
-          return <sup key={index}>{content}</sup>;
-        default:
-          return content;
+      // Apply formatting using bitwise operations to handle combinations
+      if (textNode.format & IS_BOLD) {
+        content = <strong>{content}</strong>;
       }
+      if (textNode.format & IS_ITALIC) {
+        content = <em>{content}</em>;
+      }
+      if (textNode.format & IS_STRIKETHROUGH) {
+        content = <span className="line-through">{content}</span>;
+      }
+      if (textNode.format & IS_UNDERLINE) {
+        content = <span className="underline">{content}</span>;
+      }
+      if (textNode.format & IS_CODE) {
+        content = <code>{content}</code>;
+      }
+      if (textNode.format & IS_SUBSCRIPT) {
+        content = <sub>{content}</sub>;
+      }
+      if (textNode.format & IS_SUPERSCRIPT) {
+        content = <sup>{content}</sup>;
+      }
+
+      return <Fragment key={index}>{content}</Fragment>;
     }
     case "paragraph":
       const children = renderChildren(node);

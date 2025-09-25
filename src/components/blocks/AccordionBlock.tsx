@@ -24,7 +24,7 @@ export function AccordionBlock({ block, className }: AccordionProps) {
           <AccordionItem key={index}>
             <AccordionTrigger>{item.title}</AccordionTrigger>
             <AccordionContent>
-              {item.content && <BlockRenderer nodes={item.content.root.children as NodeTypes[]} />}
+              {item.content && <BlockRenderer nodes={item.content.root?.children as NodeTypes[]} />}
             </AccordionContent>
           </AccordionItem>
         ))}
