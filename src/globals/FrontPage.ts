@@ -1,13 +1,13 @@
 import {
   carouselBlock,
   contactsBlock,
-  heroBlock,
   largeFeaturedPostBlock,
   linkListBlock,
   quoteBlock,
   smallFeaturedPostsWrapperBlock,
 } from "@/blocks";
 import { dynamicListBlock } from "@/blocks/dynamic-list";
+import { heroFields } from "@/fields/hero-fields";
 import { revalidatePath } from "next/cache";
 import { GlobalAfterChangeHook, GlobalConfig } from "payload";
 
@@ -30,10 +30,10 @@ export const FrontPage: GlobalConfig = {
   fields: [
     {
       name: "hero",
-      type: "blocks",
+      type: "array",
       localized: true,
       maxRows: 1,
-      blocks: [heroBlock],
+      fields: heroFields,
     },
     {
       name: "content",

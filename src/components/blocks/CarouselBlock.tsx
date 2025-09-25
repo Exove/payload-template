@@ -46,7 +46,6 @@ export default function CarouselBlock({ block, className }: Props) {
                   <Card
                     image={typeof item.image === "object" ? item.image : undefined}
                     title={item.title}
-                    text={item.text}
                     href={linkUrl}
                     className="h-full w-full border border-transparent hover:border-amber-500 hover:ring-0"
                   />

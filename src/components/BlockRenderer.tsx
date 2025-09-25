@@ -3,7 +3,6 @@ import type {
   CarouselBlock as CarouselBlockType,
   ContactsBlock as ContactsBlockType,
   DynamicListBlock as DynamicListBlockType,
-  HeroBlock as HeroBlockType,
   LargeFeaturedPostBlock as LargeFeaturedPostBlockType,
   LinkListBlock as LinkListBlockType,
   MediaBlock as MediaBlockType,
@@ -17,7 +16,6 @@ import { AccordionBlock } from "./blocks/AccordionBlock";
 import CarouselBlock from "./blocks/CarouselBlock";
 import { ContactsBlock } from "./blocks/ContactsBlock";
 import DynamicListBlock from "./blocks/DynamicListBlock";
-import { HeroBlock } from "./blocks/HeroBlock";
 import { LargeFeaturedPostBlock } from "./blocks/LargeFeaturedPostBlock";
 import { LinkListBlock } from "./blocks/LinkListBlock";
 import { MediaBlock } from "./blocks/MediaBlock";
@@ -36,7 +34,6 @@ type BaseBlockTypes =
   | LargeFeaturedPostBlockType
   | SmallFeaturedPostsWrapperBlockType
   | ContactsBlockType
-  | HeroBlockType
   | DynamicListBlockType
   | TabsBlockType;
 
@@ -73,8 +70,6 @@ export const BlockRenderer = ({ nodes, blocks }: Props) => {
         return <LargeFeaturedPostBlock key={block.id} block={block} />;
       case "smallFeaturedPostsWrapper":
         return <SmallFeaturedPostsBlock key={block.id} block={block} />;
-      case "hero":
-        return <HeroBlock key={block.id} block={block} />;
       case "dynamicList":
         return <DynamicListBlock key={block.id} block={block} />;
       default:

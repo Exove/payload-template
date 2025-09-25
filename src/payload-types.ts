@@ -491,7 +491,26 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface FrontPage {
   id: number;
-  hero?: HeroBlock[] | null;
+  hero?:
+    | {
+        title: string;
+        description?: string | null;
+        image: number | Media;
+        link?: {
+          /**
+           * If no label is provided, the title of the linked page will be used
+           */
+          label?: string | null;
+          isExternal?: boolean | null;
+          internalUrl?: {
+            relationTo: 'articles';
+            value: number | Article;
+          } | null;
+          externalUrl?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
   content?:
     | (
         | LargeFeaturedPostBlock
@@ -517,27 +536,6 @@ export interface FrontPage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroBlock".
- */
-export interface HeroBlock {
-  blockType: 'hero';
-  title: string;
-  description: string;
-  image: number | Media;
-  link?: {
-    label?: string | null;
-    isExternal?: boolean | null;
-    internalUrl?: {
-      relationTo: 'articles';
-      value: number | Article;
-    } | null;
-    externalUrl?: string | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "LargeFeaturedPostBlock".
  */
 export interface LargeFeaturedPostBlock {
@@ -545,6 +543,9 @@ export interface LargeFeaturedPostBlock {
   text?: string | null;
   image?: (number | null) | Media;
   link?: {
+    /**
+     * If no label is provided, the title of the linked page will be used
+     */
     label?: string | null;
     isExternal?: boolean | null;
     internalUrl?: {
@@ -588,7 +589,6 @@ export interface SmallFeaturedPostsWrapperBlock {
 export interface CarouselBlock {
   items: {
     title: string;
-    text?: string | null;
     image: number | Media;
     link?: {
       isExternal?: boolean | null;
@@ -611,6 +611,9 @@ export interface CarouselBlock {
 export interface LinkListBlock {
   links?:
     | {
+        /**
+         * If no label is provided, the title of the linked page will be used
+         */
         label?: string | null;
         isExternal?: boolean | null;
         internalUrl?: {
@@ -739,6 +742,9 @@ export interface FooterMenu {
     children?:
       | {
           link?: {
+            /**
+             * If no label is provided, the title of the linked page will be used
+             */
             label?: string | null;
             isExternal?: boolean | null;
             internalUrl?: {
@@ -803,7 +809,18 @@ export interface FrontPageSelect<T extends boolean = true> {
   hero?:
     | T
     | {
-        hero?: T | HeroBlockSelect<T>;
+        title?: T;
+        description?: T;
+        image?: T;
+        link?:
+          | T
+          | {
+              label?: T;
+              isExternal?: T;
+              internalUrl?: T;
+              externalUrl?: T;
+            };
+        id?: T;
       };
   content?:
     | T
@@ -827,26 +844,6 @@ export interface FrontPageSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroBlock_select".
- */
-export interface HeroBlockSelect<T extends boolean = true> {
-  blockType?: T;
-  title?: T;
-  description?: T;
-  image?: T;
-  link?:
-    | T
-    | {
-        label?: T;
-        isExternal?: T;
-        internalUrl?: T;
-        externalUrl?: T;
-      };
-  id?: T;
-  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -903,7 +900,6 @@ export interface CarouselBlockSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
-        text?: T;
         image?: T;
         link?:
           | T
