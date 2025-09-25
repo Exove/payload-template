@@ -4,6 +4,7 @@ import {
   largeFeaturedPostBlock,
   linkListBlock,
   quoteBlock,
+  richTextBlock,
   smallFeaturedPostsWrapperBlock,
 } from "@/blocks";
 import { dynamicListBlock } from "@/blocks/dynamic-list";
@@ -46,6 +47,7 @@ export const FrontPage: GlobalConfig = {
         linkListBlock,
         contactsBlock,
         quoteBlock,
+        richTextBlock,
         dynamicListBlock,
       ],
     },

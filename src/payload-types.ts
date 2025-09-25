@@ -519,6 +519,7 @@ export interface FrontPage {
         | LinkListBlock
         | ContactsBlock
         | QuoteBlock
+        | RichTextBlock
         | DynamicListBlock
       )[]
     | null;
@@ -656,6 +657,30 @@ export interface QuoteBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'quote';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RichTextBlock".
+ */
+export interface RichTextBlock {
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'richText';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -831,6 +856,7 @@ export interface FrontPageSelect<T extends boolean = true> {
         linkList?: T | LinkListBlockSelect<T>;
         contacts?: T | ContactsBlockSelect<T>;
         quote?: T | QuoteBlockSelect<T>;
+        richText?: T | RichTextBlockSelect<T>;
         dynamicList?: T | DynamicListBlockSelect<T>;
       };
   meta?:
@@ -948,6 +974,15 @@ export interface QuoteBlockSelect<T extends boolean = true> {
   author?: T;
   title?: T;
   image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RichTextBlock_select".
+ */
+export interface RichTextBlockSelect<T extends boolean = true> {
+  content?: T;
   id?: T;
   blockName?: T;
 }

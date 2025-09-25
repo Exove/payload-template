@@ -7,6 +7,7 @@ import type {
   LinkListBlock as LinkListBlockType,
   MediaBlock as MediaBlockType,
   QuoteBlock as QuoteBlockType,
+  RichTextBlock as RichTextBlockType,
   SmallFeaturedPostsWrapperBlock as SmallFeaturedPostsWrapperBlockType,
   TabsBlock as TabsBlockType,
   VideoEmbedBlock as VideoEmbedBlockType,
@@ -20,6 +21,7 @@ import { LargeFeaturedPostBlock } from "./blocks/LargeFeaturedPostBlock";
 import { LinkListBlock } from "./blocks/LinkListBlock";
 import { MediaBlock } from "./blocks/MediaBlock";
 import { QuoteBlock } from "./blocks/QuoteBlock";
+import { RichTextBlock } from "./blocks/RichTextBlock";
 import SmallFeaturedPostsBlock from "./blocks/SmallFeaturedPostsBlock";
 import { TabsBlock } from "./blocks/TabsBlock";
 import { VideoEmbedBlock } from "./blocks/VideoEmbedBlock";
@@ -29,6 +31,7 @@ type BaseBlockTypes =
   | CarouselBlockType
   | MediaBlockType
   | QuoteBlockType
+  | RichTextBlockType
   | VideoEmbedBlockType
   | LinkListBlockType
   | LargeFeaturedPostBlockType
@@ -58,6 +61,8 @@ export const BlockRenderer = ({ nodes, blocks }: Props) => {
         return <MediaBlock key={block.id} block={block} />;
       case "quote":
         return <QuoteBlock key={block.id} block={block} />;
+      case "richText":
+        return <RichTextBlock key={block.id} block={block} />;
       case "tabs":
         return <TabsBlock key={block.id} block={block} />;
       case "videoEmbed":
