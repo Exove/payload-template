@@ -1,4 +1,7 @@
+"use client";
+
 import Heading from "@/components/Heading";
+import ImageModal from "@/components/ImageModal";
 import { Link } from "@/i18n/routing";
 import {
   IS_BOLD,
@@ -17,7 +20,7 @@ import type {
   SerializedLexicalNode,
 } from "@payloadcms/richtext-lexical/lexical";
 import Image from "next/image";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
 type HeadingNode = SerializedElementNode & {
   tag: "h1" | "h2" | "h3" | "h4";
@@ -60,6 +63,8 @@ type NodeRendererProps = {
 };
 
 export function TextRenderer({ node, index }: NodeRendererProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   if (!node) return null;
 
   const renderChildren = (node: SerializedLexicalNode & { children?: SerializedLexicalNode[] }) => {
@@ -182,36 +187,39 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
       const uploadNode = node as UploadNode;
       const { value } = uploadNode;
 
-      console.log("uploadNode", uploadNode);
-
-      if (!value || uploadNode.relationTo !== "media") {
-        return null;
-      }
-
-      // Use thumbnail URL if available, otherwise use the main URL
-      const imageUrl = value.thumbnailURL || value.url;
-      const altText = value.alt || value.filename || "Image";
-
-      // Ensure we have required values for Next.js Image component
-      if (!imageUrl || !value.width || !value.height) {
-        return null;
-      }
+      if (!value || uploadNode.relationTo !== "media") return null;
+      if (!value.url) return null;
 
       return (
         <figure className="mx-auto my-6" key={index}>
-          <Image
-            src={imageUrl}
-            alt={altText}
-            className="mx-auto max-w-full rounded-lg shadow-md"
-            width={656}
-            height={820}
-            priority={false}
-          />
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="block w-full cursor-zoom-in"
+            aria-label={`Open full screen view of ${value.alt}`}
+          >
+            <Image
+              src={value.url}
+              alt={value.alt}
+              className="mx-auto max-w-full rounded-lg shadow-md"
+              width={656}
+              height={820}
+              priority={false}
+            />
+          </button>
           {value.caption && (
-            <figcaption className="mt-2 text-center text-sm text-stone-600">
+            <figcaption className="mt-2 text-center text-sm text-stone-400">
               {value.caption}
             </figcaption>
           )}
+          <ImageModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            src={value.url}
+            alt={value.alt}
+            caption={value.caption || undefined}
+            width={value.width || 1920}
+            height={value.height || 1080}
+          />
         </figure>
       );
     }

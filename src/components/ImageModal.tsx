@@ -63,8 +63,7 @@ export default function ImageModal({
                 <XMarkIcon className="h-6 w-6" />
               </button>
 
-              {/* Image */}
-              <div
+              <figure
                 className="relative flex h-full w-full items-center justify-center p-4"
                 onClick={(e) => e.stopPropagation()}
               >
@@ -76,14 +75,12 @@ export default function ImageModal({
                   className="max-h-full max-w-full object-contain"
                   priority
                 />
-              </div>
-
-              {/* Caption */}
-              {caption && (
-                <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 p-4 text-center">
-                  <p className="text-sm text-white">{caption}</p>
-                </div>
-              )}
+                {caption && (
+                  <figcaption className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 p-4 text-center text-sm text-white">
+                    {caption}
+                  </figcaption>
+                )}
+              </figure>
             </DialogPanel>
           </TransitionChild>
         </div>
