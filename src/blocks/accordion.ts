@@ -1,4 +1,5 @@
-import { Block } from "payload";
+import { Block, RichTextField } from "payload";
+import { richTextFields } from "../fields/rich-text";
 
 export const accordionBlock: Block = {
   slug: "accordion",
@@ -25,6 +26,7 @@ export const accordionBlock: Block = {
           type: "richText",
           required: true,
           label: "Item Content",
+          editor: (richTextFields[0] as RichTextField).editor,
         },
       ],
     },
