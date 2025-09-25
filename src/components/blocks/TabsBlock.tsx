@@ -1,13 +1,15 @@
 import { BlockRenderer, NodeTypes } from "@/components/BlockRenderer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/Tabs";
+import { cn } from "@/lib/utils";
 import { TabsBlock as TabsBlockType } from "@/payload-types";
 import { useId } from "react";
 
 type TabsProps = {
   block: TabsBlockType;
+  className?: string;
 };
 
-export function TabsBlock({ block }: TabsProps) {
+export function TabsBlock({ block, className }: TabsProps) {
   const { tabs } = block;
   const baseId = useId();
 
@@ -25,7 +27,7 @@ export function TabsBlock({ block }: TabsProps) {
   const defaultTab = tabsWithIds[0]?.id;
 
   return (
-    <div className="w-full">
+    <div className={cn("my-8", className)}>
       <Tabs defaultValue={defaultTab}>
         <TabsList>
           {tabsWithIds.map((tab) => (

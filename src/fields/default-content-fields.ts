@@ -1,12 +1,4 @@
-import {
-  accordionBlock,
-  contactsBlock,
-  largeFeaturedPostBlock,
-  linkListBlock,
-  smallFeaturedPostsWrapperBlock,
-  tabsBlock,
-  videoEmbedBlock,
-} from "@/blocks";
+import { accordionBlock, contactsBlock, linkListBlock, tabsBlock, videoEmbedBlock } from "@/blocks";
 import { BlocksFeature, HeadingFeature, lexicalEditor } from "@payloadcms/richtext-lexical";
 import { Field } from "payload";
 import { slugField } from "./slug";
@@ -38,15 +30,7 @@ export const defaultContentFields: Field[] = [
             enabledHeadingSizes: ["h2", "h3"],
           }),
           BlocksFeature({
-            blocks: [
-              accordionBlock,
-              tabsBlock,
-              largeFeaturedPostBlock,
-              smallFeaturedPostsWrapperBlock,
-              linkListBlock,
-              contactsBlock,
-              videoEmbedBlock,
-            ],
+            blocks: [accordionBlock, tabsBlock, linkListBlock, contactsBlock, videoEmbedBlock],
           }),
         ];
       },

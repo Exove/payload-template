@@ -12,7 +12,7 @@ export function AccordionBlock({ block, className }: AccordionProps) {
   const { items } = block;
 
   return (
-    <ul className={cn("my-6", className)}>
+    <ul className={cn("my-12", className)}>
       {items?.map((item, index) => (
         <AccordionItem key={index}>
           <AccordionTrigger>{item.title}</AccordionTrigger>
