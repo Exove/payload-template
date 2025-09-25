@@ -3,8 +3,6 @@ import {
   contactsBlock,
   largeFeaturedPostBlock,
   linkListBlock,
-  mediaBlock,
-  quoteBlock,
   smallFeaturedPostsWrapperBlock,
   tabsBlock,
   videoEmbedBlock,
@@ -38,7 +36,9 @@ export const defaultContentFields: Field[] = [
     editor: lexicalEditor({
       features: ({ defaultFeatures }) => {
         return [
-          ...defaultFeatures,
+          ...defaultFeatures.filter(
+            (feature) => feature.key !== "checklist" && feature.key !== "relationship",
+          ),
           HeadingFeature({
             enabledHeadingSizes: ["h2", "h3"],
           }),
@@ -46,13 +46,11 @@ export const defaultContentFields: Field[] = [
             blocks: [
               accordionBlock,
               tabsBlock,
-              mediaBlock,
               largeFeaturedPostBlock,
               smallFeaturedPostsWrapperBlock,
               linkListBlock,
               contactsBlock,
               videoEmbedBlock,
-              quoteBlock,
             ],
           }),
         ];

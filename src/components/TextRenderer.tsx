@@ -31,11 +31,6 @@ type ListNode = SerializedElementNode & {
   listType?: string;
 };
 
-type ListItemNode = SerializedElementNode & {
-  checked?: boolean;
-  value?: number;
-};
-
 type LinkNode = SerializedElementNode & {
   fields: {
     doc?: {
@@ -136,7 +131,7 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
       const isOrderedList = Tag === "ol";
       return (
         <Tag
-          className={`mx-auto mb-4 space-y-2 pl-6 ${
+          className={`mx-auto mb-4 space-y-2 pl-8 ${
             isOrderedList
               ? "list-decimal marker:font-medium marker:text-amber-500"
               : "list-disc marker:text-amber-500"
@@ -148,16 +143,15 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
       );
     }
     case "listitem": {
-      const listItemNode = node as ListItemNode;
       return (
-        <li key={index} value={listItemNode.value} className="leading-relaxed">
+        <li key={index} className="pl-2 leading-relaxed">
           {renderChildren(node)}
         </li>
       );
     }
     case "quote":
       return (
-        <blockquote className="mt-6 border-l-4 border-stone-700 pl-6 italic" key={index}>
+        <blockquote className="my-6 border-l-4 border-stone-700 pl-6 italic" key={index}>
           {renderChildren(node)}
         </blockquote>
       );

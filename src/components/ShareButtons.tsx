@@ -6,6 +6,7 @@ import { ArrowUpOnSquareIcon, ClipboardIcon } from "@heroicons/react/24/outline"
 import { useTranslations } from "next-intl";
 import { Fragment, useEffect, useState } from "react";
 import { toast } from "sonner";
+
 export type ShareButtonsProps = {
   url?: string;
 };
@@ -67,7 +68,7 @@ export default function ShareButtons({ url }: ShareButtonsProps) {
   ];
 
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className="relative mt-4 inline-block text-left">
       <MenuButton className="flex items-center gap-2 text-sm text-stone-400 hover:text-stone-300">
         <span className="flex items-center gap-2">
           <ArrowUpOnSquareIcon className="h-5 w-5" />

@@ -27,6 +27,9 @@ export default function ArticleTemplate({ article }: ArticleTemplateProps) {
         <ChevronLeftIcon className="size-4 stroke-2" />
         <Link href="/articles">{t("articles.title")}</Link>
       </div>
+      <Heading level="h1" size="xl">
+        {article.title}
+      </Heading>
       {typeof article.image === "object" && article.image?.url && (
         <>
           <button
@@ -36,15 +39,22 @@ export default function ArticleTemplate({ article }: ArticleTemplateProps) {
               alt: article.image.alt,
             })}
           >
-            <Image
-              src={article.image.url}
-              alt={article.image.alt}
-              width={800}
-              height={1200}
-              className="aspect-video w-full max-w-[800px] rounded-lg object-cover"
-              priority
-              sizes="(max-width: 800px) 100vw, 800px"
-            />
+            <figure>
+              <Image
+                src={article.image.url}
+                alt={article.image.alt}
+                width={800}
+                height={1200}
+                className="aspect-video w-full max-w-[800px] rounded-lg object-cover"
+                priority
+                sizes="(max-width: 800px) 100vw, 800px"
+              />
+              {article.image.caption && (
+                <figcaption className="mt-2 text-sm text-stone-400">
+                  {article.image.caption}
+                </figcaption>
+              )}
+            </figure>
           </button>
           <ImageModal
             isOpen={isModalOpen}
@@ -57,23 +67,21 @@ export default function ArticleTemplate({ article }: ArticleTemplateProps) {
           />
         </>
       )}
-      <Heading level="h1" size="lg" className="mb-6">
-        {article.title}
-      </Heading>
-      {(article.publishedDate || article.author) && (
-        <div className="mb-12 flex gap-4 text-sm text-stone-400">
-          {article.publishedDate && (
-            <time dateTime={article.publishedDate || ""}>
-              {formatDateShort(article.publishedDate || "", locale)}
-            </time>
-          )}
-          {article.author && article.publishedDate && <span>•</span>}
-          {article.author && typeof article.author === "object" && (
-            <span>{article.author?.name}</span>
-          )}
-        </div>
-      )}
-      <div className="mx-auto max-w-screen-lg">
+      <div className="mx-auto max-w-prose">
+        {(article.publishedDate || article.author) && (
+          <div className="mb-12 flex gap-4 text-sm text-stone-400">
+            {article.publishedDate && (
+              <time dateTime={article.publishedDate || ""}>
+                {formatDateShort(article.publishedDate || "", locale)}
+              </time>
+            )}
+            {article.author && article.publishedDate && <span>•</span>}
+            {article.author && typeof article.author === "object" && (
+              <span>{article.author?.name}</span>
+            )}
+          </div>
+        )}
+
         <BlockRenderer nodes={article.content?.root?.children as NodeTypes[]} />
         <ShareButtons />
       </div>

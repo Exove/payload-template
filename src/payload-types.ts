@@ -231,6 +231,9 @@ export interface Article {
   sticky?: boolean | null;
   author?: (number | null) | Contact;
   categories?: (number | Category)[] | null;
+  /**
+   * You can override the default date with a custom date
+   */
   publishedDate?: string | null;
   collection?: string | null;
   meta?: {
@@ -1175,17 +1178,6 @@ export interface TabsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'tabs';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock".
- */
-export interface MediaBlock {
-  media: number | Media;
-  caption?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'media';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

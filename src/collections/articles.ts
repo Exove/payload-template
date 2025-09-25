@@ -50,6 +50,7 @@ export const Articles: CollectionConfig = {
         date: {
           pickerAppearance: "dayOnly",
         },
+        description: "You can override the default date with a custom date",
       },
     },
     {

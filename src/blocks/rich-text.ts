@@ -11,10 +11,7 @@ export const richTextBlock: Block = {
       editor: lexicalEditor({
         features: ({ defaultFeatures }) => [
           ...defaultFeatures.filter(
-            (feature) =>
-              feature.key !== "heading" &&
-              feature.key !== "checklist" &&
-              feature.key !== "relationship",
+            (feature) => feature.key !== "checklist" && feature.key !== "relationship",
           ),
           HeadingFeature({
             enabledHeadingSizes: ["h2", "h3"],

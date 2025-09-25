@@ -7,7 +7,6 @@ export {
   smallFeaturedPostsWrapperBlock,
 } from "./featured-posts";
 export { linkListBlock } from "./link-list";
-export { mediaBlock } from "./media";
 export { quoteBlock } from "./quote";
 export { richTextBlock } from "./rich-text";
 export { tabsBlock } from "./tabs";

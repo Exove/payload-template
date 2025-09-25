@@ -5,7 +5,6 @@ import type {
   DynamicListBlock as DynamicListBlockType,
   LargeFeaturedPostBlock as LargeFeaturedPostBlockType,
   LinkListBlock as LinkListBlockType,
-  MediaBlock as MediaBlockType,
   QuoteBlock as QuoteBlockType,
   RichTextBlock as RichTextBlockType,
   SmallFeaturedPostsWrapperBlock as SmallFeaturedPostsWrapperBlockType,
@@ -19,7 +18,6 @@ import { ContactsBlock } from "./blocks/ContactsBlock";
 import DynamicListBlock from "./blocks/DynamicListBlock";
 import { LargeFeaturedPostBlock } from "./blocks/LargeFeaturedPostBlock";
 import { LinkListBlock } from "./blocks/LinkListBlock";
-import { MediaBlock } from "./blocks/MediaBlock";
 import { QuoteBlock } from "./blocks/QuoteBlock";
 import { RichTextBlock } from "./blocks/RichTextBlock";
 import SmallFeaturedPostsBlock from "./blocks/SmallFeaturedPostsBlock";
@@ -29,7 +27,6 @@ import { TextRenderer } from "./TextRenderer";
 type BaseBlockTypes =
   | AccordionBlockType
   | CarouselBlockType
-  | MediaBlockType
   | QuoteBlockType
   | RichTextBlockType
   | VideoEmbedBlockType
@@ -57,8 +54,6 @@ export const BlockRenderer = ({ nodes, blocks }: Props) => {
         return <AccordionBlock key={block.id} block={block} />;
       case "carousel":
         return <CarouselBlock key={block.id} block={block} />;
-      case "media":
-        return <MediaBlock key={block.id} block={block} />;
       case "quote":
         return <QuoteBlock key={block.id} block={block} />;
       case "richText":
