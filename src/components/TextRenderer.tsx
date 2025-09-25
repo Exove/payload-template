@@ -118,11 +118,9 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
       // Extract text content from all child nodes and concatenate into a single string
       const headingText = nodeWithChildren.children?.map((child) => child.text).join("") || "";
       return (
-        <div className="mx-auto mt-8">
-          <Heading level={headingNode.tag} size={size}>
-            {headingText}
-          </Heading>
-        </div>
+        <Heading level={headingNode.tag} size={size} className="mt-8">
+          {headingText}
+        </Heading>
       );
     }
     case "list": {

@@ -7,17 +7,23 @@ import Image from "next/image";
 type Props = {
   block: ContactsBlockType;
   className?: string;
+  context?: "article" | "frontpage";
 };
 
-export function ContactsBlock({ block, className }: Props) {
+export function ContactsBlock({ block, className, context = "frontpage" }: Props) {
   return (
-    <div className={cn("my-24", className)}>
+    <div className={cn(context === "article" ? "my-8" : "my-24", className)}>
       {block.blockName && (
         <Heading level="h2" size="md">
           {block.blockName}
         </Heading>
       )}
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div
+        className={cn(
+          "grid gap-8 md:grid-cols-2 lg:grid-cols-3",
+          context === "article" && "lg:grid-cols-2",
+        )}
+      >
         {block.contacts?.map(
           (contact) =>
             typeof contact === "object" && (

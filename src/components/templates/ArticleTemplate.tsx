@@ -82,7 +82,7 @@ export default function ArticleTemplate({ article }: ArticleTemplateProps) {
           </div>
         )}
 
-        <BlockRenderer nodes={article.content?.root?.children as NodeTypes[]} />
+        <BlockRenderer context="article" nodes={article.content?.root?.children as NodeTypes[]} />
         <ShareButtons />
       </div>
     </main>

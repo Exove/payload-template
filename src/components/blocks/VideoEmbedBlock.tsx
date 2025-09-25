@@ -1,15 +1,18 @@
+import { cn } from "@/lib/utils";
 import { VideoEmbedBlock as VideoEmbedBlockType } from "@/payload-types";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import { useTranslations } from "next-intl";
 
 type Props = {
   block: VideoEmbedBlockType;
+  className?: string;
 };
 
-export function VideoEmbedBlock({ block }: Props) {
+export function VideoEmbedBlock({ block, className }: Props) {
   const t = useTranslations("blocks.videoEmbed");
+
   return (
-    <div className="my-24">
+    <div className={cn("my-8", className)}>
       <figure className="mx-auto max-w-[720px]">
         <div className="relative aspect-video w-full">
           <YouTubeEmbed

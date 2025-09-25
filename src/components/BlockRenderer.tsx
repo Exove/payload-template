@@ -43,9 +43,10 @@ type BlockTypes = BaseBlockTypes;
 type Props = {
   nodes?: NodeTypes[];
   blocks?: BlockTypes[];
+  context?: "article" | "frontpage";
 };
 
-export const BlockRenderer = ({ nodes, blocks }: Props) => {
+export const BlockRenderer = ({ nodes, blocks, context }: Props) => {
   if (!nodes && !blocks) return null;
 
   const renderBlock = (block: BaseBlockTypes) => {
@@ -63,9 +64,9 @@ export const BlockRenderer = ({ nodes, blocks }: Props) => {
       case "videoEmbed":
         return <VideoEmbedBlock key={block.id} block={block} />;
       case "contacts":
-        return <ContactsBlock key={block.id} block={block} />;
+        return <ContactsBlock context={context} key={block.id} block={block} />;
       case "linkList":
-        return <LinkListBlock key={block.id} block={block} />;
+        return <LinkListBlock context={context} key={block.id} block={block} />;
       case "largeFeaturedPost":
         return <LargeFeaturedPostBlock key={block.id} block={block} />;
       case "smallFeaturedPostsWrapper":

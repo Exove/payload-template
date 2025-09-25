@@ -8,11 +8,12 @@ import { ArrowTopRightOnSquareIcon, ChevronRightIcon } from "@heroicons/react/20
 type Props = {
   block: LinkListBlockType;
   className?: string;
+  context?: "article" | "frontpage";
 };
 
-export function LinkListBlock({ block, className }: Props) {
+export function LinkListBlock({ block, className, context = "frontpage" }: Props) {
   return (
-    <div className={cn("my-24", className)}>
+    <div className={cn(context === "article" ? "my-8" : "my-24", className)}>
       {block.blockName && (
         <Heading level="h2" size="md" className="mb-6">
           {block.blockName}
