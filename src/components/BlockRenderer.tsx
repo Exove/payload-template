@@ -89,7 +89,10 @@ export const BlockRenderer = ({ nodes, blocks }: Props) => {
         node.type === "heading" ||
         node.type === "list" ||
         node.type === "listitem" ||
-        node.type === "paragraph"
+        node.type === "paragraph" ||
+        node.type === "quote" ||
+        node.type === "link" ||
+        node.type === "horizontalrule"
       ) {
         return <TextRenderer key={index} node={node} index={index} />;
       }

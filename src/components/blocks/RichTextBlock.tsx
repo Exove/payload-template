@@ -9,7 +9,7 @@ type Props = {
 
 export function RichTextBlock({ block, className }: Props) {
   return (
-    <div className={cn("mx-auto max-w-4xl py-8", className)}>
+    <div className={cn("mx-auto my-24 max-w-prose", className)}>
       <BlockRenderer nodes={block.content?.root?.children as NodeTypes[]} />
     </div>
   );

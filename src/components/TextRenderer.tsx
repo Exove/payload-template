@@ -48,17 +48,17 @@ type LinkNode = SerializedElementNode & {
 };
 
 type NodeRendererProps = {
-  node: SerializedElementNode | SerializedTextNode;
+  node: SerializedLexicalNode;
   index: number;
 };
 
 export function TextRenderer({ node, index }: NodeRendererProps) {
   if (!node) return null;
 
-  const renderChildren = (node: SerializedElementNode) => {
+  const renderChildren = (node: SerializedLexicalNode & { children?: SerializedLexicalNode[] }) => {
     if (!node.children) return null;
     return node.children.map((child: SerializedLexicalNode, i: number) => (
-      <TextRenderer key={`${index}-${i}`} node={child as SerializedElementNode} index={i} />
+      <TextRenderer key={`${index}-${i}`} node={child} index={i} />
     ));
   };
 
@@ -106,21 +106,15 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
       );
     case "heading": {
       const headingNode = node as HeadingNode;
-      const headingText = node.children
-        ?.map((child) => (child as SerializedTextNode).text)
-        .join("");
+      const size = headingNode.tag === "h2" ? "md" : "sm";
+      const nodeWithChildren = node as SerializedLexicalNode & { children?: SerializedTextNode[] };
+      // Extract text content from all child nodes and concatenate into a single string
+      const headingText = nodeWithChildren.children?.map((child) => child.text).join("") || "";
       return (
         <div className="mx-auto mt-8">
-          {headingNode.tag === "h2" && (
-            <Heading level={headingNode.tag} size="md">
-              {headingText}
-            </Heading>
-          )}
-          {headingNode.tag === "h3" && (
-            <Heading level={headingNode.tag} size="sm">
-              {headingText}
-            </Heading>
-          )}
+          <Heading level={headingNode.tag} size={size}>
+            {headingText}
+          </Heading>
         </div>
       );
     }
@@ -151,7 +145,7 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
     }
     case "quote":
       return (
-        <blockquote className="col-start-2" key={index}>
+        <blockquote className="mt-6 border-l-4 border-stone-700 pl-6 italic" key={index}>
           {renderChildren(node)}
         </blockquote>
       );
@@ -177,6 +171,8 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
         </Link>
       );
     }
+    case "horizontalrule":
+      return <hr className="mx-auto my-8 border-t border-stone-600" key={index} />;
     case "linebreak":
       return <br className="col-start-2" key={index} />;
     default:
