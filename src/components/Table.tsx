@@ -1,8 +1,9 @@
+// https://ui.shadcn.com/docs/components/table
+
 "use client";
 
-import * as React from "react";
-
 import { cn } from "@/lib/utils";
+import * as React from "react";
 
 function Table({ className, ...props }: React.ComponentProps<"table">) {
   return (
@@ -44,7 +45,7 @@ function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
   return (
     <tr
       data-slot="table-row"
-      className={cn("border-b border-stone-600 transition-colors", className)}
+      className={cn("border-b border-stone-700 transition-colors", className)}
       {...props}
     />
   );

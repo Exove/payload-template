@@ -14,3 +14,8 @@ textarea:focus-visible,
 summary:focus-visible {
   @apply outline-none ring-2 ring-amber-500 ring-offset-2 ring-offset-black transition-shadow duration-200;
 }
+
+/* Override table paragraph padding */
+tr[data-slot="table-row"] p {
+  @apply !mb-0;
+}
