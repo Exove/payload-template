@@ -1205,10 +1205,7 @@ export interface AccordionBlock {
 export interface VideoEmbedBlock {
   youtubeId: string;
   alt?: string | null;
-  /**
-   * This will be displayed as a caption for the video
-   */
-  description?: string | null;
+  caption?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'videoEmbed';

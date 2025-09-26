@@ -13,11 +13,8 @@ export const videoEmbedBlock: Block = {
       type: "text",
     },
     {
-      name: "description",
+      name: "caption",
       type: "textarea",
-      admin: {
-        description: "This will be displayed as a caption for the video",
-      },
     },
   ],
   interfaceName: "VideoEmbedBlock",

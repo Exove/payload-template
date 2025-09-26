@@ -1,3 +1,4 @@
+import Heading from "@/components/Heading";
 import { cn } from "@/lib/utils";
 import { VideoEmbedBlock as VideoEmbedBlockType } from "@/payload-types";
 import { YouTubeEmbed } from "@next/third-parties/google";
@@ -13,6 +14,11 @@ export function VideoEmbedBlock({ block, className }: Props) {
 
   return (
     <div className={cn("my-16", className)}>
+      {block.blockName && (
+        <Heading level="h2" size="md">
+          {block.blockName}
+        </Heading>
+      )}
       <figure className="mx-auto max-w-[720px]">
         <div className="relative aspect-video w-full">
           <YouTubeEmbed
@@ -20,9 +26,9 @@ export function VideoEmbedBlock({ block, className }: Props) {
             playlabel={`${t("watchVideo")}: ${block.alt ? `${block.alt}` : ""}`}
           />
         </div>
-        {block.description && (
-          <figcaption className="mt-4 text-center text-sm italic text-stone-400">
-            {block.description}
+        {block.caption && (
+          <figcaption className="mt-2 text-center text-sm text-stone-400">
+            {block.caption}
           </figcaption>
         )}
       </figure>
