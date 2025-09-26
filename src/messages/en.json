@@ -39,7 +39,8 @@
 
   "navigation": {
     "home": "Home",
-    "articles": "Articles"
+    "articles": "Articles",
+    "breadcrumb": "Breadcrumb"
   },
   "languageSwitcher": {
     "switchLanguage": "Switch language"

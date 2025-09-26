@@ -38,7 +38,8 @@
   },
   "navigation": {
     "home": "Koti",
-    "articles": "Artikkelit"
+    "articles": "Artikkelit",
+    "breadcrumb": "Murupolku"
   },
   "languageSwitcher": {
     "switchLanguage": "Vaihda kieltä"

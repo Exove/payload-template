@@ -1,11 +1,10 @@
 "use client";
 
 import { BlockRenderer, NodeTypes } from "@/components/BlockRenderer";
+import Breadcrumb from "@/components/Breadcrumb";
 import ImageModal from "@/components/ImageModal";
-import { Link } from "@/i18n/routing";
 import { formatDateShort } from "@/lib/utils";
 import { Article } from "@/payload-types";
-import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
@@ -23,9 +22,8 @@ export default function ArticleTemplate({ article }: ArticleTemplateProps) {
 
   return (
     <main id="main-content" className="mx-auto max-w-[800px] py-12">
-      <div className="mb-6 flex items-center gap-2 text-sm text-stone-400 hover:text-stone-300">
-        <ChevronLeftIcon className="size-4 stroke-2" />
-        <Link href="/articles">{t("articles.title")}</Link>
+      <div className="mb-6">
+        <Breadcrumb />
       </div>
       <Heading level="h1" size="xl">
         {article.title}
