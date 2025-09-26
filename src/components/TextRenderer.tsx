@@ -191,7 +191,7 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
       if (!value.url) return null;
 
       return (
-        <figure className="mx-auto my-6" key={index}>
+        <figure className="mx-auto my-8" key={index}>
           <button
             onClick={() => setIsModalOpen(true)}
             className="block w-full cursor-zoom-in"
@@ -233,7 +233,7 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
       const bodyRows = childrenArray.slice(1);
 
       return (
-        <div className="my-6" key={index}>
+        <div className="my-8" key={index}>
           <Table>
             <TableHeader>{firstRow}</TableHeader>
             {bodyRows.length > 0 && <TableBody>{bodyRows}</TableBody>}
