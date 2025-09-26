@@ -2,6 +2,7 @@
 
 import Heading from "@/components/Heading";
 import ImageModal from "@/components/ImageModal";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/Table";
 import { Link } from "@/i18n/routing";
 import {
   IS_BOLD,
@@ -13,6 +14,7 @@ import {
   IS_UNDERLINE,
 } from "@/lib/node-format";
 import type { Media } from "@/payload-types";
+import type { TableCellNode } from "@/types/table";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/20/solid";
 import { SerializedTextNode } from "@payloadcms/richtext-lexical";
 import type {
@@ -21,6 +23,16 @@ import type {
 } from "@payloadcms/richtext-lexical/lexical";
 import Image from "next/image";
 import { Fragment, useState } from "react";
+
+/**
+ * TextRenderer - Renders Lexical rich text nodes into React components
+ *
+ * This component recursively renders various types of Lexical nodes including:
+ * - Text formatting (bold, italic, strikethrough, etc.)
+ * - Structural elements (paragraphs, headings, lists)
+ * - Interactive elements (links, images, tables)
+ * - Special elements (quotes, horizontal rules, line breaks)
+ */
 
 type HeadingNode = SerializedElementNode & {
   tag: "h1" | "h2" | "h3" | "h4";
@@ -209,6 +221,55 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
             height={value.height || 1080}
           />
         </figure>
+      );
+    }
+    case "table": {
+      const children = renderChildren(node);
+      if (!children || (Array.isArray(children) && children.every((child) => !child))) return null;
+
+      // Separate first row (header) from body rows
+      const childrenArray = Array.isArray(children) ? children : [children];
+      const firstRow = childrenArray[0];
+      const bodyRows = childrenArray.slice(1);
+
+      return (
+        <div className="my-6" key={index}>
+          <Table>
+            <TableHeader>{firstRow}</TableHeader>
+            {bodyRows.length > 0 && <TableBody>{bodyRows}</TableBody>}
+          </Table>
+        </div>
+      );
+    }
+    case "tablerow": {
+      const children = renderChildren(node);
+      if (!children || (Array.isArray(children) && children.every((child) => !child))) return null;
+
+      return <TableRow key={index}>{children}</TableRow>;
+    }
+    case "tablecell": {
+      const tableCellNode = node as TableCellNode;
+      const children = renderChildren(node);
+      // headerState: 1 = header cell, 0 = regular cell
+      const isHeader = tableCellNode.headerState === 1;
+
+      if (!children || (Array.isArray(children) && children.every((child) => !child))) return null;
+
+      const CellComponent = isHeader ? TableHead : TableCell;
+
+      return (
+        <CellComponent
+          key={index}
+          colSpan={tableCellNode.colSpan}
+          rowSpan={tableCellNode.rowSpan}
+          style={
+            tableCellNode.backgroundColor
+              ? { backgroundColor: tableCellNode.backgroundColor }
+              : undefined
+          }
+        >
+          {children}
+        </CellComponent>
       );
     }
     case "horizontalrule":

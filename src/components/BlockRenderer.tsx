@@ -11,6 +11,7 @@ import type {
   TabsBlock as TabsBlockType,
   VideoEmbedBlock as VideoEmbedBlockType,
 } from "@/payload-types";
+import type { TableNodeTypes } from "@/types/table";
 import { DefaultNodeTypes, SerializedBlockNode } from "@payloadcms/richtext-lexical";
 import { AccordionBlock } from "./blocks/AccordionBlock";
 import CarouselBlock from "./blocks/CarouselBlock";
@@ -24,6 +25,7 @@ import SmallFeaturedPostsBlock from "./blocks/SmallFeaturedPostsBlock";
 import { TabsBlock } from "./blocks/TabsBlock";
 import { VideoEmbedBlock } from "./blocks/VideoEmbedBlock";
 import { TextRenderer } from "./TextRenderer";
+
 type BaseBlockTypes =
   | AccordionBlockType
   | CarouselBlockType
@@ -37,7 +39,7 @@ type BaseBlockTypes =
   | DynamicListBlockType
   | TabsBlockType;
 
-export type NodeTypes = DefaultNodeTypes | SerializedBlockNode<BaseBlockTypes>;
+export type NodeTypes = DefaultNodeTypes | SerializedBlockNode<BaseBlockTypes> | TableNodeTypes;
 type BlockTypes = BaseBlockTypes;
 
 type Props = {
@@ -90,7 +92,10 @@ export const BlockRenderer = ({ nodes, blocks, context }: Props) => {
         node.type === "link" ||
         node.type === "horizontalrule" ||
         node.type === "linebreak" ||
-        node.type === "upload"
+        node.type === "upload" ||
+        node.type === "table" ||
+        node.type === "tablerow" ||
+        node.type === "tablecell"
       ) {
         return <TextRenderer key={index} node={node} index={index} />;
       }
