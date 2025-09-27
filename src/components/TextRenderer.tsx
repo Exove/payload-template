@@ -203,9 +203,9 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
               <Image
                 src={value.url}
                 alt={value.alt}
-                className="aspect-[3/2] w-full rounded-lg object-cover sm:aspect-video"
-                width={656}
-                height={820}
+                className="aspect-[3/2] w-full rounded-lg object-cover"
+                width={784}
+                height={1176}
                 priority={false}
               />
             </button>
