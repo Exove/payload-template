@@ -12,22 +12,6 @@ const nextConfig = {
     reactCompiler: false,
     ppr: false,
   },
-  serverExternalPackages: [
-    "@payloadcms/richtext-lexical",
-    "@payloadcms/plugin-seo",
-    "@payloadcms/ui",
-  ],
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        path: false,
-        crypto: false,
-      };
-    }
-    return config;
-  },
   // End of PayloadCMS React Server Components bundler errors configuration
 };
 
