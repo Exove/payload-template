@@ -13,6 +13,7 @@ import {
   IS_SUPERSCRIPT,
   IS_UNDERLINE,
 } from "@/lib/node-format";
+import { cn } from "@/lib/utils";
 import type { Media } from "@/payload-types";
 import type { TableCellNode } from "@/types/table";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/20/solid";
@@ -139,9 +140,10 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
       const isOrderedList = Tag === "ol";
       return (
         <Tag
-          className={`mx-auto mb-4 space-y-2 pl-8 ${
-            isOrderedList ? "list-decimal marker:font-medium" : "list-disc"
-          }`}
+          className={cn(
+            "mx-auto mb-4 space-y-2 pl-8",
+            isOrderedList ? "list-decimal marker:font-medium" : "list-disc",
+          )}
           key={index}
         >
           {renderChildren(node)}
