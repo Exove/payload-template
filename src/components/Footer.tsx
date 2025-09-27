@@ -41,7 +41,7 @@ export async function Footer() {
               </Heading>
             )}
             {footer.general?.description && <p className="mb-4">{footer.general?.description}</p>}
-            <ul className="flex gap-4">
+            <ul className="mt-6 flex gap-4">
               {footer.general?.social?.facebook && (
                 <li>
                   <Link href={footer.general.social.facebook} className="block hover:text-white">
@@ -120,8 +120,20 @@ export async function Footer() {
                         </p>
                       )}
                     </div>
-                    {footer.contact.phone && <p>{footer.contact.phone}</p>}
-                    {footer.contact.email && <p>{footer.contact.email}</p>}
+                    {footer.contact.phone && (
+                      <p>
+                        <Link className="hover:text-white" href={`tel:${footer.contact.phone}`}>
+                          {footer.contact.phone}
+                        </Link>
+                      </p>
+                    )}
+                    {footer.contact.email && (
+                      <p>
+                        <Link className="hover:text-white" href={`mailto:${footer.contact.email}`}>
+                          {footer.contact.email}
+                        </Link>
+                      </p>
+                    )}
                   </address>
                 )}
               </div>
@@ -131,7 +143,7 @@ export async function Footer() {
 
         {/* Copyright */}
         {footer.copyright && (
-          <div className="mt-8 flex items-center justify-center border-t border-stone-700 pt-4 text-sm">
+          <div className="mt-12 flex items-center justify-center border-t border-stone-700 pt-4 text-sm">
             <p>
               &copy; {new Date().getFullYear()} {footer.copyright}
             </p>

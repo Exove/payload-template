@@ -20,7 +20,7 @@ export function ContactsBlock({ block, className, context = "frontpage" }: Props
       )}
       <div
         className={cn(
-          "grid gap-8 md:grid-cols-2 lg:grid-cols-3",
+          "grid gap-8 sm:grid-cols-2 lg:grid-cols-3",
           context === "article" && "lg:grid-cols-2",
         )}
       >
