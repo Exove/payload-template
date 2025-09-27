@@ -55,7 +55,6 @@ export const Footer: GlobalConfig = {
       name: "contact",
       type: "group",
       fields: [
-        { name: "title", type: "text" },
         { name: "address", type: "text" },
         { name: "postalCode", type: "text" },
         { name: "city", type: "text" },

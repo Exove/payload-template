@@ -97,7 +97,8 @@
   },
   "footer": {
     "phone": "Phone",
-    "menuLabel": "Footer Menu for"
+    "menuLabel": "Footer Menu for",
+    "contact": "Contact"
   },
   "header": {
     "skipToContent": "Skip to content"

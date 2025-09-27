@@ -868,7 +868,6 @@ export interface Footer {
     };
   };
   contact?: {
-    title?: string | null;
     address?: string | null;
     postalCode?: string | null;
     city?: string | null;
@@ -1158,7 +1157,6 @@ export interface FooterSelect<T extends boolean = true> {
   contact?:
     | T
     | {
-        title?: T;
         address?: T;
         postalCode?: T;
         city?: T;

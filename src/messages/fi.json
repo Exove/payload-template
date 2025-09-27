@@ -90,7 +90,8 @@
   },
   "footer": {
     "phone": "Puhelin",
-    "menuLabel": "Footer-valikko"
+    "menuLabel": "Footer-valikko",
+    "contact": "Yhteystiedot"
   },
   "header": {
     "skipToContent": "Hyppää pääsisältöön"
