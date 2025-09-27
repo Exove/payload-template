@@ -3,11 +3,14 @@ import Heading from "@/components/Heading";
 import { FacebookIcon, InstagramIcon, LinkedInIcon, YoutubeIcon } from "@/components/Icons";
 import { Link } from "@/i18n/routing";
 import { parseLink } from "@/lib/parse-link";
+import { Locale } from "@/types/locales";
 import configPromise from "@payload-config";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { getPayload } from "payload";
 
 export async function Footer() {
+  const locale = (await getLocale()) as Locale;
+
   const payload = await getPayload({
     config: configPromise,
   });
@@ -16,9 +19,11 @@ export async function Footer() {
     payload.findGlobal({
       slug: "footer-menu",
       depth: 1,
+      locale: locale,
     }),
     payload.findGlobal({
       slug: "footer",
+      locale: locale,
     }),
   ]);
 
