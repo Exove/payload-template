@@ -191,26 +191,28 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
       if (!value.url) return null;
 
       return (
-        <figure className="mx-auto my-8" key={index}>
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="block w-full cursor-zoom-in"
-            aria-label={`Open full screen view of ${value.alt}`}
-          >
-            <Image
-              src={value.url}
-              alt={value.alt}
-              className="mx-auto max-w-full rounded-lg shadow-md"
-              width={656}
-              height={820}
-              priority={false}
-            />
-          </button>
-          {value.caption && (
-            <figcaption className="mt-2 text-center text-sm text-stone-400">
-              {value.caption}
-            </figcaption>
-          )}
+        <>
+          <figure className="mx-auto my-8" key={index}>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="block w-full cursor-zoom-in"
+              aria-label={`Open full screen view of ${value.alt}`}
+            >
+              <Image
+                src={value.url}
+                alt={value.alt}
+                className="aspect-[3/2] w-full rounded-lg object-cover sm:aspect-video"
+                width={656}
+                height={820}
+                priority={false}
+              />
+            </button>
+            {value.caption && (
+              <figcaption className="mt-2 text-center text-sm text-stone-400">
+                {value.caption}
+              </figcaption>
+            )}
+          </figure>
           <ImageModal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
@@ -220,7 +222,7 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
             width={value.width || 1920}
             height={value.height || 1080}
           />
-        </figure>
+        </>
       );
     }
     case "table": {

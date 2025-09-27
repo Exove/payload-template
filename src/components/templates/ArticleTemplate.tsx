@@ -30,30 +30,30 @@ export default function ArticleTemplate({ article }: ArticleTemplateProps) {
       </Heading>
       {typeof article.image === "object" && article.image?.url && (
         <>
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="mb-10 block w-full cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            aria-label={t("common.openFullScreen", {
-              alt: article.image.alt,
-            })}
-          >
-            <figure>
+          <figure className="mb-8">
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="block w-full cursor-zoom-in"
+              aria-label={t("common.openFullScreen", {
+                alt: article.image.alt,
+              })}
+            >
               <Image
                 src={article.image.url}
                 alt={article.image.alt}
                 width={800}
                 height={1200}
-                className="aspect-video w-full max-w-[800px] rounded-lg object-cover"
+                className="aspect-[3/2] w-full max-w-[800px] rounded-lg object-cover sm:aspect-video"
                 priority
                 sizes="(max-width: 800px) 100vw, 800px"
               />
-              {article.image.caption && (
-                <figcaption className="mt-2 text-sm text-stone-400">
-                  {article.image.caption}
-                </figcaption>
-              )}
-            </figure>
-          </button>
+            </button>
+            {article.image.caption && (
+              <figcaption className="mt-2 text-center text-sm text-stone-400">
+                {article.image.caption}
+              </figcaption>
+            )}
+          </figure>
           <ImageModal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
