@@ -176,7 +176,7 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
         <Link
           href={href}
           key={index}
-          className="font-medium underline decoration-amber-500 underline-offset-2 hover:text-amber-500"
+          className="font-medium underline decoration-amber-500 underline-offset-2 transition-colors hover:text-amber-500"
           target={target}
           rel={rel}
         >

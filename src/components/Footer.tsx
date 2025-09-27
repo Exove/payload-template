@@ -80,7 +80,7 @@ export async function Footer() {
           {/* Footer Menu */}
           <div className="md:col-span-4">
             <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-              {footerMenu.items.map((menuItem, index) => (
+              {footerMenu.items?.map((menuItem, index) => (
                 <nav key={index} aria-label={`${t("footer.menuLabel")} ${menuItem.label}`}>
                   <Heading level="h2" size="sm" className="mb-4 text-white">
                     {menuItem.label}
