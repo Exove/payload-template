@@ -7,12 +7,6 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig = {
   compress: true,
   images: { unoptimized: false },
-  // Configuration to fix PayloadCMS React Server Components bundler errors
-  experimental: {
-    reactCompiler: false,
-    ppr: false,
-  },
-  // End of PayloadCMS React Server Components bundler errors configuration
 };
 
 export default withNextIntl(withPayload(nextConfig));
