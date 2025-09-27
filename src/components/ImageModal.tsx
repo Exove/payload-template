@@ -72,7 +72,8 @@ export default function ImageModal({
                   alt={alt}
                   width={width}
                   height={height}
-                  className="max-h-full max-w-full object-contain"
+                  className="max-h-full max-w-full cursor-zoom-out object-contain"
+                  onClick={onClose}
                   priority
                 />
                 {caption && (
