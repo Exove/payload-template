@@ -5,6 +5,7 @@ import { Link, useRouter } from "@/i18n/routing";
 import { ALGOLIA_INDEX_NAME } from "@/lib/constants";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { algoliasearch } from "algoliasearch";
+import { AnimatePresence, motion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { InstantSearch, useHits, useSearchBox, useStats } from "react-instantsearch";
@@ -83,19 +84,28 @@ function CustomHits() {
 
   return (
     <ol>
-      {items.map((hit: Hit) => (
-        <li key={hit.slug}>
-          <div className="group relative flex items-center justify-between gap-3 rounded-lg p-4 hover:bg-stone-700">
-            <Link href={`/${hit.collection}/${hit.slug}`} className="block">
-              <h2 className="font-medium">{hit.title}</h2>
-              <span className="absolute inset-x-0 inset-y-0 z-10"></span>
-            </Link>
-            <div className="text-xs uppercase text-stone-400 group-hover:text-stone-300">
-              {hit.collection}
+      <AnimatePresence mode="popLayout">
+        {items.map((hit: Hit) => (
+          <motion.li
+            key={hit.slug}
+            layout
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+          >
+            <div className="group relative flex items-center justify-between gap-3 rounded-lg p-4 hover:bg-stone-700">
+              <Link href={`/${hit.collection}/${hit.slug}`} className="block">
+                <h2 className="font-medium">{hit.title}</h2>
+                <span className="absolute inset-x-0 inset-y-0 z-10"></span>
+              </Link>
+              <div className="text-xs uppercase text-stone-400 group-hover:text-stone-300">
+                {hit.collection}
+              </div>
             </div>
-          </div>
-        </li>
-      ))}
+          </motion.li>
+        ))}
+      </AnimatePresence>
     </ol>
   );
 }

@@ -7,6 +7,7 @@ import { Link } from "@/i18n/routing";
 import { ALGOLIA_INDEX_NAME } from "@/lib/constants";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { algoliasearch } from "algoliasearch";
+import { AnimatePresence, motion } from "motion/react";
 import { Locale, useLocale, useTranslations } from "next-intl";
 import {
   Configure,
@@ -142,21 +143,31 @@ function SearchResults() {
 
   return (
     <ol className="space-y-4">
-      {items.map((item) => (
-        <li key={item.objectID} className="group relative mb-4 block rounded-lg bg-stone-800 p-4">
-          <Link href={`/${item.collection}/${item.slug}`} className="inline-block">
-            <Heading
-              level="h2"
-              size="sm"
-              className="mb-0 transition-colors group-hover:text-amber-500"
-            >
-              {item.title}
-            </Heading>
-            <span className="absolute inset-x-0 inset-y-0 z-10"></span>
-          </Link>
-          <div className="mt-6 text-xs uppercase text-stone-400">{item.collection}</div>
-        </li>
-      ))}
+      <AnimatePresence mode="popLayout">
+        {items.map((item) => (
+          <motion.li
+            key={item.objectID}
+            layout
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="group relative mb-4 block rounded-lg bg-stone-800 p-4"
+          >
+            <Link href={`/${item.collection}/${item.slug}`} className="inline-block">
+              <Heading
+                level="h2"
+                size="sm"
+                className="mb-0 transition-colors group-hover:text-amber-500"
+              >
+                {item.title}
+              </Heading>
+              <span className="absolute inset-x-0 inset-y-0 z-10"></span>
+            </Link>
+            <div className="mt-6 text-xs uppercase text-stone-400">{item.collection}</div>
+          </motion.li>
+        ))}
+      </AnimatePresence>
     </ol>
   );
 }
