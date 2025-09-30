@@ -5,7 +5,7 @@ import { ListingTemplate } from "@/components/templates/ListingTemplate";
 import { SITE_NAME } from "@/lib/constants";
 import { Locale } from "@/types/locales";
 import configPromise from "@payload-config";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getPayload } from "payload";
 
 export const dynamic = "force-static";
@@ -16,6 +16,7 @@ type Props = {
 
 export default async function ArticlesPage({ params }: Props) {
   const { locale } = await params;
+  setRequestLocale(locale);
 
   try {
     const payload = await getPayload({

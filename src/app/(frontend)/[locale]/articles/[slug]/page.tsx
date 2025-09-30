@@ -9,6 +9,7 @@ import { prepareOpenGraphImages } from "@/lib/utils";
 import { Locale } from "@/types/locales";
 import configPromise from "@payload-config";
 import { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
@@ -46,6 +47,9 @@ export async function getArticleBySlug({ params, preview = false }: Props) {
 }
 
 export default async function ArticlePage(props: Props) {
+  const { locale } = await props.params;
+  setRequestLocale(locale);
+
   const { article, error } = await getArticleBySlug(props);
 
   if (error) {

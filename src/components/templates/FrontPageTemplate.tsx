@@ -1,3 +1,5 @@
+"use client";
+
 import { BlockRenderer } from "@/components/BlockRenderer";
 import Button from "@/components/Button";
 import Heading from "@/components/Heading";

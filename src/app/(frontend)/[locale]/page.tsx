@@ -8,6 +8,7 @@ import { prepareOpenGraphImages } from "@/lib/utils";
 import { Locale } from "@/types/locales";
 import configPromise from "@payload-config";
 import { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
@@ -40,6 +41,8 @@ async function getFrontPage({ params }: Props, preview = false) {
 }
 
 export default async function FrontPage({ params }: Props, preview = false) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const { frontPage, error } = await getFrontPage({ params }, preview);
 
   if (error) return <ErrorTemplate error={error as Error} />;
