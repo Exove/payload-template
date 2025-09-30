@@ -2,10 +2,10 @@
 
 import { BlockRenderer } from "@/components/BlockRenderer";
 import Button from "@/components/Button";
-import Heading from "@/components/Heading";
 import { Link } from "@/i18n/routing";
 import { parseLink } from "@/lib/parse-link";
 import { FrontPage } from "@/payload-types";
+import { motion } from "motion/react";
 import Image from "next/image";
 
 type FrontPageTemplateProps = {
@@ -16,15 +16,31 @@ export default function FrontPageTemplate({ content }: FrontPageTemplateProps) {
   const hero = content.hero?.[0];
   const { linkUrl, linkLabel } = parseLink(hero?.link);
 
+  const titleWords = hero?.title?.split(" ") || [];
+
   return (
     <main id="main-content">
       {hero && (
         <section className="mb-24 mt-12 grid gap-8 lg:grid-cols-2">
           <div className="order-2 flex flex-col items-center justify-center lg:order-1 lg:items-start">
             <div>
-              <Heading level="h1" size="xl">
-                {hero.title}
-              </Heading>
+              <motion.h1 className="mb-10 text-3xl font-bold lg:text-4xl xl:text-5xl">
+                {titleWords.map((word, index) => (
+                  <motion.span
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.6,
+                      delay: index * 0.1,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    className="mr-[0.25em] inline-block"
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+              </motion.h1>
               <p className="mb-6 text-lg">{hero.description}</p>
               {linkUrl && (
                 <Button asChild={true}>
