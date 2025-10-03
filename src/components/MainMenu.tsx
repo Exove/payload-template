@@ -136,7 +136,7 @@ export function MainMenu({ items }: MainMenuProps) {
 
   return (
     <nav>
-      <ul className="flex items-center justify-center gap-4">{items.map(renderMenuItem)}</ul>
+      <ul className="flex items-center justify-center gap-4">{items?.map(renderMenuItem)}</ul>
     </nav>
   );
 }
@@ -173,7 +173,7 @@ export function MobileMenu({ items }: { items: MenuItem[] }) {
   };
 
   const convertToSidePanelItems = (menuItems: MenuItem[]): SidePanelItem[] => {
-    return menuItems.map((item) => {
+    return menuItems?.map((item) => {
       const { linkUrl } = parseMenuLinks(item);
       return {
         title: item.label,
