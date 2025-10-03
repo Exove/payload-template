@@ -31,24 +31,24 @@ function ensureNodeModulesInstalled() {
   }
 }
 
-function startPostgresWithDockerCompose() {
-  const commandsToTry = ["docker compose up -d postgres", "docker-compose up -d postgres"];
+// function startPostgresWithDockerCompose() {
+//   const commandsToTry = ["docker compose up -d postgres", "docker-compose up -d postgres"];
 
-  for (const command of commandsToTry) {
-    try {
-      console.log(`Ensuring Postgres is running using: ${command}`);
-      execSync(command, { stdio: "inherit" });
-      return;
-    } catch {
-      // Try next command option
-    }
-  }
+//   for (const command of commandsToTry) {
+//     try {
+//       console.log(`Ensuring Postgres is running using: ${command}`);
+//       execSync(command, { stdio: "inherit" });
+//       return;
+//     } catch {
+//       // Try next command option
+//     }
+//   }
 
-  console.error(
-    "Could not start Postgres via Docker Compose. Make sure Docker is installed and running.",
-  );
-  process.exit(1);
-}
+//   console.error(
+//     "Could not start Postgres via Docker Compose. Make sure Docker is installed and running.",
+//   );
+//   process.exit(1);
+// }
 
 function main() {
   ensureDotEnvExists();

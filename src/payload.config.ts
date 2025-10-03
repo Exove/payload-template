@@ -1,5 +1,5 @@
 // storage-adapter-import-placeholder
-import { postgresAdapter } from "@payloadcms/db-postgres";
+import { sqliteAdapter } from "@payloadcms/db-sqlite";
 import { payloadCloudPlugin } from "@payloadcms/payload-cloud";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import path from "path";
@@ -47,9 +47,9 @@ export default buildConfig({
     locales: ["fi", "en"],
     defaultLocale: "fi",
   },
-  db: postgresAdapter({
-    pool: {
-      connectionString: process.env.DATABASE_URI,
+  db: sqliteAdapter({
+    client: {
+      url: process.env.DATABASE_URI || "file:./payload.db",
     },
   }),
   graphQL: {
