@@ -20,9 +20,7 @@
     "reindex": "cross-env NODE_OPTIONS=--no-deprecation dotenv -e .env tsx ./src/scripts/reindexToAlgolia.ts",
     "create:admin": "cross-env NODE_OPTIONS=--no-deprecation dotenv -e .env tsx ./src/scripts/createAdminUser.ts",
     "resize": "cross-env NODE_OPTIONS=--no-deprecation dotenv -e .env tsx ./src/scripts/resizeImages.ts",
-    "format": "prettier --write \"src/**/*.{ts,tsx,json}\"",
-    "db:export": "bash ./scripts/db-export.sh",
-    "db:import": "bash ./scripts/db-import.sh"
+    "format": "prettier --write \"src/**/*.{ts,tsx,json}\""
   },
   "dependencies": {
     "@headlessui/react": "^2.2.7",
