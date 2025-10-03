@@ -104,30 +104,29 @@ export async function Footer() {
               ))}
 
               {/* Contact Info */}
-              <div>
-                {footer.contact && (
+              {Object.values(footer.contact ?? {}).some((value) => value) && (
+                <div>
                   <Heading level="h2" size="sm" className="mb-4 text-white">
                     {t("footer.contact")}
                   </Heading>
-                )}
-                {footer.contact && (
+
                   <address className="not-italic">
                     <div className="mb-2">
-                      {footer.contact.address && <p>{footer.contact.address}</p>}
-                      {footer.contact.city && (
+                      {footer.contact?.address && <p>{footer.contact.address}</p>}
+                      {footer.contact?.city && (
                         <p>
                           {footer.contact.postalCode} {footer.contact.city}
                         </p>
                       )}
                     </div>
-                    {footer.contact.phone && (
+                    {footer.contact?.phone && (
                       <p>
                         <Link className="hover:text-white" href={`tel:${footer.contact.phone}`}>
                           {footer.contact.phone}
                         </Link>
                       </p>
                     )}
-                    {footer.contact.email && (
+                    {footer.contact?.email && (
                       <p>
                         <Link className="hover:text-white" href={`mailto:${footer.contact.email}`}>
                           {footer.contact.email}
@@ -135,8 +134,8 @@ export async function Footer() {
                       </p>
                     )}
                   </address>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
