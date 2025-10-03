@@ -38,6 +38,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# payload generated files
+src/app/(payload)/admin/importMap.js
+
 .env
 
 *.db
