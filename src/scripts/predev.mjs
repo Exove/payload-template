@@ -53,7 +53,7 @@ function ensureNodeModulesInstalled() {
 function main() {
   ensureDotEnvExists();
   ensureNodeModulesInstalled();
-  startPostgresWithDockerCompose();
+  // startPostgresWithDockerCompose();
 }
 
 main();
