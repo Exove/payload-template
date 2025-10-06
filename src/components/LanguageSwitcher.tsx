@@ -23,7 +23,10 @@ export default function LanguageSwitcher() {
         className="group inline-flex items-center justify-center gap-2 py-2"
         aria-label={t("switchLanguage")}
       >
-        <LanguageIcon className="h-5 w-5 group-hover:text-amber-500" aria-hidden="true" />
+        <LanguageIcon
+          className="h-5 w-5 text-stone-400 group-hover:text-amber-500"
+          aria-hidden="true"
+        />
         <div className="sr-only text-xs font-medium uppercase xl:not-sr-only">
           {locale.toUpperCase()}
         </div>

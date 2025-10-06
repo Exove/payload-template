@@ -184,8 +184,8 @@ export default function SearchSidePanel() {
     <SearchContextProvider>
       <SidePanel
         openLabel={
-          <button className="group flex items-center gap-2">
-            <MagnifyingGlassIcon className="h-5 w-5 group-hover:text-amber-500" />
+          <button className="group flex items-center gap-2 rounded-full bg-stone-800 py-2 pl-4 pr-10 hover:ring-1 hover:ring-amber-500">
+            <MagnifyingGlassIcon className="h-5 w-5 text-stone-400" />
             <div className="sr-only text-xs font-medium uppercase xl:not-sr-only">
               {t("search")}
             </div>
