@@ -4,9 +4,9 @@ import Heading from "@/components/Heading";
 import SearchFilter from "@/components/SearchFilter";
 import SearchPagination from "@/components/SearchPagination";
 import { Link } from "@/i18n/routing";
+import { getAlgoliaSearchClient } from "@/lib/algolia-utils";
 import { ALGOLIA_INDEX_NAME } from "@/lib/constants";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { algoliasearch } from "algoliasearch";
 import { AnimatePresence, motion } from "motion/react";
 import { Locale, useLocale, useTranslations } from "next-intl";
 import {
@@ -26,10 +26,7 @@ type Hit = {
   collection?: string;
 };
 
-const searchClient = algoliasearch(
-  process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID || "",
-  process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY || "",
-);
+const searchClient = getAlgoliaSearchClient();
 
 function SearchBox() {
   const { query, refine } = useSearchBox();

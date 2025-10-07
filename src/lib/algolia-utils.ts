@@ -20,6 +20,7 @@ type RichTextContent = {
 }[];
 
 let algoliaClient: SearchClient | null = null;
+let algoliaSearchClient: SearchClient | null = null;
 
 export const getAlgoliaClient = (): SearchClient => {
   if (!algoliaClient) {
@@ -33,6 +34,32 @@ export const getAlgoliaClient = (): SearchClient => {
     );
   }
   return algoliaClient;
+};
+
+export const getAlgoliaSearchClient = (): SearchClient => {
+  if (!algoliaSearchClient) {
+    if (
+      !process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID ||
+      !process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
+    ) {
+      console.warn(
+        "⚠️ Algolia search credentials are not configured. Search functionality will be disabled.",
+      );
+
+      // Return a mock client that returns empty results
+      algoliaSearchClient = {
+        search: () => Promise.resolve({ results: [] }),
+      } as unknown as SearchClient;
+
+      return algoliaSearchClient;
+    }
+
+    algoliaSearchClient = algoliasearch(
+      process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID,
+      process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY,
+    );
+  }
+  return algoliaSearchClient;
 };
 
 export const indexDocumentToAlgolia = async (

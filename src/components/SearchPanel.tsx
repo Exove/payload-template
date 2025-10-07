@@ -2,9 +2,9 @@
 
 import SidePanel from "@/components/SidePanel";
 import { Link, useRouter } from "@/i18n/routing";
+import { getAlgoliaSearchClient } from "@/lib/algolia-utils";
 import { ALGOLIA_INDEX_NAME } from "@/lib/constants";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { algoliasearch } from "algoliasearch";
 import { AnimatePresence, motion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
@@ -33,10 +33,7 @@ function SearchContextProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-const algoliaClient = algoliasearch(
-  process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID || "",
-  process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY || "",
-);
+const algoliaClient = getAlgoliaSearchClient();
 
 // Custom search client that prevents empty queries
 const searchClient = {
