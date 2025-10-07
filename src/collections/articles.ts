@@ -1,13 +1,13 @@
 import { defaultContentFields } from "@/fields/default-content-fields";
 import { revalidatePath } from "next/cache";
-import { CollectionAfterChangeHook, CollectionConfig } from "payload";
+import { CollectionConfig } from "payload";
 import { indexToAlgoliaHook, removeFromAlgoliaHook } from "./hooks/indexToAlgolia";
 
-const revalidateArticleHook: CollectionAfterChangeHook = async ({ doc, operation }) => {
-  if (operation === "create" || operation === "update" || operation === "delete") {
-    revalidatePath(`/fi/articles/${doc.slug}`);
-    revalidatePath(`/en/articles/${doc.slug}`);
-  }
+const revalidateArticleHook = async ({ doc }: { doc: { slug: string } }) => {
+  revalidatePath(`/fi/articles/${doc.slug}`);
+  revalidatePath(`/en/articles/${doc.slug}`);
+  revalidatePath(`/fi/articles`);
+  revalidatePath(`/en/articles`);
 };
 
 export const Articles: CollectionConfig = {
@@ -68,6 +68,6 @@ export const Articles: CollectionConfig = {
   },
   hooks: {
     afterChange: [indexToAlgoliaHook, revalidateArticleHook],
-    afterDelete: [removeFromAlgoliaHook],
+    afterDelete: [removeFromAlgoliaHook, revalidateArticleHook],
   },
 };
