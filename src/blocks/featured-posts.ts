@@ -27,28 +27,6 @@ export const largeFeaturedPostBlock: Block = {
   interfaceName: "LargeFeaturedPostBlock",
 };
 
-export const smallFeaturedPostBlock: Block = {
-  slug: "smallFeaturedPost",
-  fields: [
-    {
-      name: "title",
-      type: "text",
-      required: true,
-    },
-    {
-      name: "image",
-      type: "upload",
-      relationTo: "media",
-      required: true,
-    },
-    {
-      name: "link",
-      type: "group",
-      fields: [...linkField],
-    },
-  ],
-};
-
 export const smallFeaturedPostsWrapperBlock: Block = {
   slug: "smallFeaturedPostsWrapper",
   labels: {
@@ -58,8 +36,25 @@ export const smallFeaturedPostsWrapperBlock: Block = {
   fields: [
     {
       name: "posts",
-      type: "blocks",
-      blocks: [smallFeaturedPostBlock],
+      type: "array",
+      fields: [
+        {
+          name: "title",
+          type: "text",
+          required: true,
+        },
+        {
+          name: "image",
+          type: "upload",
+          relationTo: "media",
+          required: true,
+        },
+        {
+          name: "link",
+          type: "group",
+          fields: [...linkField],
+        },
+      ],
       required: true,
     },
   ],

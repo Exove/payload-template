@@ -629,8 +629,6 @@ export interface SmallFeaturedPostsWrapperBlock {
       externalUrl?: string | null;
     };
     id?: string | null;
-    blockName?: string | null;
-    blockType: 'smallFeaturedPost';
   }[];
   id?: string | null;
   blockName?: string | null;
@@ -950,21 +948,16 @@ export interface SmallFeaturedPostsWrapperBlockSelect<T extends boolean = true> 
   posts?:
     | T
     | {
-        smallFeaturedPost?:
+        title?: T;
+        image?: T;
+        link?:
           | T
           | {
-              title?: T;
-              image?: T;
-              link?:
-                | T
-                | {
-                    isExternal?: T;
-                    internalUrl?: T;
-                    externalUrl?: T;
-                  };
-              id?: T;
-              blockName?: T;
+              isExternal?: T;
+              internalUrl?: T;
+              externalUrl?: T;
             };
+        id?: T;
       };
   id?: T;
   blockName?: T;
