@@ -204,7 +204,7 @@ export interface Article {
   id: number;
   title: string;
   image?: (number | null) | Media;
-  content?: {
+  content: {
     root: {
       type: string;
       children: {
@@ -218,7 +218,7 @@ export interface Article {
       version: number;
     };
     [k: string]: unknown;
-  } | null;
+  };
   /**
    * The slug is automatically generated from the title if empty
    */
