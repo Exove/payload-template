@@ -22,7 +22,7 @@ export const Media: CollectionConfig = {
       type: "text",
       localized: true,
       admin: {
-        description: "Optional caption text displayed when image is viewed in modal",
+        description: "Optional caption text displayed at the bottom of the image",
       },
     },
   ],

@@ -121,7 +121,7 @@ export interface Media {
   id: number;
   alt: string;
   /**
-   * Optional caption text displayed when image is viewed in modal
+   * Optional caption text displayed at the bottom of the image
    */
   caption?: string | null;
   folder?: (number | null) | FolderInterface;
