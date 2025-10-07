@@ -1,13 +1,14 @@
 import { defaultContentFields } from "@/fields/default-content-fields";
+import { routing } from "@/i18n/routing";
 import { revalidatePath } from "next/cache";
 import { CollectionConfig } from "payload";
 import { indexToAlgoliaHook, removeFromAlgoliaHook } from "./hooks/indexToAlgolia";
 
 const revalidateArticleHook = async ({ doc }: { doc: { slug: string } }) => {
-  revalidatePath(`/fi/articles/${doc.slug}`);
-  revalidatePath(`/en/articles/${doc.slug}`);
-  revalidatePath(`/fi/articles`);
-  revalidatePath(`/en/articles`);
+  routing.locales.forEach((locale) => {
+    revalidatePath(`/${locale}/articles/${doc.slug}`);
+    revalidatePath(`/${locale}/articles`);
+  });
 };
 
 export const Articles: CollectionConfig = {
