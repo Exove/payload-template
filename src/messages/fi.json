@@ -51,6 +51,7 @@
     "search": "Haku",
     "results": "osumaa",
     "result": "osuma",
+    "noResults": "Ei hakutuloksia",
     "selected": "valittu",
     "select": "Valitse",
     "categories": "Kategoriat",

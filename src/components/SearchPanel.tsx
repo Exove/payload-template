@@ -74,8 +74,35 @@ function SearchStats() {
 
 function CustomHits() {
   const { items } = useHits<Hit>();
+  const { query } = useSearchBox();
+  const t = useTranslations("search");
+  const [showNoResults, setShowNoResults] = useState(false);
+
+  // Delay showing "no results" message to prevent flash while search results are loading
+  useEffect(() => {
+    if (query && (!items || items.length === 0)) {
+      const timer = setTimeout(() => {
+        setShowNoResults(true);
+      }, 300);
+      return () => clearTimeout(timer);
+    } else {
+      setShowNoResults(false);
+    }
+  }, [query, items]);
 
   if (!items || items.length === 0) {
+    if (query && showNoResults) {
+      return (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          className="p-4 text-center text-stone-400"
+        >
+          {t("noResults")}
+        </motion.div>
+      );
+    }
     return null;
   }
 
