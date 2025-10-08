@@ -1,4 +1,9 @@
-import { GlobalConfig } from "payload";
+import { revalidatePath } from "next/cache";
+import { GlobalAfterChangeHook, GlobalConfig } from "payload";
+
+const revalidateFooterHook: GlobalAfterChangeHook = async () => {
+  revalidatePath("/", "layout");
+};
 
 export const Footer: GlobalConfig = {
   slug: "footer",
@@ -7,6 +12,9 @@ export const Footer: GlobalConfig = {
   },
   admin: {
     group: "Misc",
+  },
+  hooks: {
+    afterChange: [revalidateFooterHook],
   },
   fields: [
     {
