@@ -33,8 +33,8 @@ export default function Heading({ level, size = "md", children, className }: Hea
         size === "xl" && "mb-10 text-3xl font-bold lg:text-4xl xl:text-5xl",
         size === "lg" && "mb-8 text-2xl font-bold lg:text-3xl xl:text-4xl",
         size === "md" && "mb-6 text-xl font-semibold xl:text-2xl",
-        size === "sm" && "mb-4 text-xl font-semibold xl:text-xl",
-        size === "xs" && "mb-4 text-base font-medium xl:text-base",
+        size === "sm" && "mb-4 text-xl font-semibold",
+        size === "xs" && "mb-4 text-base font-medium",
         className,
       )}
       id={id}
