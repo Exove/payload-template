@@ -41,6 +41,7 @@ export function MainMenu({ items }: MainMenuProps) {
               <PopoverPanel className="absolute left-1/2 z-20 mt-3 -translate-x-1/2 transform px-2">
                 <ul className="overflow-hidden rounded-lg border border-stone-700 shadow-lg ring-1 ring-black ring-opacity-5">
                   <div
+                    // Check for different styling if children have grandchildren
                     className={clsx(
                       "bg-stone-800 *:relative",
                       item.children?.some(
@@ -49,6 +50,8 @@ export function MainMenu({ items }: MainMenuProps) {
                         ? "grid gap-x-4 gap-y-10 px-10 pb-10 pt-6"
                         : "flex min-w-[250px] flex-col gap-4 pb-8 pl-10 pr-6 pt-6",
                     )}
+                    // Dynamically set grid columns based on number of children with grandchildren
+                    // Maximum of 3 columns, each 200px wide
                     style={
                       item.children?.some(
                         (child) => child.grandchildren && child.grandchildren.length > 0,
