@@ -3,13 +3,15 @@ import { MainMenu, MobileMenu } from "@/components/MainMenu";
 import SearchSidePanel from "@/components/SearchPanel";
 import { Link } from "@/i18n/routing";
 import { SITE_NAME } from "@/lib/constants";
+import { Locale } from "@/types/locales";
 import { MenuItem } from "@/types/menu";
 import configPromise from "@payload-config";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { getPayload } from "payload";
 
 export default async function Header() {
   const t = await getTranslations("header");
+  const locale = (await getLocale()) as Locale;
 
   const payload = await getPayload({
     config: configPromise,
@@ -18,6 +20,7 @@ export default async function Header() {
   const mainMenu = await payload.findGlobal({
     slug: "main-menu",
     depth: 1,
+    locale: locale,
   });
 
   return (
