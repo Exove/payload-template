@@ -47,7 +47,7 @@ export function MainMenu({ items }: MainMenuProps) {
                         (child) => child.grandchildren && child.grandchildren.length > 0,
                       )
                         ? "grid gap-x-4 gap-y-10 px-10 pb-10 pt-6"
-                        : "min-w-[200px] pb-8 pl-10 pr-6 pt-6",
+                        : "flex min-w-[250px] flex-col gap-4 pb-8 pl-10 pr-6 pt-6",
                     )}
                     style={
                       item.children?.some(
