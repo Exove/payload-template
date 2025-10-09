@@ -13,6 +13,12 @@ const revalidateArticleHook = async ({ doc }: { doc: { slug: string } }) => {
 
 export const Articles: CollectionConfig = {
   slug: "articles",
+  defaultPopulate: {
+    slug: true,
+    title: true,
+    collection: true,
+    image: true,
+  },
   admin: {
     useAsTitle: "title",
     group: "Pages",
