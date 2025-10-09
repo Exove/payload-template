@@ -6,22 +6,6 @@ const revalidateMainMenuHook: GlobalAfterChangeHook = async () => {
   revalidatePath("/", "layout"); // Revalidating all data
 };
 
-// Validate that if addLinks is true, label is required
-const labelValidation = (
-  value: string | undefined | null,
-  { siblingData }: { siblingData: { addLinks?: boolean } },
-) => {
-  if (siblingData.addLinks && !value) {
-    return "Label is required";
-  }
-  return true;
-};
-
-const labelAdminConfig = {
-  description:
-    "You can override the link label here. If this is a parent menu item, label is required.",
-};
-
 export const MainMenu: GlobalConfig = {
   slug: "main-menu",
   access: {
@@ -45,9 +29,8 @@ export const MainMenu: GlobalConfig = {
         {
           name: "label",
           type: "text",
+          required: true,
           localized: true,
-          validate: labelValidation,
-          admin: labelAdminConfig,
         },
         {
           name: "addLinks",
@@ -75,9 +58,8 @@ export const MainMenu: GlobalConfig = {
             {
               name: "label",
               type: "text",
+              required: true,
               localized: true,
-              validate: labelValidation,
-              admin: labelAdminConfig,
             },
             {
               name: "addLinks",
@@ -105,9 +87,8 @@ export const MainMenu: GlobalConfig = {
                 {
                   name: "label",
                   type: "text",
+                  required: true,
                   localized: true,
-                  validate: labelValidation,
-                  admin: labelAdminConfig,
                 },
                 {
                   name: "link",

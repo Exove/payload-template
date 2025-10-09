@@ -763,10 +763,7 @@ export interface DynamicListBlock {
 export interface MainMenu {
   id: number;
   items: {
-    /**
-     * You can override the link label here. If this is a parent menu item, label is required.
-     */
-    label?: string | null;
+    label: string;
     addLinks?: boolean | null;
     link?: {
       isExternal?: boolean | null;
@@ -778,10 +775,7 @@ export interface MainMenu {
     };
     children?:
       | {
-          /**
-           * You can override the link label here. If this is a parent menu item, label is required.
-           */
-          label?: string | null;
+          label: string;
           addLinks?: boolean | null;
           link?: {
             isExternal?: boolean | null;
@@ -793,10 +787,7 @@ export interface MainMenu {
           };
           grandchildren?:
             | {
-                /**
-                 * You can override the link label here. If this is a parent menu item, label is required.
-                 */
-                label?: string | null;
+                label: string;
                 link?: {
                   isExternal?: boolean | null;
                   internalUrl?: {

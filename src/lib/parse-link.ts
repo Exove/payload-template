@@ -46,11 +46,9 @@ export function parseLink(link?: LinkType | null): ParsedLink {
 
 export function parseMenuLinks(menuItem?: MenuItem): ParsedLink {
   if (!menuItem) return {};
-  const linkLabel =
-    menuItem.label && menuItem.label !== "" ? menuItem.label : parseLabel(menuItem.link);
   return {
     linkUrl: parseUrl(menuItem.link),
-    linkLabel,
+    linkLabel: menuItem.label,
     isExternal: isExternalLink(menuItem.link),
   };
 }
