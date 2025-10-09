@@ -1,10 +1,10 @@
 # Payload CMS Starter Template
 
-This is a starter kit for building web applications with Payload CMS and PostgreSQL database, powered by Next.js.
+This is a starter kit for building web applications with Payload CMS and SQLite database, powered by Next.js.
 
 ## ✨ Features
 
-- **Database**: PostgreSQL
+- **Database**: SQLite
 - **CMS**: Payload CMS v3
 - **Runtime**: Node.js (^18.20.2 || >=20.9.0)
 - **Framework**: Next.js 15 with Turbopack

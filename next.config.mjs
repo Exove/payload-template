@@ -6,7 +6,6 @@ const withNextIntl = createNextIntlPlugin();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   compress: true,
-  images: { unoptimized: false },
 };
 
 export default withNextIntl(withPayload(nextConfig));
