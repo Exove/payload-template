@@ -100,14 +100,14 @@ export function MainMenu({ items }: MainMenuProps) {
                     {item.children
                       ?.filter((child) => !child.addLinks)
                       .map((child) => {
-                        const { linkUrl } = parseMenuLinks(child);
+                        const { linkUrl, linkLabel } = parseMenuLinks(child);
                         return (
                           <li key={child.id} className="bg-stone-800">
                             <Link
                               href={linkUrl ?? ""}
                               className="inline-block leading-snug transition duration-150 ease-in-out hover:text-amber-500"
                             >
-                              {child.label}
+                              {linkLabel}
                             </Link>
                           </li>
                         );
@@ -123,13 +123,14 @@ export function MainMenu({ items }: MainMenuProps) {
 
     // If the root level link has no children, render a link
     if (linkUrl && !item.addLinks) {
+      const { linkLabel } = parseMenuLinks(item);
       return (
         <li key={item.id}>
           <Link
             href={linkUrl}
             className="px-3 py-2 text-base font-medium transition-colors hover:text-amber-500"
           >
-            {item.label}
+            {linkLabel}
           </Link>
         </li>
       );
@@ -159,17 +160,17 @@ type SidePanelItem = SidePanelLink & {
 
 export function MobileMenu({ items }: { items: MenuItem[] }) {
   const convertGrandchildToSidePanelLink = (grandchild: MenuItem): SidePanelLink => {
-    const { linkUrl } = parseMenuLinks(grandchild);
+    const { linkUrl, linkLabel } = parseMenuLinks(grandchild);
     return {
-      title: grandchild.label,
+      title: linkLabel ?? "",
       url: linkUrl ?? "",
     };
   };
 
   const convertChildToSidePanelSubLink = (child: MenuItem): SidePanelSubLink => {
-    const { linkUrl } = parseMenuLinks(child);
+    const { linkUrl, linkLabel } = parseMenuLinks(child);
     return {
-      title: child.label,
+      title: linkLabel ?? child.label,
       url: linkUrl ?? "",
       sublinks: child.grandchildren?.map(convertGrandchildToSidePanelLink),
     };
@@ -177,9 +178,9 @@ export function MobileMenu({ items }: { items: MenuItem[] }) {
 
   const convertToSidePanelItems = (menuItems: MenuItem[]): SidePanelItem[] => {
     return menuItems?.map((item) => {
-      const { linkUrl } = parseMenuLinks(item);
+      const { linkUrl, linkLabel } = parseMenuLinks(item);
       return {
-        title: item.label,
+        title: linkLabel ?? item.label,
         url: linkUrl ?? "",
         sublinks: item.children?.map(convertChildToSidePanelSubLink),
       };

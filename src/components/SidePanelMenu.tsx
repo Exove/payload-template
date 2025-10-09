@@ -2,7 +2,7 @@
 
 import SidePanel from "@/components/SidePanel";
 import { Link } from "@/i18n/routing";
-import { parseLink } from "@/lib/parse-link";
+import { parseMenuLinks } from "@/lib/parse-link";
 import { MenuItem as MainMenuItem } from "@/types/menu";
 import { Bars3Icon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence, motion } from "motion/react";
@@ -23,9 +23,9 @@ export type SidePanelMenuProps = {
 // Helper function to convert MainMenuItem type to MenuItem type
 const convertMainMenuItems = (menuItems: MainMenuItem[]): MenuItem[] => {
   return menuItems.map((item) => {
-    const { linkUrl } = parseLink(item.link);
+    const { linkUrl, linkLabel } = parseMenuLinks(item);
     return {
-      title: item.label,
+      title: linkLabel ?? item.label,
       url: linkUrl ?? "",
       sublinks: item.children ? convertMainMenuItems(item.children) : undefined,
     };
