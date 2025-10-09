@@ -67,6 +67,9 @@ export const MainMenu: GlobalConfig = {
           type: "array",
           admin: {
             condition: (_, siblingData) => siblingData.addLinks,
+            components: {
+              RowLabel: "@/components/admin-ui/MainMenuRow#MainMenuRow",
+            },
           },
           fields: [
             {
@@ -94,6 +97,9 @@ export const MainMenu: GlobalConfig = {
               type: "array",
               admin: {
                 condition: (_, siblingData) => siblingData.addLinks,
+                components: {
+                  RowLabel: "@/components/admin-ui/MainMenuRow#MainMenuRow",
+                },
               },
               fields: [
                 {
