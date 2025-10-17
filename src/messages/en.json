@@ -67,7 +67,10 @@
     "oldest": "Oldest first",
     "titleAZ": "Title A-Z",
     "titleZA": "Title Z-A",
-    "sortBy": "Sort by"
+    "sortBy": "Sort by",
+    "recentSearches": "You recently searched",
+    "clearHistory": "Clear history",
+    "noSearchHistory": "No recent searches"
   },
   "auth": {
     "user": "User",

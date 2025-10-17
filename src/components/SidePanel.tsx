@@ -31,9 +31,14 @@ export default function SidePanel({
   showBackButton = false,
   onBack,
   onClose,
+  open,
 }: MenuDialogProps) {
   const t = useTranslations();
-  const [isOpen, setIsOpen] = useState(false);
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
+
+  // Use controlled state if provided, otherwise use internal state
+  const isOpen = open !== undefined ? open : internalIsOpen;
+  const setIsOpen = open !== undefined ? () => {} : setInternalIsOpen;
 
   const handleClose = () => {
     setIsOpen(false);
