@@ -84,11 +84,9 @@ export function ListingTemplate({ articles, locale }: ListingTemplateProps) {
                 <span className="absolute inset-x-0 inset-y-0"></span>
                 <h2 className="text-xl font-semibold text-stone-100">{article.title}</h2>
               </Link>
-              {article.publishedDate && (
-                <p className="mt-2 text-sm text-stone-400">
-                  {formatDateLong(article.publishedDate, locale)}
-                </p>
-              )}
+              <p className="mt-2 text-sm text-stone-400">
+                {formatDateLong(article.publishedDate || article.createdAt, locale)}
+              </p>
             </div>
           );
         })}

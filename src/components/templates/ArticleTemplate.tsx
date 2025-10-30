@@ -66,19 +66,17 @@ export default function ArticleTemplate({ article }: ArticleTemplateProps) {
         </>
       )}
       <div className="mx-auto max-w-prose">
-        {(article.publishedDate || article.author) && (
-          <div className="mb-12 flex gap-4 text-sm text-stone-400">
-            {article.publishedDate && (
-              <time dateTime={article.publishedDate || ""}>
-                {formatDateShort(article.publishedDate || "", locale)}
-              </time>
-            )}
-            {article.author && article.publishedDate && <span>•</span>}
-            {article.author && typeof article.author === "object" && (
-              <span>{article.author?.name}</span>
-            )}
-          </div>
-        )}
+        <div className="mb-12 flex gap-4 text-sm text-stone-400">
+          <time dateTime={article.publishedDate || article.createdAt}>
+            {formatDateShort(article.publishedDate || article.createdAt, locale)}
+          </time>
+
+          {article.author && typeof article.author === "object" && (
+            <>
+              <span>•</span> <span>{article.author?.name}</span>
+            </>
+          )}
+        </div>
 
         <BlockRenderer context="article" nodes={article.content?.root?.children as NodeTypes[]} />
         <ShareButtons />

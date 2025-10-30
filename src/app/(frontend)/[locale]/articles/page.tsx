@@ -36,6 +36,7 @@ export default async function ArticlesPage({ params }: Props) {
         title: true,
         slug: true,
         publishedDate: true,
+        createdAt: true,
       },
       where: {
         title: {
