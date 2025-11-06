@@ -46,5 +46,7 @@ src/app/(payload)/admin/importMap.js
 *.db
 
 *.sql
+*.db-shm
+*.db-wal
 
 /media

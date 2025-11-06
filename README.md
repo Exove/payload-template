@@ -6,15 +6,15 @@ This is a starter kit for building web applications with Payload CMS and SQLite 
 
 - **Database**: SQLite
 - **CMS**: Payload CMS v3
-- **Runtime**: Node.js (^18.20.2 || >=20.9.0)
-- **Framework**: Next.js 15 with Turbopack
-- **Search**: Algolia integration with InstantSearch
+- **Runtime**: Node.js (22.x)
+- **Framework**: Next.js (15.x)
+- **Search**: Algolia with InstantSearch
 - **UI**:
   - Tailwind CSS
   - Headless UI components
+  - Shadcn UI components
   - Hero Icons
-  - Motion for animations
-  - Sonner for notifications
+  - Motion animations
 - **Internationalization**: next-intl
 - **SEO**: Payload CMS SEO plugin
 - **Rich Text Editor**: Payload CMS Lexical editor
@@ -30,6 +30,28 @@ pnpm dev
 ```
 
 3. Open the admin UI at http://localhost:3000/admin or the website at http://localhost:3000
+
+4. Extra steps (optional):
+
+- Import staging database (replace the local database file):
+
+```bash
+scp user@staging:/path/to/database.sql .
+```
+
+- Create admin user:
+
+```bash
+pnpm create:admin
+```
+
+- Copy staging media files to your local media folder:
+
+```bash
+scp -r user@staging:/path/to/media/* ./media
+```
+
+- Set up your personal Algolia credentials: [algolia.com](https://www.algolia.com/)
 
 ## 📜 Available Scripts
 
@@ -77,7 +99,6 @@ The project uses several development tools:
 - Prettier for code formatting
 - Husky for Git hooks
 - lint-staged for pre-commit checks
-- Docker for local database
 
 ## 🔍 Search & Algolia
 
