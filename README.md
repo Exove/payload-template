@@ -48,7 +48,7 @@ pnpm create:admin
 - Copy staging media files to your local media folder:
 
 ```bash
-scp -r user@staging:/path/to/media/* ./media
+scp "user@staging:/path/to/media/*" ./media
 ```
 
 - Set up your personal Algolia credentials: [algolia.com](https://www.algolia.com/)
