@@ -11,6 +11,9 @@ const nextConfig = {
   // React strict mode for better development experience
   reactStrictMode: true,
 
+  // Allow development access from local network clients
+  allowedDevOrigins: ["192.168.0.2"],
+
   // Compiler optimizations
   compiler: {
     // Remove console.log in production
