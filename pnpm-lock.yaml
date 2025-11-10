@@ -26,6 +26,9 @@ importers:
       '@payloadcms/payload-cloud':
         specifier: ^3.58.0
         version: 3.58.0(payload@3.58.0(graphql@16.11.0)(typescript@5.9.3))
+      '@payloadcms/plugin-multi-tenant':
+        specifier: ^3.58.0
+        version: 3.58.0(@payloadcms/ui@3.58.0(@types/react@19.2.0)(monaco-editor@0.53.0)(next@15.5.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.77.4))(payload@3.58.0(graphql@16.11.0)(typescript@5.9.3))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3))(next@15.5.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.77.4))(payload@3.58.0(graphql@16.11.0)(typescript@5.9.3))
       '@payloadcms/plugin-seo':
         specifier: ^3.58.0
         version: 3.58.0(@types/react@19.2.0)(monaco-editor@0.53.0)(next@15.5.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.77.4))(payload@3.58.0(graphql@16.11.0)(typescript@5.9.3))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
@@ -1494,6 +1497,13 @@ packages:
   '@payloadcms/payload-cloud@3.58.0':
     resolution: {integrity: sha512-xOitlck8++cEWADlgicoTbPX6JKmB7Brh0Y9PSv4lZUId9MmgbhKUGMXOPvnkzCg19p38COfDuQ5iZQLSLOrRQ==}
     peerDependencies:
+      payload: 3.58.0
+
+  '@payloadcms/plugin-multi-tenant@3.58.0':
+    resolution: {integrity: sha512-yWWuvmdT++8B+jWPVS5dnehpkqKENynwFjIpD9cpNCcCQDNZEoruURFGLBq7Mg+1H4kovHdb/HtQ7twQKv3geQ==}
+    peerDependencies:
+      '@payloadcms/ui': 3.58.0
+      next: ^15.2.3
       payload: 3.58.0
 
   '@payloadcms/plugin-seo@3.58.0':
@@ -6597,6 +6607,12 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
       - encoding
+
+  '@payloadcms/plugin-multi-tenant@3.58.0(@payloadcms/ui@3.58.0(@types/react@19.2.0)(monaco-editor@0.53.0)(next@15.5.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.77.4))(payload@3.58.0(graphql@16.11.0)(typescript@5.9.3))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3))(next@15.5.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.77.4))(payload@3.58.0(graphql@16.11.0)(typescript@5.9.3))':
+    dependencies:
+      '@payloadcms/ui': 3.58.0(@types/react@19.2.0)(monaco-editor@0.53.0)(next@15.5.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.77.4))(payload@3.58.0(graphql@16.11.0)(typescript@5.9.3))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
+      next: 15.5.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.77.4)
+      payload: 3.58.0(graphql@16.11.0)(typescript@5.9.3)
 
   '@payloadcms/plugin-seo@3.58.0(@types/react@19.2.0)(monaco-editor@0.53.0)(next@15.5.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.77.4))(payload@3.58.0(graphql@16.11.0)(typescript@5.9.3))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3)':
     dependencies:

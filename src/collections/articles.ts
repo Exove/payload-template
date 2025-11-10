@@ -18,11 +18,12 @@ export const Articles: CollectionConfig = {
     title: true,
     collection: true,
     image: true,
+    tenant: true,
   },
   admin: {
     useAsTitle: "title",
     group: "Pages",
-    defaultColumns: ["title", "_status", "createdBy", "updatedAt"],
+    defaultColumns: ["title", "tenant", "_status", "createdBy", "updatedAt"],
     preview: (doc, { locale }) => {
       if (doc?.slug) {
         return `/${locale}/articles/${doc.slug}/preview?token=${process.env.PREVIEW_SECRET}`;

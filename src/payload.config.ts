@@ -1,6 +1,7 @@
 // storage-adapter-import-placeholder
 import { sqliteAdapter } from "@payloadcms/db-sqlite";
 import { payloadCloudPlugin } from "@payloadcms/payload-cloud";
+import { multiTenantPlugin } from "@payloadcms/plugin-multi-tenant";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import path from "path";
 import { buildConfig } from "payload";
@@ -11,6 +12,8 @@ import { Articles } from "@/collections/articles";
 import { Categories } from "@/collections/categories";
 import { Contacts } from "@/collections/contacts";
 import { Media } from "@/collections/media";
+import { Products } from "@/collections/products";
+import { Tenants } from "@/collections/tenants";
 import { Users } from "@/collections/users";
 import { seoConfig } from "@/fields/seo-field";
 import { Footer } from "@/globals/Footer";
@@ -34,7 +37,7 @@ export default buildConfig({
       supportedTimezones: [{ label: "Helsinki (EET/EEST)", value: "Europe/Helsinki" }],
     },
   },
-  collections: [Users, Media, Articles, Categories, Contacts],
+  collections: [Tenants, Users, Media, Products, Articles, Categories, Contacts],
   globals: [FrontPage, MainMenu, FooterMenu, Footer],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [...defaultFeatures],
@@ -56,5 +59,58 @@ export default buildConfig({
     disable: true,
   },
   sharp,
-  plugins: [payloadCloudPlugin(), seoConfig],
+  plugins: [
+    multiTenantPlugin({
+      tenantsSlug: Tenants.slug,
+      tenantField: {
+        admin: {
+          disableListColumn: false,
+          disableListFilter: false,
+          position: "sidebar",
+        },
+      },
+      tenantsArrayField: {
+        includeDefaultField: false,
+        arrayFieldName: "tenants",
+        arrayTenantFieldName: "tenant",
+      },
+      userHasAccessToAllTenants: (user) => user?.role === "admin",
+      collections: {
+        [Articles.slug]: {
+          tenantFieldOverrides: {
+            label: "Owning branch",
+            admin: {
+              description: "Articles are visible only to members of the selected branch.",
+            },
+          },
+        },
+        [Products.slug]: {
+          tenantFieldOverrides: {
+            label: "Owning branch",
+            admin: {
+              description: "Products stay isolated inside their assigned branch storefront.",
+            },
+          },
+        },
+        [Categories.slug]: {
+          tenantFieldOverrides: {
+            label: "Branch visibility",
+            admin: {
+              description: "Categories are scoped by branch for filtering and navigation.",
+            },
+          },
+        },
+        [Contacts.slug]: {
+          tenantFieldOverrides: {
+            label: "Owning branch",
+            admin: {
+              description: "Contacts remain private to the assigned branch.",
+            },
+          },
+        },
+      },
+    }),
+    payloadCloudPlugin(),
+    seoConfig,
+  ],
 });

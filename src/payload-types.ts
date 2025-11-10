@@ -20,8 +20,10 @@ export interface Config {
   };
   blocks: {};
   collections: {
+    tenants: Tenant;
     users: User;
     media: Media;
+    products: Product;
     articles: Article;
     categories: Category;
     contacts: Contact;
@@ -36,8 +38,10 @@ export interface Config {
     };
   };
   collectionsSelect: {
+    tenants: TenantsSelect<false> | TenantsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
     articles: ArticlesSelect<false> | ArticlesSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     contacts: ContactsSelect<false> | ContactsSelect<true>;
@@ -89,29 +93,40 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * Special branches available in the multi-tenant demo.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
+ * via the `definition` "tenants".
  */
-export interface User {
+export interface Tenant {
   id: number;
-  role: 'admin' | 'editor' | 'user';
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
+  name: string;
+  /**
+   * The slug is automatically generated from the name if empty
+   */
+  slug: string;
+  description?: string | null;
+  defaultLocale: 'fi' | 'en';
+  /**
+   * Hostnames or paths routed to this branch.
+   */
+  domains?:
     | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
+        domain: string;
+        id?: string | null;
       }[]
     | null;
-  password?: string | null;
+  /**
+   * Optional styling overrides per branch.
+   */
+  theme?: {
+    primaryColor?: string | null;
+    accentColor?: string | null;
+    logo?: (number | null) | Media;
+  };
+  featureFlags?: ('beta-ui' | 'exp-products')[] | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -183,6 +198,10 @@ export interface FolderInterface {
  */
 export interface Category {
   id: number;
+  /**
+   * Categories are scoped by branch for filtering and navigation.
+   */
+  tenant?: (number | null) | Tenant;
   label: string;
   /**
    * Auto-generated display name with folder path
@@ -197,11 +216,150 @@ export interface Category {
   createdAt: string;
 }
 /**
+ * Demo accounts for multi-tenant branches.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: number;
+  /**
+   * Determines platform level access across all branches.
+   */
+  role: 'admin' | 'editor' | 'user';
+  tenants?:
+    | {
+        tenant: number | Tenant;
+        role: 'tenant-admin' | 'tenant-editor' | 'tenant-viewer';
+        canPublish?: boolean | null;
+        canManageMembers?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: number;
+  /**
+   * Products stay isolated inside their assigned branch storefront.
+   */
+  tenant?: (number | null) | Tenant;
+  title: string;
+  /**
+   * Unique identifier visible in branch specific storefronts.
+   */
+  sku?: string | null;
+  /**
+   * The slug is automatically generated from the title if empty
+   */
+  slug: string;
+  /**
+   * Used to control product lifecycle per branch.
+   */
+  status: 'draft' | 'in-review' | 'active' | 'retired';
+  summary?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  price: number;
+  currency?: ('EUR' | 'USD') | null;
+  launchDate?: string | null;
+  categories?: (number | Category)[] | null;
+  primaryImage?: (number | null) | Media;
+  /**
+   * Branch specific supporting imagery.
+   */
+  gallery?:
+    | {
+        image: number | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  features?:
+    | {
+        label: string;
+        value?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  availability?: boolean | null;
+  isFeatured?: boolean | null;
+  /**
+   * Assigned point of contact for this product within the branch.
+   */
+  supportContact?: (number | null) | Contact;
+  attachments?:
+    | {
+        asset: number | Media;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contacts".
+ */
+export interface Contact {
+  id: number;
+  /**
+   * Contacts remain private to the assigned branch.
+   */
+  tenant?: (number | null) | Tenant;
+  name: string;
+  title?: string | null;
+  email: string;
+  phone?: string | null;
+  image?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "articles".
  */
 export interface Article {
   id: number;
+  /**
+   * Articles are visible only to members of the selected branch.
+   */
+  tenant?: (number | null) | Tenant;
   title: string;
   image?: (number | null) | Media;
   content: {
@@ -281,25 +439,15 @@ export interface TabsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contacts".
- */
-export interface Contact {
-  id: number;
-  name: string;
-  title?: string | null;
-  email: string;
-  phone?: string | null;
-  image?: (number | null) | Media;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
   id: number;
   document?:
+    | ({
+        relationTo: 'tenants';
+        value: number | Tenant;
+      } | null)
     | ({
         relationTo: 'users';
         value: number | User;
@@ -307,6 +455,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'products';
+        value: number | Product;
       } | null)
     | ({
         relationTo: 'articles';
@@ -368,10 +520,45 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tenants_select".
+ */
+export interface TenantsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  description?: T;
+  defaultLocale?: T;
+  domains?:
+    | T
+    | {
+        domain?: T;
+        id?: T;
+      };
+  theme?:
+    | T
+    | {
+        primaryColor?: T;
+        accentColor?: T;
+        logo?: T;
+      };
+  featureFlags?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
   role?: T;
+  tenants?:
+    | T
+    | {
+        tenant?: T;
+        role?: T;
+        canPublish?: T;
+        canManageMembers?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -425,9 +612,55 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  tenant?: T;
+  title?: T;
+  sku?: T;
+  slug?: T;
+  status?: T;
+  summary?: T;
+  description?: T;
+  price?: T;
+  currency?: T;
+  launchDate?: T;
+  categories?: T;
+  primaryImage?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  features?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  availability?: T;
+  isFeatured?: T;
+  supportContact?: T;
+  attachments?:
+    | T
+    | {
+        asset?: T;
+        label?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "articles_select".
  */
 export interface ArticlesSelect<T extends boolean = true> {
+  tenant?: T;
   title?: T;
   image?: T;
   content?: T;
@@ -474,6 +707,7 @@ export interface TabsBlockSelect<T extends boolean = true> {
  * via the `definition` "categories_select".
  */
 export interface CategoriesSelect<T extends boolean = true> {
+  tenant?: T;
   label?: T;
   displayName?: T;
   slug?: T;
@@ -486,6 +720,7 @@ export interface CategoriesSelect<T extends boolean = true> {
  * via the `definition` "contacts_select".
  */
 export interface ContactsSelect<T extends boolean = true> {
+  tenant?: T;
   name?: T;
   title?: T;
   email?: T;

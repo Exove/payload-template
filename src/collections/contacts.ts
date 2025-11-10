@@ -5,6 +5,7 @@ export const Contacts: CollectionConfig = {
   admin: {
     group: "Misc",
     useAsTitle: "name",
+    defaultColumns: ["name", "tenant", "email", "updatedAt"],
   },
   fields: [
     {

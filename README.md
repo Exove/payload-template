@@ -86,6 +86,62 @@ src/
 └── payload.config.ts # Payload CMS configuration
 ```
 
+## 🏢 Multi-tenant Demo
+
+This project ships with the official Payload multi-tenant plugin to showcase branch-specific content. The setup focuses on two demo branches and can be extended to real tenants without changing code.
+
+### Tenant collection
+
+- `tenants` collection stores branch metadata such as name, slug, optional domains, colour theme and feature flags.
+- Only global admins (`users.role = admin`) can create or edit tenants.
+- Plugin-generated tenant selector appears in the admin top bar and filters all tenant-aware lists automatically.
+
+### Demo branches
+
+Create the following tenants from the admin UI:
+
+| Name                         | Slug            | Suggested domain     | Notes                                                             |
+| ---------------------------- | --------------- | -------------------- | ----------------------------------------------------------------- |
+| Aurora Labs Special Branch   | `aurora-labs`   | `aurora.localhost`   | Focus on advanced research content and premium hardware products. |
+| Borealis Tech Special Branch | `borealis-tech` | `borealis.localhost` | Focus on energy-tech insights and grid monitoring products.       |
+
+Populate the optional theme group (primary/accent colours, logo) to highlight tenant-specific branding in future UI experiments.
+
+### Users and roles
+
+- `users` keep a global `role` (`admin`, `editor`, `user`) for platform-wide permissions.
+- Each user can hold multiple tenant assignments via the `tenants` array:
+  - `role`: `tenant-admin`, `tenant-editor`, `tenant-viewer`.
+  - `canPublish`: toggles publish rights per branch.
+  - `canManageMembers`: toggles ability to curate tenant membership.
+- Global admins can manage every tenant; tenant admins can only access content inside their assigned branches.
+
+### Tenant-scoped collections
+
+The plugin injects an enforced tenant relationship into key collections:
+
+- `articles`
+- `products`
+- `categories`
+- `contacts`
+
+All queries routed through Payload will automatically filter by the currently selected tenant. When working via the REST or Local API, pass the tenant cookie/header set by the admin UI or supply `where` clauses that match the assigned tenant.
+
+### Demo content suggestions
+
+Seed content manually from the admin panel (no automated script included):
+
+- For each tenant, author a couple of articles highlighting branch-specific themes.
+- Add categories per branch to illustrate isolated taxonomies.
+- Create products and assign contacts to demonstrate cross-collection tenant constraints.
+
+### Tenant-aware workflows
+
+1. Sign in as a global admin and create the tenants listed above.
+2. Invite or create users, assigning the appropriate tenant roles and optional permissions.
+3. Switch tenants via the selector in the admin navigation to verify list filtering.
+4. Create articles and products under each tenant and confirm they only appear for users assigned to that branch.
+
 ## 📚 Style Guide
 
 For detailed coding standards and naming conventions, please refer to our [Style Guide](./STYLEGUIDE.md).

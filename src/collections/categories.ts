@@ -7,7 +7,7 @@ export const Categories: CollectionConfig = {
   admin: {
     group: "Taxonomy",
     useAsTitle: "displayName",
-    defaultColumns: ["label", "slug", "updatedAt", "folder"],
+    defaultColumns: ["label", "tenant", "slug", "updatedAt", "folder"],
   },
   fields: [
     {
