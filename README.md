@@ -62,8 +62,6 @@ scp "user@staging:/path/to/media/*" ./media
 - `pnpm generate:importmap` - Generate import map
 - `pnpm reindex` - Reindex data to Algolia
 - `pnpm create:admin` - Create admin user
-- `pnpm db:export` - Export database
-- `pnpm db:import` - Import database
 - `pnpm format` - Format all files with Prettier
 
 ## 📁 Project Structure
