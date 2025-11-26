@@ -22,12 +22,13 @@ export default function SmallFeaturedPostsBlock({ block, className }: Props) {
           const { linkUrl } = parseLink(post.link);
           if (linkUrl) {
             return (
-              <Card
-                key={post.id}
-                image={typeof post.image === "object" ? post.image : undefined}
-                title={post.title}
-                href={linkUrl}
-              />
+              <li key={post.id}>
+                <Card
+                  image={typeof post.image === "object" ? post.image : undefined}
+                  title={post.title}
+                  href={linkUrl}
+                />
+              </li>
             );
           }
           return null;
