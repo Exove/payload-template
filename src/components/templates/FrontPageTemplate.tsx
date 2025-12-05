@@ -53,7 +53,9 @@ export default function FrontPageTemplate({
           )}
         </section>
       )}
-      <MostReadArticles articles={mostReadArticles} />
+      <div className="mx-auto max-w-screen-lg">
+        <MostReadArticles articles={mostReadArticles} />
+      </div>
       <div className="mx-auto max-w-screen-lg">
         {content.content && <BlockRenderer blocks={content.content} />}
       </div>
