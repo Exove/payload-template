@@ -2,17 +2,22 @@
 
 import { BlockRenderer } from "@/components/BlockRenderer";
 import Button from "@/components/Button";
+import MostReadArticles from "@/components/MostReadArticles";
 import { Link } from "@/i18n/routing";
 import { parseLink } from "@/lib/parse-link";
-import { FrontPage } from "@/payload-types";
+import { Article, FrontPage } from "@/payload-types";
 import Image from "next/image";
 import Heading from "../Heading";
 
 type FrontPageTemplateProps = {
   content: FrontPage;
+  mostReadArticles?: Article[];
 };
 
-export default function FrontPageTemplate({ content }: FrontPageTemplateProps) {
+export default function FrontPageTemplate({
+  content,
+  mostReadArticles = [],
+}: FrontPageTemplateProps) {
   const hero = content.hero?.[0];
   const { linkUrl, linkLabel } = parseLink(hero?.link);
 
@@ -48,6 +53,7 @@ export default function FrontPageTemplate({ content }: FrontPageTemplateProps) {
           )}
         </section>
       )}
+      <MostReadArticles articles={mostReadArticles} />
       <div className="mx-auto max-w-screen-lg">
         {content.content && <BlockRenderer blocks={content.content} />}
       </div>

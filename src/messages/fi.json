@@ -1,4 +1,7 @@
 {
+  "mostRead": {
+    "title": "Luetuimmat artikkelit"
+  },
   "articles": {
     "title": "Artikkelit",
     "publishedAt": "Julkaistu {date}",

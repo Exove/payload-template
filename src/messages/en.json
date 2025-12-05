@@ -1,4 +1,7 @@
 {
+  "mostRead": {
+    "title": "Most Read Articles"
+  },
   "articles": {
     "title": "Articles",
     "publishedAt": "Published on {date}",
