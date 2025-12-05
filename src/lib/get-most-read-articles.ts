@@ -1,5 +1,6 @@
 import { Article } from "@/payload-types";
 import { Locale } from "@/types/locales";
+import configPromise from "@payload-config";
 import { getPayload } from "payload";
 
 type MostReadResult = {
@@ -46,7 +47,7 @@ async function fetchFromPostHog(days: number, limit: number): Promise<Map<string
     body: JSON.stringify({
       query: { kind: "HogQLQuery", query },
     }),
-    next: { revalidate: 300 }, // Cache for 5 minutes
+    next: { revalidate: 1800 }, // Cache for 30 minutes
   });
 
   if (!response.ok) {
@@ -76,8 +77,6 @@ export async function getMostReadArticles(
   }
 
   const slugs = Array.from(viewCounts.keys());
-
-  const configPromise = await import("@payload-config").then((m) => m.default);
   const payload = await getPayload({ config: configPromise });
 
   const result = await payload.find({
