@@ -17,7 +17,7 @@ export default function MostReadArticles({ articles, title }: Props) {
 
   return (
     <section className="py-12">
-      <Heading level="h2" size="lg" className="mb-6">
+      <Heading level="h2" size="md" className="mb-6">
         {title || t("title")}
       </Heading>
       <ol className="ml-4">
