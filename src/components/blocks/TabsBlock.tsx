@@ -28,7 +28,7 @@ export function TabsBlock({ block, className }: TabsProps) {
   const defaultTab = tabsWithIds[0]?.id;
 
   return (
-    <div className={cn("my-8", className)}>
+    <div className={cn("my-12", className)}>
       {block.blockName && (
         <Heading level="h2" size="md" className="mb-4">
           {block.blockName}

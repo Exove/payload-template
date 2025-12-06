@@ -129,7 +129,7 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
       // Extract text content from all child nodes and concatenate into a single string
       const headingText = nodeWithChildren.children?.map((child) => child.text).join("") || "";
       return (
-        <Heading level={headingNode.tag} size={size} className="mt-8">
+        <Heading level={headingNode.tag} size={size} className="mt-12">
           {headingText}
         </Heading>
       );
@@ -159,7 +159,10 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
     }
     case "quote":
       return (
-        <blockquote className="my-6 border-l-4 border-stone-700 pl-6 italic" key={index}>
+        <blockquote
+          className="my-12 border-l-4 border-stone-700 pl-6 text-lg italic leading-relaxed"
+          key={index}
+        >
           {renderChildren(node)}
         </blockquote>
       );
@@ -194,7 +197,7 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
 
       return (
         <>
-          <figure className="mx-auto my-8" key={index}>
+          <figure className="mx-auto my-12" key={index}>
             <button
               onClick={() => setIsModalOpen(true)}
               className="block w-full cursor-zoom-in"
@@ -237,7 +240,7 @@ export function TextRenderer({ node, index }: NodeRendererProps) {
       const bodyRows = childrenArray.slice(1);
 
       return (
-        <div className="my-8" key={index}>
+        <div className="my-12" key={index}>
           <Table>
             <TableHeader>{firstRow}</TableHeader>
             {bodyRows.length > 0 && <TableBody>{bodyRows}</TableBody>}
