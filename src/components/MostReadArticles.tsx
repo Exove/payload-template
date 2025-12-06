@@ -11,9 +11,10 @@ type Props = {
 export default function MostReadArticles({ articles, title }: Props) {
   const t = useTranslations("mostRead");
 
-  if (articles.length === 0) {
-    return null;
-  }
+  // Filter out articles that don't have a translation
+  const filteredArticles = articles.filter((article) => article.title);
+
+  if (filteredArticles.length === 0) return null;
 
   return (
     <section className="py-12">
@@ -21,7 +22,7 @@ export default function MostReadArticles({ articles, title }: Props) {
         {title || t("title")}
       </Heading>
       <ol className="ml-4">
-        {articles.map((article, index) => (
+        {filteredArticles.map((article, index) => (
           <li key={article.id}>
             <Link
               href={`/articles/${article.slug}`}

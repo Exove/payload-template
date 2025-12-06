@@ -84,8 +84,17 @@ export async function getMostReadArticles(
     where: {
       and: [{ slug: { in: slugs } }, { _status: { equals: "published" } }],
     },
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      publishedDate: true,
+      createdAt: true,
+      image: true,
+    },
+    depth: 1,
     locale,
-    fallbackLocale: "fi",
+    fallbackLocale: locale,
     limit,
   });
 
