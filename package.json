@@ -7,8 +7,7 @@
   "type": "module",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
-    "predev": "node ./src/scripts/predev.mjs",
-    "dev": "pnpm predev && cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "dev": "node ./src/scripts/predev.mjs && cross-env NODE_OPTIONS=--no-deprecation next dev",
     "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
     "ci": "pnpm install && payload migrate && pnpm build && pnpm reindex",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
