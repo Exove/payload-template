@@ -132,9 +132,9 @@ const reindexToAlgolia = async () => {
             }
           }
         } catch (error) {
+          const errorMessage = error instanceof Error ? error.message : String(error);
           payload.logger.error(
-            `Error processing collection ${collectionSlug} in ${locale}:`,
-            error,
+            `Error processing collection ${collectionSlug} in ${locale}: ${errorMessage}`,
           );
         }
       }
@@ -145,7 +145,8 @@ const reindexToAlgolia = async () => {
     payload.logger.info("✅ Algolia reindex completed successfully!");
     process.exit(0);
   } catch (error) {
-    payload.logger.error("❌ Error during Algolia reindex:", error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    payload.logger.error(`❌ Error during Algolia reindex: ${errorMessage}`);
     process.exit(1);
   }
 };

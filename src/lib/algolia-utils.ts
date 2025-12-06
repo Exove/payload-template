@@ -95,7 +95,8 @@ export const indexDocumentToAlgolia = async (
     payload.logger.info(`Document ${uniqueObjectID} indexed to Algolia`);
     return true;
   } catch (error) {
-    payload.logger.error("Error indexing document to Algolia:", error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    payload.logger.error(`Error indexing document to Algolia: ${errorMessage}`);
     return false;
   }
 };
