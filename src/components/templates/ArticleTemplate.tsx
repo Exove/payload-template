@@ -66,7 +66,7 @@ export default function ArticleTemplate({ article }: ArticleTemplateProps) {
         </>
       )}
       <div className="mx-auto max-w-prose">
-        <div className="mb-12 flex gap-4 text-sm text-stone-400">
+        <div className="mb-6 flex gap-4 text-sm text-stone-400">
           <time dateTime={article.publishedDate || article.createdAt}>
             {formatDateShort(article.publishedDate || article.createdAt, locale)}
           </time>
